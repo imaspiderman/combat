@@ -50,7 +50,7 @@ Core Drawing Functions
 void inline drawPoint(s32 x, s32 y, u8 color, s32 p);
 void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o);
 void drawObject(object* o);
-void renderPipeline(vector3d* v, vector3d* o);
+void renderVector3d(object* obj, vector3d* v, vector3d* o);
 /********************************************************/
 
 /*********************************************************
@@ -69,6 +69,7 @@ void initObjects();
 void inline initObject(object* o);
 void setObjectRelative(object* o, object* parent);
 void setObjectRelativeCamera(object* o);
+void moveObject(object* o);
 /********************************************************/
 
 

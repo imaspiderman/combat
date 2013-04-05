@@ -5,17 +5,48 @@
 #include "Font.h"
 //Timer for FPS
 volatile u8 FPS = 0;
+char debugFPS[] = {"FPS: "};
+
+#define NUM_MODELS 4
+objectData* models[]={
+	(objectData*)trench,
+	(objectData*)destroyer,
+	(objectData*)cannons,
+	(objectData*)tieFighterModel
+};
+u8 modelnum = 0;
 
 #include "G3d.c"
 
 int main(){
+	object o_curr;
+	
 	vbInit();
-	while(1){
-		handleInput();
-		drawObject();
+	initObjects();
+	initObject(&o_curr);
+	o_curr.objData = models[modelnum];
+	o_curr.worldPosition.z = F_NUM_UP(1000);
+	
+	while(1){		
+		handleInput(&o_curr);
+		o_curr.objData = models[modelnum];
+		moveObject(&o_curr);
+		drawObject(&o_curr);
 		screenControl();
 		FPS++;
 	}
+}
+
+void moveObject(object* o){
+	o->worldRotation.x += o->rotation.x;
+	o->worldRotation.y += o->rotation.y;
+	o->worldRotation.z += o->rotation.z;
+	if(o->worldRotation.x > 359) o->worldRotation.x = o->worldRotation.x - 359;
+	if(o->worldRotation.y > 359) o->worldRotation.y = o->worldRotation.y - 359;
+	if(o->worldRotation.z > 359) o->worldRotation.z = o->worldRotation.z - 359;
+	if(o->worldRotation.x < -359) o->worldRotation.x = o->worldRotation.x + 359;
+	if(o->worldRotation.y < -359) o->worldRotation.y = o->worldRotation.y + 359;
+	if(o->worldRotation.z < -359) o->worldRotation.z = o->worldRotation.z + 359;
 }
 
 void timeHnd(void){
@@ -23,7 +54,7 @@ void timeHnd(void){
 	timer_enable(0);
 	timer_clearstat();
 	
-	vbTextOut(0,0,0,itoa(FPS,10,8));
+	vbTextOut(0,5,0,itoa(FPS,10,2));
 	FPS = 0;
 	
 	timer_int(1);
@@ -33,19 +64,48 @@ void timeHnd(void){
 Read the gamepad and seed the random number
 counter
 *****************************************/
-void handleInput(){
-	u8 o;
+void handleInput(object* o){
 	buttons = vbReadPad();
 	if(K_LL & buttons){
+		cam.worldPosition.x -= F_NUM_UP(50);
 	}
 	if(K_LR & buttons){
+		cam.worldPosition.x += F_NUM_UP(50);
 	}
 	if(K_LD & buttons){
+		cam.worldPosition.y += F_NUM_UP(50);
 	}
 	if(K_LU & buttons){
+		cam.worldPosition.y -= F_NUM_UP(50);
+	}
+	if(K_RU & buttons){
+		cam.worldPosition.z += F_NUM_UP(50);
+	}
+	if(K_RD & buttons){
+		cam.worldPosition.z -= F_NUM_UP(50);
+	}
+	if(K_RT & buttons){
+		o->worldRotation.y += 10;
+	}
+	if(K_LT & buttons){
+		o->worldRotation.y -= 10;
 	}
 	if(K_A & buttons){
+		modelnum++;
+		if(modelnum >= NUM_MODELS) modelnum = 0;
 	}
+}
+
+void renderVector3d(object* obj, vector3d* v, vector3d* o){
+	vector3d t;
+	g3d_rotateAllAxis(obj->worldRotation.x,obj->worldRotation.y,obj->worldRotation.z,v,&t);
+	g3d_copyVector3d(&t,o);
+	g3d_translate(obj->worldPosition.x,obj->worldPosition.y,obj->worldPosition.z,v,&t);
+	g3d_copyVector3d(&t,o);
+	g3d_cameraTranslate(cam.worldPosition.x,cam.worldPosition.y,cam.worldPosition.z,o,&t);
+	g3d_copyVector3d(&t,o);
+	g3d_cameraRotateAllAxis(cam.worldRotation.x,cam.worldRotation.y,cam.worldRotation.z,o,&t);
+	g3d_copyVector3d(&t,o);
 }
 
 /**************************
@@ -55,7 +115,6 @@ object
 void drawObject(object* o){
 	s32 size;
 	vector3d v1,v2;
-	vector3d vt;
 	u8 verts,i;
 	s32 v,firstV;
 	
@@ -63,34 +122,20 @@ void drawObject(object* o){
 	
 	size=o->objData->size;//total elements in array
 	verts=o->objData->faceSize;//total vertices per section
-	
 	v=0;//first vertex
-	worldMatrix(m_world3d,o,o->worldScale.x,o->worldScale.y,o->worldScale.z);
 
 	while(v < size){
 		firstV = v;
-		v1.x = F_NUM_UP(o->objData->data[v]);
-		v1.y = F_NUM_UP(o->objData->data[++v]);
-		v1.z = F_NUM_UP(o->objData->data[++v]);
+		v1.x = o->objData->data[v];
+		v1.y = (~o->objData->data[++v]) + 1;
+		v1.z = o->objData->data[++v];
 		v1.w = F_NUM_UP(1);
-		
-		matrix3dxVertex(&v1,m_world3d,&vt);
-		
-		v1.x = vt.x;
-		v1.y = vt.y;
-		v1.z = vt.z;
 
 		for(i=1; i<verts; i++){			
-			v2.x = F_NUM_UP(o->objData->data[++v]);
-			v2.y = F_NUM_UP(o->objData->data[++v]);
-			v2.z = F_NUM_UP(o->objData->data[++v]);
+			v2.x = o->objData->data[++v];
+			v2.y = (~o->objData->data[++v]) + 1;
+			v2.z = o->objData->data[++v];
 			v2.w = F_NUM_UP(1);
-			
-			matrix3dxVertex(&v2,m_world3d,&vt);
-			
-			v2.x = vt.x;
-			v2.y = vt.y;
-			v2.z = vt.z;
 			
 			drawLine(&v1,&v2,3,o);
 			
@@ -100,15 +145,9 @@ void drawObject(object* o){
 		}
 		//This causes a final line to be drawn back to the starting vertex
 		if(verts>2){
-			v2.x = F_NUM_UP(o->objData->data[firstV]);
-			v2.y = F_NUM_UP(o->objData->data[firstV+1]);
-			v2.z = F_NUM_UP(o->objData->data[firstV+2]);
-			
-			matrix3dxVertex(&v2,m_world3d,&vt);
-			
-			v2.x = vt.x;
-			v2.y = vt.y;
-			v2.z = vt.z;
+			v2.x = o->objData->data[firstV];
+			v2.y = (~o->objData->data[firstV+1]) + 1;
+			v2.z = o->objData->data[firstV+2];
 			
 			drawLine(&v1,&v2,3,o);
 		}
@@ -161,8 +200,6 @@ void inline initObject(object* o){
 }
 
 void initObjects(){
-	u16 i;
-	
 	cam.worldPosition.x = 0;
 	cam.worldPosition.y = 0;
 	cam.worldPosition.z = 0;
@@ -190,6 +227,7 @@ void vbInit(){
 	//load font
 	copymem((u8*)CharSeg3, PVB_FONT, 0x2000);
 
+	vbTextOut(0,0,0,debugFPS);
 	//world info
 	WA[31].head = WRLD_ON;
 	WA[31].w = 200;
@@ -231,10 +269,10 @@ void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	s32 vx,vy,vz,vx2,vy2;
 	s32 dx, dy, dz;
 	s32 sx,sy,sz,p,pixels,err;
-
-	//z clipping(clips whole line should improve in future)
-	if(v1->z<=(F_NUM_DN(cam.worldPosition.z))) return;
-	if(v2->z<=(F_NUM_DN(cam.worldPosition.z))) return;
+	
+	//render the vectors
+	renderVector3d(o,v1,v1);
+	renderVector3d(o,v2,v2);
 	
 	//Scale everything back to integers and apply projection
 	vx=F_NUM_DN(F_ADD(F_DIV(F_MUL(v1->x,cam.d),F_ADD(cam.d,v1->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
@@ -256,13 +294,14 @@ void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	if(dz<0) dz=(~dz)+1;
 	
 	pixels=((dx>dy)?(dx):(dy))+1;
+	vz = v1->z;
 	
 	CACHE_ENABLE;
 	if(dy<dx){
 		err=(dx>>1);
 		sz=(sz)*(F_NUM_UP(dz)/((dx==0)?(1):(dx)));
 		for(p=0;p<pixels;p++){
-			drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
+			if(vz >= (cam.worldPosition.z - cam.d)) drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
 			err+=dy;
 			if(err>dx){
 				vy+=sy;
@@ -275,7 +314,7 @@ void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 		err=(dy>>1);
 		sz=(sz)*(F_NUM_UP(dz)/((dy==0)?(1):(dy)));
 		for(p=0;p<pixels;p++){
-			drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
+			if(vz >= (cam.worldPosition.z - cam.d)) drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
 			err+=dx;
 			if(err>dy){
 				vx+=sx;

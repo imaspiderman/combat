@@ -1,4 +1,4 @@
-void inline g3d_copyVector(vector3d* from, vector3d* to){
+void inline g3d_copyVector3d(vector3d* from, vector3d* to){
 	to->x = from->x;
 	to->y = from->y;
 	to->z = from->z;
@@ -6,20 +6,20 @@ void inline g3d_copyVector(vector3d* from, vector3d* to){
 
 void inline g3d_rotateXAxis(s32 degrees, vector3d* v, vector3d* o){
 	o->x = v->x;
-	o->z = (v->z * cosine[degrees]) + (sine[degrees] * v->y);
-	o->y = (v->z * -sine[degrees]) + (cosine[degrees] * v->y);
+	o->z = (F_MUL(v->z, cosine[degrees])) + (F_MUL(sine[degrees], v->y));
+	o->y = (F_MUL(v->z, -sine[degrees])) + (F_MUL(cosine[degrees], v->y));
 }
 
 void inline g3d_rotateYAxis(s32 degrees, vector3d* v, vector3d* o){
 	o->y = v->y;
-	o->x = (v->x * cosine[degrees]) + (sine[degrees] * v->z);
-	o->z = (v->x * -sine[degrees]) + (cosine[degrees] * v->z);
+	o->x = (F_MUL(v->x, cosine[degrees])) + (F_MUL(sine[degrees], v->z));
+	o->z = (F_MUL(v->x, -sine[degrees])) + (F_MUL(cosine[degrees], v->z));
 }
 
 void inline g3d_rotateZAxis(s32 degrees, vector3d* v, vector3d* o){
 	o->z = v->z;
-	o->x = (v->x * cosine[degrees]) + (sine[degrees] * v->y);
-	o->y = (v->x * -sine[degrees]) + (cosine[degrees] * v->y);
+	o->x = (F_MUL(v->x, cosine[degrees])) + (F_MUL(sine[degrees], v->y));
+	o->y = (F_MUL(v->x, -sine[degrees])) + (F_MUL(cosine[degrees], v->y));
 }
 
 //Make sure the rotation values are between -360 and 360
@@ -32,7 +32,7 @@ void inline g3d_rotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o){
 	
 	g3d_rotateXAxis(rx,v,&t);
 	g3d_rotateYAxis(ry,&t,o);
-	copyVector(o,&t);
+	g3d_copyVector3d(o,&t);
 	g3d_rotateZAxis(rz,&t,o);
 	
 }

@@ -41,8 +41,8 @@ typedef struct object{
 	vector3d worldPosition;
 	vector3d position;
 	vector3d moveTo;
-	vector3d worldRotation;
-	vector3d rotation;
+	vector3d worldRotation;//Not Fixed Point
+	vector3d rotation;//Not Fixed Point
 	vector3d worldRotateSpeed;
 	vector3d rotateSpeed;
 	vector3d worldSpeed;
@@ -56,8 +56,8 @@ typedef struct{
 	vector3d worldPosition;
 	vector3d position;
 	vector3d target;
-	vector3d worldRotation;
-	vector3d rotation;
+	vector3d worldRotation;//Not Fixed Point
+	vector3d rotation;//Not Fixed Point
 	s32 d;
 } camera;
 #endif
