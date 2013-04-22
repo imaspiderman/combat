@@ -14,7 +14,8 @@ typedef struct{
 } vector3d;//represents a vector or coordinate.
 
 typedef struct{
-	s32 size;
+	s32 vertexSize;
+	s32 lineSize;
 	s32 faceSize;
 	const s32 data[];
 } objectData;

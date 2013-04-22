@@ -26,14 +26,29 @@ void inline g3d_rotateZAxis(s32 degrees, vector3d* v, vector3d* o){
 void inline g3d_rotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o){
 	vector3d t;
 	
+	if(rx==0 && ry==0 && rz==0){
+		g3d_copyVector3d(v,o);
+		return;
+	}
+	
 	if(rx<0) rx=360+rx;
 	if(ry<0) ry=360+ry;
 	if(rz<0) rz=360+rz;
 	
-	g3d_rotateXAxis(rx,v,&t);
-	g3d_rotateYAxis(ry,&t,o);
-	g3d_copyVector3d(o,&t);
-	g3d_rotateZAxis(rz,&t,o);
+	g3d_copyVector3d(v,&t);
+	if(rx != 0){
+		g3d_rotateXAxis(rx,&t,o);
+		g3d_copyVector3d(o,&t);
+	}
+	if(ry != 0){
+		g3d_rotateYAxis(ry,&t,o);
+		g3d_copyVector3d(o,&t);
+	}
+	if(rz != 0){
+		g3d_rotateZAxis(rz,&t,o);
+		g3d_copyVector3d(o,&t);
+	}
+	g3d_copyVector3d(&t,o);
 	
 }
 
