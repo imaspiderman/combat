@@ -28,27 +28,19 @@ int main(){
 	initObject(&o_curr);
 	o_curr.objData = models[modelnum];
 	o_curr.worldPosition.z = F_NUM_UP(1000);
+	o_curr.rotation.x = 2;
 	
 	while(1){		
 		tick = 0;
 		startTick = tick;
 		handleInput(&o_curr);
-		diffTick = tick - startTick;
-		//vbTextOut(0,0,0,"handleInput: ");
-		//vbTextOut(0,15,0,itoa((diffTick),10,10));
 		o_curr.objData = models[modelnum];
 		
 		startTick = tick;
 		moveObject(&o_curr);
-		diffTick = tick - startTick;
-		//vbTextOut(0,0,1,"moveObject: ");
-		//vbTextOut(0,15,1,itoa((diffTick),10,10));
 		
 		startTick = tick;
-		drawObject(&o_curr);
-		diffTick = tick - startTick;
-		//vbTextOut(0,0,2,"drawObject: ");
-		//vbTextOut(0,15,2,itoa((diffTick),10,10));
+		if(o_curr.worldPosition.z >= (cam.worldPosition.z))drawObject(&o_curr);
 		
 		screenControl();
 		FPS++;
