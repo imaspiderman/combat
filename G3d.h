@@ -6,6 +6,7 @@
 3d Calculations/Functions
 *********************************************************/
 void inline g3d_copyVector3d(vector3d* from, vector3d* to);
+void inline g3d_scale(vector3d* factor, vector3d* v, vector3d* o);
 void inline g3d_rotateXAxis(s32 degrees, vector3d* v, vector3d* o);
 void inline g3d_rotateYAxis(s32 degrees, vector3d* v, vector3d* o);
 void inline g3d_rotateZAxis(s32 degrees, vector3d* v, vector3d* o);

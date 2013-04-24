@@ -2,6 +2,18 @@ void inline g3d_copyVector3d(vector3d* from, vector3d* to){
 	to->x = from->x;
 	to->y = from->y;
 	to->z = from->z;
+	to->sx = from->sx;
+	to->sy = from->sy;
+}
+
+void inline g3d_scale(vector3d* factor, vector3d* v, vector3d* o){
+	if(factor->x == 1 && factor->y == 1 && factor->z == 1){
+		g3d_copyVector3d(v,o);
+		return;
+	}
+	o->x = F_MUL(v->x,factor->x);
+	o->y = F_MUL(v->y,factor->y);
+	o->z = F_MUL(v->z,factor->z);
 }
 
 void inline g3d_rotateXAxis(s32 degrees, vector3d* v, vector3d* o){

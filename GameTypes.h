@@ -10,7 +10,8 @@ typedef struct{
 	s32 x; //fixed point
 	s32 y; //fixed point
 	s32 z; //fixed point
-	s32 w; //fixed point
+	s32 sx; //screen x
+	s32 sy; //screen y
 } vector3d;//represents a vector or coordinate.
 
 typedef struct{

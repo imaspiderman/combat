@@ -15,7 +15,7 @@ objectData* models[]={
 };
 u8 modelnum = 0;
 
-s32 vertexBuffer[2048];
+vector3d vertexBuffer[1000];
 u32 numVertices=0;
 
 #include "G3d.c"
@@ -28,7 +28,6 @@ int main(){
 	initObject(&o_curr);
 	o_curr.objData = models[modelnum];
 	o_curr.worldPosition.z = F_NUM_UP(1000);
-	o_curr.rotation.x = 2;
 	
 	while(1){		
 		tick = 0;
@@ -40,7 +39,7 @@ int main(){
 		moveObject(&o_curr);
 		
 		startTick = tick;
-		if(o_curr.worldPosition.z >= (cam.worldPosition.z))drawObject(&o_curr);
+		drawObject(&o_curr);
 		
 		screenControl();
 		FPS++;
@@ -107,9 +106,12 @@ void handleInput(object* o){
 	}
 }
 
-void renderVector3d(object* obj, vector3d* v, vector3d* o){
+void renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube){
 	vector3d t;
-	g3d_rotateAllAxis(obj->worldRotation.x,obj->worldRotation.y,obj->worldRotation.z,v,&t);
+	//Transformations
+	g3d_scale(&obj->worldScale,v,&t);
+	g3d_copyVector3d(&t,o);
+	g3d_rotateAllAxis(obj->worldRotation.x,obj->worldRotation.y,obj->worldRotation.z,o,&t);
 	g3d_copyVector3d(&t,o);
 	g3d_translate(obj->worldPosition.x,obj->worldPosition.y,obj->worldPosition.z,o,&t);
 	g3d_copyVector3d(&t,o);
@@ -119,6 +121,23 @@ void renderVector3d(object* obj, vector3d* v, vector3d* o){
 		g3d_cameraRotateAllAxis(cam.worldRotation.x,cam.worldRotation.y,cam.worldRotation.z,o,&t);
 		g3d_copyVector3d(&t,o);
 	}
+	//Projection calculation
+	o->sx=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->x,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
+	o->sy=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->y,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_HEIGHT>>1)));
+	
+	//Collision cube
+	if(initHitCube == 0){
+		if(o->x < obj->properties.hitCube.minX) obj->properties.hitCube.minX = o->x;
+		if(o->x > obj->properties.hitCube.maxX) obj->properties.hitCube.maxX = o->x;
+		if(o->y < obj->properties.hitCube.minY) obj->properties.hitCube.minY = o->y;
+		if(o->y > obj->properties.hitCube.maxY) obj->properties.hitCube.maxY = o->y;
+		if(o->z < obj->properties.hitCube.minZ) obj->properties.hitCube.minZ = o->z;
+		if(o->z > obj->properties.hitCube.maxZ) obj->properties.hitCube.maxZ = o->z;
+	}else{
+		obj->properties.hitCube.minX = obj->properties.hitCube.maxX = o->x;
+		obj->properties.hitCube.minY = obj->properties.hitCube.maxY = o->y;
+		obj->properties.hitCube.minZ = obj->properties.hitCube.maxZ = o->z;
+	}
 }
 
 /**************************
@@ -126,56 +145,50 @@ This procedure actually draws an
 object
 **************************/
 void drawObject(object* o){
-	s32 vertices,lines,v,firstV,verts,i,vertex;
+	s32 vertices,lines,v,firstV,verts,i;
 	vector3d v1,v2;
 	
 	if(o->properties.visible == 0) return;
+	
+	//Check if object is in view by rendering its center point to the screen
+	//and checking bounds
+	renderVector3d(o, &o->worldPosition, &v2,1);
+	if(v2.sx < 0 || v2.sx > SCREEN_WIDTH) return;
+	if(v2.sy < 0 || v2.sy > SCREEN_HEIGHT) return;
+	if(v2.z < cam.worldPosition.z) return;
 	
 	vertices=o->objData->vertexSize;//total elements in array
 	lines=o->objData->lineSize;//Total line endpoints
 	verts=o->objData->faceSize;//total vertices per section
 
 	v=0;
+	i=0;
+	//Load and render all distinct vertices into the vertex buffer;
+	//This will render all object vertices based on the objects position,rotation etc..
 	while(v < vertices){
 		v1.x = o->objData->data[v];
 		v1.y = o->objData->data[v+1];
 		v1.z = o->objData->data[v+2];
-		renderVector3d(o, &v1, &v2);
-		vertexBuffer[v] = v2.x;
-		vertexBuffer[v+1] = v2.y;
-		vertexBuffer[v+2] = v2.z;
+		renderVector3d(o, &v1, &v2, ((v==0)?(1):(0)));
+		vertexBuffer[i++] = v2;
 		v+=3;
 	}
 
+	//This reads the "faces" section of the data and draws lines between points.
+	//We'll use the vertex buffer's already rendered vertices
 	while(v < (lines+vertices)){
 		firstV = v;
-		vertex = ((o->objData->data[v]<<1)+o->objData->data[v]);
-		v1.x = vertexBuffer[vertex];
-		v1.y = (~vertexBuffer[vertex+1]) + 1;
-		v1.z = vertexBuffer[vertex+2];
-		v1.w = F_NUM_UP(1);
+		v1 = vertexBuffer[o->objData->data[v]];
 
 		for(i=1; i<verts; i++){
 			v++;
-			vertex = ((o->objData->data[v]<<1)+o->objData->data[v]);
-			v2.x = vertexBuffer[vertex];
-			v2.y = (~vertexBuffer[vertex+1]) + 1;
-			v2.z = vertexBuffer[vertex+2];
-			v2.w = F_NUM_UP(1);
-			
+			v2 = vertexBuffer[o->objData->data[v]];
 			drawLine(&v1,&v2,3,o);
-			
-			v1.x = v2.x;
-			v1.y = v2.y;
-			v1.z = v2.z;
+			g3d_copyVector3d(&v2,&v1);
 		}
 		//This causes a final line to be drawn back to the starting vertex
 		if(verts>2){
-			vertex = ((o->objData->data[firstV]<<1) + o->objData->data[firstV]);
-			v2.x = vertexBuffer[vertex];
-			v2.y =(~vertexBuffer[vertex+1]) + 1;
-			v2.z = vertexBuffer[vertex+2];
-			
+			v2 = vertexBuffer[o->objData->data[firstV]];
 			drawLine(&v1,&v2,3,o);
 		}
 		v++;
@@ -213,7 +226,6 @@ void inline initObject(object* o){
 	o->speed.x = 0;
 	o->speed.y = 0;
 	o->speed.z = 0;
-	//The scale is a multiplication factor so it is not fixed point
 	o->worldScale.x = F_NUM_UP(1);
 	o->worldScale.y = F_NUM_UP(1);
 	o->worldScale.z = F_NUM_UP(1);
@@ -247,7 +259,7 @@ void vbInit(){
 	
 	tim_vector = (u32)timeHnd;
 	timer_freq(1);
-	timer_set(50000);
+	timer_set(50000);//Every 1 second
 	timer_enable(1);
 	timer_int(1);
 	
@@ -296,12 +308,10 @@ void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	s32 dx, dy, dz;
 	s32 sx,sy,sz,p,pixels,err;
 
-	//Scale everything back to integers and apply projection
-	vx=F_NUM_DN(F_ADD(F_DIV(F_MUL(v1->x,cam.d),F_ADD(cam.d,v1->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
-	vy=F_NUM_DN(F_ADD(F_DIV(F_MUL(v1->y,cam.d),F_ADD(cam.d,v1->z)),F_NUM_UP(SCREEN_HEIGHT>>1)));
-
-	vx2=F_NUM_DN(F_ADD(F_DIV(F_MUL(v2->x,cam.d),F_ADD(cam.d,v2->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
-	vy2=F_NUM_DN(F_ADD(F_DIV(F_MUL(v2->y,cam.d),F_ADD(cam.d,v2->z)),F_NUM_UP(SCREEN_HEIGHT>>1)));
+	vx = v1->sx;
+	vy = v1->sy;
+	vx2 = v2->sx;
+	vy2 = v2->sy;
 	
 	dx=(~(vx - vx2)+1);
 	dy=(~(vy - vy2)+1);
