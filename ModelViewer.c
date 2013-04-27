@@ -8,6 +8,7 @@ volatile u8 FPS = 0;
 volatile u32 tick = 0;
 u32 startTick = 0;
 u32 diffTick = 0;
+s32 MinZ = 100;
 #define NUM_MODELS 2
 objectData* models[]={
 	(objectData*)tieFighterModel,
@@ -28,6 +29,9 @@ int main(){
 	initObject(&o_curr);
 	o_curr.objData = models[modelnum];
 	o_curr.worldPosition.z = F_NUM_UP(1000);
+	o_curr.worldScale.x = F_NUM_UP(10);
+	o_curr.worldScale.y = F_NUM_UP(10);
+	o_curr.worldScale.z = F_NUM_UP(10);
 	
 	while(1){		
 		tick = 0;
@@ -155,7 +159,7 @@ void drawObject(object* o){
 	renderVector3d(o, &o->worldPosition, &v2,1);
 	if(v2.sx < 0 || v2.sx > SCREEN_WIDTH) return;
 	if(v2.sy < 0 || v2.sy > SCREEN_HEIGHT) return;
-	if(v2.z < cam.worldPosition.z) return;
+	if(v2.z < (cam.worldPosition.z + cam.d)) return;
 	
 	vertices=o->objData->vertexSize;//total elements in array
 	lines=o->objData->lineSize;//Total line endpoints
@@ -307,6 +311,8 @@ void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	s32 vx,vy,vz,vx2,vy2;
 	s32 dx, dy, dz;
 	s32 sx,sy,sz,p,pixels,err;
+	
+	//if(v1->z < (cam.worldPosition.z + cam.d) || v2->z < (cam.worldPosition.z + cam.d)) return;
 
 	vx = v1->sx;
 	vy = v1->sy;
@@ -334,7 +340,7 @@ void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 		err=(dx>>1);
 		sz=(sz)*(F_NUM_UP(dz)/((dx==0)?(1):(dx)));
 		for(p=0;p<pixels;p++){
-			if(vz >= (cam.worldPosition.z - cam.d)) drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
+			if(vz >= (cam.worldPosition.z + cam.d)) drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
 			err+=dy;
 			if(err>dx){
 				vy+=sy;
@@ -347,7 +353,7 @@ void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 		err=(dy>>1);
 		sz=(sz)*(F_NUM_UP(dz)/((dy==0)?(1):(dy)));
 		for(p=0;p<pixels;p++){
-			if(vz >= (cam.worldPosition.z - cam.d)) drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
+			if(vz >= (cam.worldPosition.z + cam.d)) drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
 			err+=dx;
 			if(err>dy){
 				vx+=sx;
