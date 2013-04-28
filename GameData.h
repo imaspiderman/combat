@@ -112,23 +112,6 @@ const s32 myLine[]={
 	-100,100,0, 0,0,0
 };
 
-const s32 tieFighter[]={
-	60,//total size of vertices
-	4,//number of vertices used at a time
-	-20,0,-20, -20,0,20, 20,0,20, 20,0,-20,
-	-20,0,-20, 0,-20,-20, 0,-20,20, -20,0,20,
-	0,-20,-20, 0,-20,20, 20,0,20, 20,0,-20,
-	-20,0,-20, 0,20,-20, 0,20,20, -20,0,20,
-	0,20,-20, 0,20,20, 20,0,20, 20,0,-20
-};
-
-const s32 tieFighterWings[]={
-	36,//total size
-	6,//number of vertices
-	-50,50,-40, -50,50,40, -50,0,50, -50,-50,40, -50,-50,-40, -50,0,-50,
-	50,50,-40, 50,50,40, 50,0,50, 50,-50,40, 50,-50,-40, 50,0,-50
-};
-
 const s32 tieFighterModel[] = {126, //total number of vertices
 	216, //total number of line end points
 	2,

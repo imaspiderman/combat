@@ -13,8 +13,6 @@ Fixed point math defines
 #define F_ADD(X,Y) ((X)+(Y))
 #define F_SUB(X,Y) ((X)-(Y))
 #define F_DIV(X,Y) (F_NUM_UP(X)/(Y))
-#define F_COSINE(X) (cosine[X])
-#define F_SINE(X) (sine[X])
 /*******************************
 Defines
 *******************************/

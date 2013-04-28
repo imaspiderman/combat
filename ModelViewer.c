@@ -29,9 +29,6 @@ int main(){
 	initObject(&o_curr);
 	o_curr.objData = models[modelnum];
 	o_curr.worldPosition.z = F_NUM_UP(1000);
-	o_curr.worldScale.x = F_NUM_UP(10);
-	o_curr.worldScale.y = F_NUM_UP(10);
-	o_curr.worldScale.z = F_NUM_UP(10);
 	
 	while(1){		
 		tick = 0;
