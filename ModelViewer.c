@@ -9,10 +9,9 @@ volatile u32 tick = 0;
 u32 startTick = 0;
 u32 diffTick = 0;
 s32 MinZ = 100;
-#define NUM_MODELS 2
+#define NUM_MODELS 1
 objectData* models[]={
 	(objectData*)tieFighterModel,
-	(objectData*)trench
 };
 u8 modelnum = 0;
 
@@ -29,6 +28,9 @@ int main(){
 	initObject(&o_curr);
 	o_curr.objData = models[modelnum];
 	o_curr.worldPosition.z = F_NUM_UP(1000);
+	o_curr.worldScale.x = F_NUM_UP(2);
+	o_curr.worldScale.y = F_NUM_UP(2);
+	o_curr.worldScale.z = F_NUM_UP(2);
 	
 	while(1){		
 		tick = 0;
@@ -148,15 +150,9 @@ object
 void drawObject(object* o){
 	s32 vertices,lines,v,firstV,verts,i;
 	vector3d v1,v2;
-	
 	if(o->properties.visible == 0) return;
-	
 	//Check if object is in view by rendering its center point to the screen
 	//and checking bounds
-	renderVector3d(o, &o->worldPosition, &v2,1);
-	if(v2.sx < 0 || v2.sx > SCREEN_WIDTH) return;
-	if(v2.sy < 0 || v2.sy > SCREEN_HEIGHT) return;
-	if(v2.z < (cam.worldPosition.z + cam.d)) return;
 	
 	vertices=o->objData->vertexSize;//total elements in array
 	lines=o->objData->lineSize;//Total line endpoints
@@ -256,7 +252,7 @@ void vbInit(){
 	
 	HW_REGS[WCR] = 1;
 	
-	VIP_REGS[FRMCYC] = 0;
+	VIP_REGS[FRMCYC] = 3;
 	
 	tim_vector = (u32)timeHnd;
 	timer_freq(1);
@@ -308,8 +304,6 @@ void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	s32 vx,vy,vz,vx2,vy2;
 	s32 dx, dy, dz;
 	s32 sx,sy,sz,p,pixels,err;
-	
-	//if(v1->z < (cam.worldPosition.z + cam.d) || v2->z < (cam.worldPosition.z + cam.d)) return;
 
 	vx = v1->sx;
 	vy = v1->sy;

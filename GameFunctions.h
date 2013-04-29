@@ -9,7 +9,7 @@ Fixed point math defines
 #define FIXED_SHIFT 3
 #define F_NUM_UP(X) ((X)<<FIXED_SHIFT)
 #define F_NUM_DN(X) (((X)>>FIXED_SHIFT) + ((X>>(FIXED_SHIFT-1))&0x01)) //Rounding included
-#define F_MUL(X,Y) (((X)*(Y))>>FIXED_SHIFT)
+#define F_MUL(X,Y) F_NUM_DN(((X)*(Y)))
 #define F_ADD(X,Y) ((X)+(Y))
 #define F_SUB(X,Y) ((X)-(Y))
 #define F_DIV(X,Y) (F_NUM_UP(X)/(Y))

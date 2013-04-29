@@ -64,9 +64,9 @@ void inline g3d_rotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o){
 		return;
 	}
 	
-	if(rx<0) rx=360+rx;
-	if(ry<0) ry=360+ry;
-	if(rz<0) rz=360+rz;
+	if(rx<0) rx=359+rx;
+	if(ry<0) ry=359+ry;
+	if(rz<0) rz=359+rz;
 	
 	g3d_copyVector3d(v,&t);
 	if(rx != 0){
