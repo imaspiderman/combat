@@ -8,10 +8,11 @@ volatile u8 FPS = 0;
 volatile u32 tick = 0;
 u32 startTick = 0;
 u32 diffTick = 0;
-s32 MinZ = 100;
+s32 maxPixels = 0;
+s32 counter = 0;
 #define NUM_MODELS 1
 objectData* models[]={
-	(objectData*)tieFighterModel,
+	(objectData*)tieFighterModel
 };
 u8 modelnum = 0;
 
@@ -28,22 +29,19 @@ int main(){
 	initObject(&o_curr);
 	o_curr.objData = models[modelnum];
 	o_curr.worldPosition.z = F_NUM_UP(1000);
-	o_curr.worldScale.x = F_NUM_UP(2);
-	o_curr.worldScale.y = F_NUM_UP(2);
-	o_curr.worldScale.z = F_NUM_UP(2);
 	
 	while(1){		
 		tick = 0;
+		counter = 0;
 		startTick = tick;
 		handleInput(&o_curr);
 		o_curr.objData = models[modelnum];
 		
-		startTick = tick;
 		moveObject(&o_curr);
-		
-		startTick = tick;
 		drawObject(&o_curr);
 		
+		vbTextOut(0,5,3,itoa(maxPixels,10,8));
+		vbTextOut(0,5,4,itoa(counter,10,8));
 		screenControl();
 		FPS++;
 	}
@@ -66,7 +64,7 @@ void timeHnd(void){
 	timer_enable(0);
 	timer_clearstat();
 	
-	vbTextOut(0,5,0,itoa(FPS,10,2));
+	//vbTextOut(0,5,0,itoa(FPS,10,2));
 	FPS = 0;
 	tick++;
 	
@@ -111,18 +109,31 @@ void handleInput(object* o){
 
 void renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube){
 	vector3d t;
+	vector3d* tp;
+	vector3d* tpt;
+	tp = &t;
 	//Transformations
-	g3d_scale(&obj->worldScale,v,&t);
-	g3d_copyVector3d(&t,o);
-	g3d_rotateAllAxis(obj->worldRotation.x,obj->worldRotation.y,obj->worldRotation.z,o,&t);
-	g3d_copyVector3d(&t,o);
-	g3d_translate(obj->worldPosition.x,obj->worldPosition.y,obj->worldPosition.z,o,&t);
-	g3d_copyVector3d(&t,o);
-	g3d_cameraTranslate(cam.worldPosition.x,cam.worldPosition.y,cam.worldPosition.z,o,&t);
-	g3d_copyVector3d(&t,o);
+	g3d_scale(&obj->worldScale,v,tp);
+	tpt = o;
+	o = tp;
+	tp = tpt;
+	g3d_rotateAllAxis(obj->worldRotation.x,obj->worldRotation.y,obj->worldRotation.z,o,tp);
+	tpt = o;
+	o = tp;
+	tp = tpt;
+	g3d_translate(obj->worldPosition.x,obj->worldPosition.y,obj->worldPosition.z,o,tp);
+	tpt = o;
+	o = tp;
+	tp = tpt;
+	g3d_cameraTranslate(cam.worldPosition.x,cam.worldPosition.y,cam.worldPosition.z,o,tp);
+	tpt = o;
+	o = tp;
+	tp = tpt;
 	if(cam.worldRotation.x != 0 || cam.worldRotation.y != 0 || cam.worldRotation.z != 0){
-		g3d_cameraRotateAllAxis(cam.worldRotation.x,cam.worldRotation.y,cam.worldRotation.z,o,&t);
-		g3d_copyVector3d(&t,o);
+		g3d_cameraRotateAllAxis(cam.worldRotation.x,cam.worldRotation.y,cam.worldRotation.z,o,tp);
+		tpt = o;
+		o = tp;
+		tp = tpt;
 	}
 	//Projection calculation
 	o->sx=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->x,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
@@ -150,6 +161,11 @@ object
 void drawObject(object* o){
 	s32 vertices,lines,v,firstV,verts,i;
 	vector3d v1,v2;
+	vector3d* v1p;
+	vector3d* v2p;
+	vector3d* vtp;
+	v1p = &v1;
+	v2p = &v2;
 	if(o->properties.visible == 0) return;
 	//Check if object is in view by rendering its center point to the screen
 	//and checking bounds
@@ -162,34 +178,37 @@ void drawObject(object* o){
 	i=0;
 	//Load and render all distinct vertices into the vertex buffer;
 	//This will render all object vertices based on the objects position,rotation etc..
+	startTick = tick;
 	while(v < vertices){
 		v1.x = o->objData->data[v];
 		v1.y = o->objData->data[v+1];
 		v1.z = o->objData->data[v+2];
+		
 		renderVector3d(o, &v1, &v2, ((v==0)?(1):(0)));
 		vertexBuffer[i++] = v2;
 		v+=3;
 	}
+	vbTextOut(0,5,1,itoa((tick-startTick),10,8));
 
 	//This reads the "faces" section of the data and draws lines between points.
 	//We'll use the vertex buffer's already rendered vertices
+	startTick = tick;
 	while(v < (lines+vertices)){
 		firstV = v;
-		v1 = vertexBuffer[o->objData->data[v]];
+		v1p = &vertexBuffer[o->objData->data[v]];
 
 		for(i=1; i<verts; i++){
 			v++;
-			v2 = vertexBuffer[o->objData->data[v]];
-			drawLine(&v1,&v2,3,o);
-			g3d_copyVector3d(&v2,&v1);
-		}
-		//This causes a final line to be drawn back to the starting vertex
-		if(verts>2){
-			v2 = vertexBuffer[o->objData->data[firstV]];
-			drawLine(&v1,&v2,3,o);
+			v2p = &vertexBuffer[o->objData->data[v]];
+			drawLine(v1p,v2p,3,o);
+			vtp = v2p;
+			v1p = v2p;
+			v2p = vtp;
+			
 		}
 		v++;
 	}
+	vbTextOut(0,5,2,itoa((tick-startTick),10,8));
 }
 
 /*********************************
@@ -211,12 +230,6 @@ void inline initObject(object* o){
 	o->rotation.x = 0;
 	o->rotation.y = 0;
 	o->rotation.z = 0;
-	o->worldRotateSpeed.x = 0;
-	o->worldRotateSpeed.y = 0;
-	o->worldRotateSpeed.z = 0;
-	o->rotateSpeed.x = 0;
-	o->rotateSpeed.y = 0;
-	o->rotateSpeed.z = 0;
 	o->worldSpeed.x = 0;
 	o->worldSpeed.y = 0;
 	o->worldSpeed.z = 0;
@@ -252,11 +265,11 @@ void vbInit(){
 	
 	HW_REGS[WCR] = 1;
 	
-	VIP_REGS[FRMCYC] = 3;
+	VIP_REGS[FRMCYC] = 0;
 	
 	tim_vector = (u32)timeHnd;
 	timer_freq(1);
-	timer_set(50000);//Every 1 second
+	timer_set(100);//Every 1 second
 	timer_enable(1);
 	timer_int(1);
 	
@@ -310,6 +323,13 @@ void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	vx2 = v2->sx;
 	vy2 = v2->sy;
 	
+	//Simple screen clipping
+	if((vx > SCREEN_WIDTH && vx2 > SCREEN_WIDTH) ||
+	   (vx < 0 && vx2 < 0) ||
+	   (vy > SCREEN_HEIGHT && vy2 > SCREEN_HEIGHT) ||
+	   (vy < 0 && vy2 < 0) ||
+	   (v1->z <= (cam.worldPosition.z + cam.d) && v2->z <= (cam.worldPosition.z + cam.d))) return;
+
 	dx=(~(vx - vx2)+1);
 	dy=(~(vy - vy2)+1);
 	dz=(~(F_NUM_DN(F_SUB(v1->z,v2->z))+1));
@@ -325,13 +345,17 @@ void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	pixels=((dx>dy)?(dx):(dy))+1;
 	vz = v1->z;
 	
+	if(pixels > maxPixels) {
+		maxPixels = pixels;
+	}
+	
 	CACHE_ENABLE;
 	#ifndef __ASM_CODE
 	if(dy<dx){
 		err=(dx>>1);
 		sz=(sz)*(F_NUM_UP(dz)/((dx==0)?(1):(dx)));
 		for(p=0;p<pixels;p++){
-			if(vz >= (cam.worldPosition.z + cam.d)) drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
+			drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));			
 			err+=dy;
 			if(err>dx){
 				vy+=sy;
@@ -339,12 +363,13 @@ void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 			}
 			vz+=sz;
 			vx+=sx;
+			counter++;
 		}
 	}else{
 		err=(dy>>1);
 		sz=(sz)*(F_NUM_UP(dz)/((dy==0)?(1):(dy)));
 		for(p=0;p<pixels;p++){
-			if(vz >= (cam.worldPosition.z + cam.d)) drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
+			drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
 			err+=dx;
 			if(err>dy){
 				vx+=sx;
@@ -352,6 +377,7 @@ void drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 			}
 			vz+=sz;
 			vy+=sy;
+			counter++;
 		}
 	}
 	#else

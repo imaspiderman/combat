@@ -45,8 +45,6 @@ typedef struct object{
 	vector3d moveTo;
 	vector3d worldRotation;//Not Fixed Point
 	vector3d rotation;//Not Fixed Point
-	vector3d worldRotateSpeed;
-	vector3d rotateSpeed;
 	vector3d worldSpeed;
 	vector3d speed;
 	vector3d worldScale;
