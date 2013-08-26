@@ -28,7 +28,7 @@ Rotates a point around the X axis
 void inline g3d_rotateXAxis(s32 degrees, vector3d* v, vector3d* o){
 	o->x = v->x;
 	o->z = (F_MUL(v->z, cosine[degrees])) + (F_MUL(sine[degrees], v->y));
-	o->y = (F_MUL(v->z, -sine[degrees])) + (F_MUL(cosine[degrees], v->y));
+	o->y = (F_MUL(v->z, -sine[degrees])) + (F_MUL(cosine[degrees], v->y));	
 }
 
 /**********************************
@@ -82,7 +82,6 @@ void inline g3d_rotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o){
 		g3d_copyVector3d(o,&t);
 	}
 	g3d_copyVector3d(&t,o);
-	
 }
 
 /*******************************
@@ -123,37 +122,27 @@ functions against a vector3d object
 ***********************************/
 void g3d_renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube){
 	vector3d t;
-	vector3d* tp;
-	vector3d* tpt;
-	tp = &t;
 	//Transformations
-	g3d_scale(&obj->worldScale,v,tp);
-	tpt = o;
-	o = tp;
-	tp = tpt;
-	g3d_rotateAllAxis(obj->worldRotation.x,obj->worldRotation.y,obj->worldRotation.z,o,tp);
-	tpt = o;
-	o = tp;
-	tp = tpt;
-	g3d_translate(obj->worldPosition.x,obj->worldPosition.y,obj->worldPosition.z,o,tp);
-	tpt = o;
-	o = tp;
-	tp = tpt;
-	g3d_cameraTranslate(cam.worldPosition.x,cam.worldPosition.y,cam.worldPosition.z,o,tp);
-	tpt = o;
-	o = tp;
-	tp = tpt;
-	if(cam.worldRotation.x != 0 || cam.worldRotation.y != 0 || cam.worldRotation.z != 0){
-		g3d_cameraRotateAllAxis(cam.worldRotation.x,cam.worldRotation.y,cam.worldRotation.z,o,tp);
-		tpt = o;
-		o = tp;
-		tp = tpt;
+	g3d_scale(&obj->worldScale,v,&t);
+	g3d_copyVector3d(&t,o);
+	
+	g3d_rotateAllAxis(obj->worldRotation.x,obj->worldRotation.y,obj->worldRotation.z,o,&t);
+	g3d_copyVector3d(&t,o);
+	
+	g3d_translate(obj->worldPosition.x,obj->worldPosition.y,obj->worldPosition.z,o,&t);
+	g3d_copyVector3d(&t,o);
+	
+	g3d_cameraTranslate(cam.worldPosition.x,cam.worldPosition.y,cam.worldPosition.z,o,&t);
+	g3d_copyVector3d(&t,o);
+	
+	if(cam.worldRotation.x != 0 || cam.worldRotation.y != 0 || cam.worldRotation.z != 0){			
+		g3d_cameraRotateAllAxis(cam.worldRotation.x,cam.worldRotation.y,cam.worldRotation.z,o,&t);
+		g3d_copyVector3d(&t,o);
 	}
 	//Projection calculation
 	o->sx=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->x,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
 	o->sy=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->y,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_HEIGHT>>1)));
-	
-	//Collision cube
+	//Collision cube	
 	if(initHitCube == 0){
 		if(o->x < obj->properties.hitCube.minX) obj->properties.hitCube.minX = o->x;
 		if(o->x > obj->properties.hitCube.maxX) obj->properties.hitCube.maxX = o->x;
@@ -174,7 +163,8 @@ object
 **************************/
 void g3d_drawObject(object* o){
 	s32 vertices,lines,v,verts,i;
-	vector3d v1,v2;
+	vector3d v1;
+	vector3d v2;
 	vector3d* v1p;
 	vector3d* v2p;
 	vector3d* vtp;
@@ -196,15 +186,17 @@ void g3d_drawObject(object* o){
 		v1.z = o->objData->data[v+2];
 		
 		g3d_renderVector3d(o, &v1, &v2, ((v==0)?(1):(0)));
-		vertexBuffer[i++] = v2;
+		
+		vertexBuffer[i] = v2;
+		i++;
 		v+=3;
 	}
 
 	//This reads the "faces" section of the data and draws lines between points.
 	//We'll use the vertex buffer's already rendered vertices
 	while(v < (lines+vertices)){
-		v1p = &vertexBuffer[o->objData->data[v]];
-
+		v1p = &vertexBuffer[o->objData->data[v]];		
+		
 		for(i=1; i<verts; i++){
 			v++;
 			v2p = &vertexBuffer[o->objData->data[v]];
@@ -215,7 +207,7 @@ void g3d_drawObject(object* o){
 			
 		}
 		v++;
-	}
+	}		
 }
 
 /*******************************

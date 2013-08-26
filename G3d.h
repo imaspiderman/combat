@@ -9,7 +9,8 @@ Fixed point math defines
 #define F_MUL(X,Y) F_NUM_DN(((X)*(Y)))
 #define F_ADD(X,Y) ((X)+(Y))
 #define F_SUB(X,Y) ((X)-(Y))
-#define F_DIV(X,Y) (F_NUM_UP(X)/(Y))
+//#define F_DIV(X,Y) (F_NUM_UP(X)/(Y))
+#define F_DIV(X,Y) ((X)/F_NUM_DN(Y))
 
 //Definitions
 #define SCREEN_HEIGHT 224

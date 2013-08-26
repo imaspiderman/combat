@@ -11,7 +11,7 @@ objectData* models[]={
 	(objectData*)tieFighterModel
 };
 u8 modelnum = 0;
-
+s32 vertexCount = 0;
 #include "G3d.c"
 
 int main(){
@@ -31,7 +31,6 @@ int main(){
 		
 		moveObject(&o_curr);
 		g3d_drawObject(&o_curr);
-		
 		screenControl();
 		FPS++;
 	}
@@ -47,6 +46,13 @@ void moveObject(object* o){
 	if(o->worldRotation.x < -359) o->worldRotation.x = o->worldRotation.x + 359;
 	if(o->worldRotation.y < -359) o->worldRotation.y = o->worldRotation.y + 359;
 	if(o->worldRotation.z < -359) o->worldRotation.z = o->worldRotation.z + 359;
+	
+	if(cam.worldRotation.x > 359) cam.worldRotation.x = cam.worldRotation.x - 359;
+	if(cam.worldRotation.y > 359) cam.worldRotation.y = cam.worldRotation.y - 359;
+	if(cam.worldRotation.z > 359) cam.worldRotation.z = cam.worldRotation.z - 359;
+	if(cam.worldRotation.x < -359) cam.worldRotation.x = cam.worldRotation.x + 359;
+	if(cam.worldRotation.y < -359) cam.worldRotation.y = cam.worldRotation.y + 359;
+	if(cam.worldRotation.z < -359) cam.worldRotation.z = cam.worldRotation.z + 359;
 }
 
 void timeHnd(void){
@@ -54,7 +60,8 @@ void timeHnd(void){
 	timer_enable(0);
 	timer_clearstat();
 	
-	vbTextOut(0,5,0,itoa(FPS,10,2));
+	vbTextOut(0,5,0,itoa(FPS,10,2));	
+	
 	FPS = 0;
 	tick++;
 	
@@ -86,10 +93,10 @@ void handleInput(object* o){
 		cam.worldPosition.z -= F_NUM_UP(50);
 	}
 	if(K_RT & buttons){
-		o->worldRotation.y += 10;
+		cam.worldRotation.z += 10;
 	}
 	if(K_LT & buttons){
-		o->worldRotation.y -= 10;
+		cam.worldRotation.z -= 10;
 	}
 	if(K_A & buttons){
 		modelnum++;
@@ -101,6 +108,9 @@ void initObjects(){
 	cam.worldPosition.x = 0;
 	cam.worldPosition.y = 0;
 	cam.worldPosition.z = 0;
+	cam.worldRotation.x = 0;
+	cam.worldRotation.y = 0;
+	cam.worldRotation.z = 0;
 	cam.d = F_NUM_UP(128);	
 }
 
