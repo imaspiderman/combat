@@ -6,6 +6,8 @@
 //Timer for FPS
 volatile u8 FPS = 0;
 volatile u32 tick = 0;
+volatile u32 tickStart = 0;
+volatile u32 tickEnd = 0;
 #define NUM_MODELS 1
 objectData* models[]={
 	(objectData*)tieFighterModel
@@ -16,13 +18,15 @@ s32 vertexCount = 0;
 
 int main(){
 	object o_curr;
-	u8 i;
 	
 	vbInit();
 	initObjects();
 	g3d_initObject(&o_curr);
 	o_curr.objData = models[modelnum];
 	o_curr.worldPosition.z = F_NUM_UP(1000);
+	o_curr.worldScale.x = F_NUM_UP(3);
+	o_curr.worldScale.y = F_NUM_UP(3);
+	o_curr.worldScale.z = F_NUM_UP(3);
 	
 	while(1){		
 		tick = 0;
@@ -60,7 +64,7 @@ void timeHnd(void){
 	timer_enable(0);
 	timer_clearstat();
 	
-	vbTextOut(0,5,0,itoa(FPS,10,2));	
+	//vbTextOut(0,5,0,itoa(FPS,10,2));	
 	
 	FPS = 0;
 	tick++;
@@ -93,10 +97,10 @@ void handleInput(object* o){
 		cam.worldPosition.z -= F_NUM_UP(50);
 	}
 	if(K_RT & buttons){
-		cam.worldRotation.z += 10;
+		cam.worldRotation.z += 8;
 	}
 	if(K_LT & buttons){
-		cam.worldRotation.z -= 10;
+		cam.worldRotation.z -= 8;
 	}
 	if(K_A & buttons){
 		modelnum++;
@@ -128,7 +132,8 @@ void vbInit(){
 	
 	tim_vector = (u32)timeHnd;
 	timer_freq(1);
-	timer_set(50000);//Every 1 second
+	//timer_set(50000);//Every 1 second
+	timer_set(10);
 	timer_enable(1);
 	timer_int(1);
 	
