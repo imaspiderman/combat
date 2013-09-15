@@ -142,6 +142,7 @@ void g3d_renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube){
 	//Projection calculation
 	o->sx=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->x,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
 	o->sy=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->y,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_HEIGHT>>1)));
+	o->sy = SCREEN_HEIGHT - o->sy;//flip y axis
 	//Collision cube	
 	if(initHitCube == 0){
 		if(o->x < obj->properties.hitCube.minX) obj->properties.hitCube.minX = o->x;
@@ -180,7 +181,7 @@ void g3d_drawObject(object* o){
 	i=0;
 	//Load and render all distinct vertices into the vertex buffer;
 	//This will render all object vertices based on the objects position,rotation etc..
-	tickStart = tick;
+	//tickStart = tick;
 	while(v < vertices){
 		v1.x = o->objData->data[v];
 		v1.y = o->objData->data[v+1];
@@ -192,13 +193,13 @@ void g3d_drawObject(object* o){
 		i++;
 		v+=3;
 	}
-	tickEnd = tick;
-	vbTextOut(0,5,0,"Render");
-	vbTextOut(0,21,0,itoa((tickEnd - tickStart),10,2));
+	//tickEnd = tick;
+	//vbTextOut(0,5,0,"Render");
+	//vbTextOut(0,21,0,itoa((tickEnd - tickStart),10,2));
 
 	//This reads the "faces" section of the data and draws lines between points.
 	//We'll use the vertex buffer's already rendered vertices
-	tickStart = tick;
+	//tickStart = tick;
 	while(v < (lines+vertices)){
 		v1p = &vertexBuffer[o->objData->data[v]];		
 		
@@ -213,9 +214,83 @@ void g3d_drawObject(object* o){
 		}
 		v++;
 	}
-	tickEnd = tick;
-	vbTextOut(0,5,1,"Draw Lines");
-	vbTextOut(0,21,1,itoa((tickEnd - tickStart),10,2));
+	//tickEnd = tick;
+	//vbTextOut(0,5,1,"Draw Lines");
+	//vbTextOut(0,21,1,itoa((tickEnd - tickStart),10,2));
+}
+
+/************************************
+Clips a line to the screen and determines
+if the line should be drawn or not.
+This will use the Cohen Sutherland clipping
+algorithm.
+*************************************/
+u8 g3d_clipLine(s32* x1, s32* y1, s32* x2, s32* y2, s32 V_MAX, s32 V_MIN, s32 H_MAX, s32 H_MIN){
+	u8 regionV1,regionV2;
+	s32 x,y,slope,b;
+	regionV1 = 0;
+	regionV2 = 0;
+	if(*y1 < V_MIN) regionV1 |= 1; //top
+	else if (*y1 > V_MAX) regionV1 |= 2; //bottom
+	else if (*x1 > H_MAX) regionV1 |= 4; //right
+	else if (*x1 < H_MIN) regionV1 |= 8; //left
+	
+	if(*y2 < V_MIN) regionV2 |= 1; //top
+	else if (*y2 > V_MAX) regionV2 |= 2; //bottom
+	else if (*x2 > H_MAX) regionV2 |= 4; //right
+	else if (*x2 < H_MIN) regionV2 |= 8; //left
+	
+	if((regionV1 & regionV2) > 0) return (u8)0;
+	//Clip v1
+	//formulas for line y = mx + b
+	//where m = slope and b = y intercept
+	if(*x2 - *x1 == 0) slope = 0;
+	else slope = F_PRECISION_DIV((F_PRECISION_UP(*y2) - F_PRECISION_UP(*y1)), (F_PRECISION_UP(*x2) - F_PRECISION_UP(*x1)));
+	b = -((F_PRECISION_MUL(slope, F_PRECISION_UP(*x1))) - F_PRECISION_UP(*y1));
+	
+	if(regionV1 > 0){
+		if(regionV1 & 1){//top
+			y = V_MIN;
+			x = (slope == 0)?(*x1):(F_PRECISION_DN(F_PRECISION_DIV(-b, slope)));
+		}
+		if(regionV1 & 2){//bottom
+			y = V_MAX;
+			x = (slope == 0)?(*x1):(F_PRECISION_DN(F_PRECISION_DIV(F_PRECISION_UP(y)-b, slope)));
+		}
+		if(regionV1 & 4){//right
+			x = H_MAX;
+			y = (slope == 0)?(*y1):(F_PRECISION_DN((F_PRECISION_MUL(slope,F_PRECISION_UP(x)) + b)));
+		}
+		if(regionV1 & 8){//left
+			x = H_MIN;
+			y = F_PRECISION_DN(b);
+		}
+		*x1 = x;
+		*y1 = y;		
+	}
+	
+	if(regionV2 > 0){
+		if(regionV2 & 1){//top
+			y = V_MIN;
+			x = (slope == 0)?(*x2):(F_PRECISION_DN(F_PRECISION_DIV(-b, slope)));
+		}
+		if(regionV2 & 2){//bottom
+			y = V_MAX;
+			x = (slope == 0)?(*x2):(F_PRECISION_DN(F_PRECISION_DIV(F_PRECISION_UP(y)-b, slope)));
+		}
+		if(regionV2 & 4){//right
+			x = H_MAX;
+			y = (slope == 0)?(*y2):(F_PRECISION_DN((F_PRECISION_MUL(slope,F_PRECISION_UP(x)) + b)));
+		}
+		if(regionV2 & 8){//left
+			x = H_MIN;
+			y = F_PRECISION_DN(b);
+		}
+		*x2 = x;
+		*y2 = y;
+	}
+	
+	return (u8)1;
 }
 
 /*******************************
@@ -253,6 +328,7 @@ void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	s32 vx,vy,vz,vx2,vy2;
 	s32 dx, dy, dz;
 	s32 sx,sy,sz,pixels,err;
+	u8 doDraw;
 	#ifdef __ASM_CODE
 	s32 loffset,roffset;
 	u8 yleft;
@@ -264,14 +340,12 @@ void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	vy = v1->sy;
 	vx2 = v2->sx;
 	vy2 = v2->sy;
+	doDraw = g3d_clipLine(&vx,&vy,&vx2,&vy2,SCREEN_HEIGHT,0,SCREEN_WIDTH,0);
+	if(!doDraw) return;
 	
-	//Simple screen clipping
-	if((vx > SCREEN_WIDTH && vx2 > SCREEN_WIDTH) ||
-	   (vx < 0 && vx2 < 0) ||
-	   (vy > SCREEN_HEIGHT && vy2 > SCREEN_HEIGHT) ||
-	   (vy < 0 && vy2 < 0) ||
-	   (v1->z <= (cam.worldPosition.z + cam.d) && v2->z <= (cam.worldPosition.z + cam.d))) return;
-
+	//Simple screen z axis clipping
+	if((v1->z <= cam.d) || (v2->z <= cam.d)) return;
+	
 	dx=(~(vx - vx2)+1);
 	dy=(~(vy - vy2)+1);
 	dz=(~(F_NUM_DN(F_SUB(v1->z,v2->z))+1));

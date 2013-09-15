@@ -10,7 +10,7 @@ volatile u32 tickStart = 0;
 volatile u32 tickEnd = 0;
 #define NUM_MODELS 1
 objectData* models[]={
-	(objectData*)tieFighterModel
+	(objectData*)tank
 };
 u8 modelnum = 0;
 s32 vertexCount = 0;
@@ -24,9 +24,10 @@ int main(){
 	g3d_initObject(&o_curr);
 	o_curr.objData = models[modelnum];
 	o_curr.worldPosition.z = F_NUM_UP(1000);
-	o_curr.worldScale.x = F_NUM_UP(3);
-	o_curr.worldScale.y = F_NUM_UP(3);
-	o_curr.worldScale.z = F_NUM_UP(3);
+	o_curr.worldRotation.x = 270;
+	o_curr.worldScale.x = F_NUM_UP(10);
+	o_curr.worldScale.y = F_NUM_UP(10);
+	o_curr.worldScale.z = F_NUM_UP(10);
 	
 	while(1){		
 		tick = 0;
@@ -79,16 +80,16 @@ counter
 void handleInput(object* o){
 	buttons = vbReadPad();
 	if(K_LL & buttons){
-		cam.worldPosition.x -= F_NUM_UP(50);
+		cam.worldRotation.y -= 8;
 	}
 	if(K_LR & buttons){
-		cam.worldPosition.x += F_NUM_UP(50);
+		cam.worldRotation.y += 8;
 	}
 	if(K_LD & buttons){
-		cam.worldPosition.y += F_NUM_UP(50);
+		cam.worldPosition.y -= F_NUM_UP(50);
 	}
 	if(K_LU & buttons){
-		cam.worldPosition.y -= F_NUM_UP(50);
+		cam.worldPosition.y += F_NUM_UP(50);
 	}
 	if(K_RU & buttons){
 		cam.worldPosition.z += F_NUM_UP(50);
@@ -97,10 +98,10 @@ void handleInput(object* o){
 		cam.worldPosition.z -= F_NUM_UP(50);
 	}
 	if(K_RT & buttons){
-		cam.worldRotation.z += 8;
+		o->worldRotation.y += 8;
 	}
 	if(K_LT & buttons){
-		cam.worldRotation.z -= 8;
+		o->worldRotation.y -= 8;
 	}
 	if(K_A & buttons){
 		modelnum++;
@@ -132,8 +133,8 @@ void vbInit(){
 	
 	tim_vector = (u32)timeHnd;
 	timer_freq(1);
-	//timer_set(50000);//Every 1 second
-	timer_set(10);
+	timer_set(50000);//Every 1 second
+	//timer_set(10);
 	timer_enable(1);
 	timer_int(1);
 	

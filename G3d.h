@@ -9,8 +9,13 @@ Fixed point math defines
 #define F_MUL(X,Y) F_NUM_DN(((X)*(Y)))
 #define F_ADD(X,Y) ((X)+(Y))
 #define F_SUB(X,Y) ((X)-(Y))
-//#define F_DIV(X,Y) (F_NUM_UP(X)/(Y))
-#define F_DIV(X,Y) ((X)/F_NUM_DN(Y))
+#define F_DIV(X,Y) (F_NUM_UP(X)/(Y))
+//#define F_DIV(X,Y) ((X)/F_NUM_DN(Y))
+#define FIXED_SHIFT_PRECISION 8
+#define F_PRECISION_UP(X) ((X)<<FIXED_SHIFT_PRECISION)
+#define F_PRECISION_DN(X) (((X)>>FIXED_SHIFT_PRECISION) + ((X>>(FIXED_SHIFT_PRECISION-1))&0x01)) //Rounding included
+#define F_PRECISION_MUL(X,Y) F_PRECISION_DN(((X)*(Y)))
+#define F_PRECISION_DIV(X,Y) (F_PRECISION_UP(X)/(Y))
 
 //Definitions
 #define SCREEN_HEIGHT 224
@@ -201,6 +206,7 @@ void inline g3d_rotateYAxis(s32 degrees, vector3d* v, vector3d* o);
 void inline g3d_rotateZAxis(s32 degrees, vector3d* v, vector3d* o);
 void inline g3d_rotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o);
 void inline g3d_translate(s32 x, s32 y, s32 z, vector3d* v, vector3d* o);
+u8 g3d_clipLine(s32* x1, s32* y1, s32* x2, s32* y2, s32 V_MAX, s32 V_MIN, s32 H_MAX, s32 H_MIN);
 void inline g3d_cameraRotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o);
 void inline g3d_cameraTranslate(s32 x, s32 y, s32 z, vector3d* v, vector3d* o);
 void inline g3d_initObject(object* o);
