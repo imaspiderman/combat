@@ -1,0 +1,189 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+buttons             0x2               C:\users\user\Temp\cczdhOF3.o
+vertexBuffer        0x4e20            C:\users\user\Temp\cczdhOF3.o
+cam                 0x90              C:\users\user\Temp\cczdhOF3.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+wram             0x05000000         0x00010000         !r
+rom              0x07000000         0x01000000         xr
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
+LOAD C:\users\user\Temp\cczdhOF3.o
+TARGET(elf32-v810)
+                0x07000000                __text_start = 0x7000000
+                0x05000000                __data_start = 0x5000000
+                0x05008000                __gp = (__data_start + 0x8000)
+                0x07000000                . = __text_start
+
+.text           0x07000000     0x42d4
+ *(.text)
+ .text          0x07000000      0x28e c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
+                0x07000000                start
+                0x07000180                _inthnd
+ *fill*         0x0700028e        0x2 ff
+ .text          0x07000290     0x4044 C:\users\user\Temp\cczdhOF3.o
+                0x07000290                vbWaitFrame
+                0x07000300                vbDisplayOn
+                0x070004c8                vbDisplayOff
+                0x07000540                vbDisplayShow
+                0x0700058c                vbDisplayHide
+                0x070005cc                vbFXFadeIn
+                0x07000678                vbFXFadeOut
+                0x0700072c                vbSetColTable
+                0x0700084c                affine_clr_param
+                0x070008d8                affine_scale
+                0x07000ac4                affine_fast_scale
+                0x07000bec                set_intlevel
+                0x07000c10                get_intlevel
+                0x07000c28                vbReadPad
+                0x07000c94                vbPadKeyDown
+                0x07000cf8                vbPadKeyUp
+                0x07000d5c                copymem
+                0x07000dbc                setmem
+                0x07000e0c                addmem
+                0x07000f70                cls
+                0x07000f9c                vbTextOut
+                0x07001044                vbPrint
+                0x070011bc                vbSetObject
+                0x070012b0                randseed
+                0x0700134c                randnum
+                0x07001364                vbSetWorld
+                0x07001538                timer_enable
+                0x070015b0                timer_get
+                0x070015e4                timer_set
+                0x0700162c                timer_freq
+                0x070016a4                timer_int
+                0x0700171c                timer_getstat
+                0x0700173c                timer_clearstat
+                0x0700176c                g3d_copyVector3d
+                0x070017c8                g3d_scale
+                0x070018c8                g3d_rotateXAxis
+                0x07001a1c                g3d_rotateYAxis
+                0x07001b70                g3d_rotateZAxis
+                0x07001cc4                g3d_rotateAllAxis
+                0x07001e4c                g3d_translate
+                0x07001ea0                g3d_cameraRotateAllAxis
+                0x07001f10                g3d_cameraTranslate
+                0x07001f64                g3d_renderVector3d
+                0x070022a8                g3d_calculateProjection
+                0x07002474                g3d_drawObject
+                0x0700270c                g3d_clipLine
+                0x07002c0c                drawPoint
+                0x07002d94                g3d_drawLine
+                0x07003134                g3d_initObject
+                0x07003224                g3d_moveObject
+                0x070036d0                g3d_moveCamera
+                0x07003aa0                main
+                0x07003cfc                timeHnd
+                0x07003d90                handleInput
+                0x07003fa4                initObjects
+                0x07004054                vbInit
+                0x070041d8                screenControl
+ *(.text.*)
+ *(.gnu.warning)
+ *(.gnu.linkonce.t*)
+                0x070042d4                __text_end = .
+
+.rodata         0x070042d4     0x2c58
+ *(.rodata)
+ .rodata        0x070042d4     0x2c58 C:\users\user\Temp\cczdhOF3.o
+                0x070042d4                L_FRAME0
+                0x070042d8                L_FRAME1
+                0x070042dc                R_FRAME0
+                0x070042e0                R_FRAME1
+                0x070042e4                BGMM
+                0x070042e8                WAM
+                0x070042ec                CLMN_TBL
+                0x070042f0                OAM
+                0x070042f4                colTable
+                0x07004374                WAVEDATA1
+                0x07004378                WAVEDATA2
+                0x0700437c                WAVEDATA3
+                0x07004380                WAVEDATA4
+                0x07004384                WAVEDATA5
+                0x07004388                MODDATA
+                0x0700438c                SND_REGS
+                0x07004390                jump_addr
+                0x070043a4                HW_REGS
+                0x070043a8                EXPANSION
+                0x070043ac                WORKRAM
+                0x070043b0                SAVERAM
+                0x070043b4                nums
+                0x070043c4                WA
+                0x070043c8                cosine
+                0x07004968                sine
+                0x07004f08                PVB_FONT
+ *all.rodata*(*)
+ *(.roda)
+ *(.rodata.*)
+ *(.gnu.linkonce.r*)
+                0x07006f2c                __data_lma = .
+
+.data           0x05000000      0x744 load address 0x07006f2c
+ *(.data)
+ .data          0x05000000        0x0 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
+ .data          0x05000000      0x744 C:\users\user\Temp\cczdhOF3.o
+                0x05000000                VIP_REGS
+                0x05000004                currentFrameBuffer
+                0x05000008                tank
+                0x05000634                map
+ *(.data.*)
+ *(.gnu.linkonce.d*)
+
+.sdata
+ *(.sdata)
+                0x05000744                __data_end = .
+
+.sbss
+ *(.sbss)
+ *(.scommon)
+
+.bss            0x05000744     0x4ee8 load address 0x07007670
+ *(.dynbss)
+ *(.bss)
+ .bss           0x05000744        0x0 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
+ .bss           0x05000744       0x34 C:\users\user\Temp\cczdhOF3.o
+                0x05000744                oldkeydown
+                0x05000746                oldkeyup
+                0x05000748                tcr_val
+                0x0500074c                numVertices
+                0x05000750                nextFrameBuffer
+                0x05000754                FPS
+                0x05000758                tick
+                0x0500075c                tickStart
+                0x05000760                tickEnd
+                0x05000764                modelnum
+                0x05000768                vertexCount
+ *(COMMON)
+ COMMON         0x05000778     0x4eb4 C:\users\user\Temp\cczdhOF3.o
+                0x05000778                buttons
+                0x0500077c                vertexBuffer
+                0x0500559c                cam
+                0x07007670                v = (__data_lma + (__data_end - __data_start))
+                [0x00007fff]                v = (v + 0x21f)
+                [0x00007fff]                v = (v & 0xffffff)
+                [0x00007fff]                v = (v | (v >> 0x1))
+                [0x00007fff]                v = (v | (v >> 0x2))
+                [0x00007fff]                v = (v | (v >> 0x4))
+                [0x00007fff]                v = (v | (v >> 0x8))
+                [0x00007fff]                v = (v | (v >> 0x10))
+                0x07007fff                __vectors_end = (__text_start + v)
+                0x07007de0                __vectors_lma = (__vectors_end - 0x21f)
+
+.vectors        0x07007de0      0x220
+ *(.vectors)
+ .vectors       0x07007de0      0x220 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
+                0x07007de0                rom_header
+OUTPUT(Combat.o elf32-v810)
+
+.comment        0x00000000       0x11
+ .comment       0x00000000       0x11 C:\users\user\Temp\cczdhOF3.o
+                                 0x12 (size before relaxing)
