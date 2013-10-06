@@ -139,10 +139,7 @@ void g3d_renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube){
 		g3d_cameraRotateAllAxis(cam.worldRotation.x,cam.worldRotation.y,cam.worldRotation.z,o,&t);
 		g3d_copyVector3d(&t,o);
 	}
-	//Projection calculation
-	o->sx=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->x,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
-	o->sy=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->y,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_HEIGHT>>1)));
-	o->sy = SCREEN_HEIGHT - o->sy;//flip y axis
+	
 	//Collision cube	
 	if(initHitCube == 0){
 		if(o->x < obj->properties.hitCube.minX) obj->properties.hitCube.minX = o->x;
@@ -156,6 +153,15 @@ void g3d_renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube){
 		obj->properties.hitCube.minY = obj->properties.hitCube.maxY = o->y;
 		obj->properties.hitCube.minZ = obj->properties.hitCube.maxZ = o->z;
 	}
+}
+
+void g3d_calculateProjection(vector3d* o, u8 doZClip){
+	//Projection calculation
+	if(doZClip == 1) o->z = ((o->z > cam.d) ? (o->z) : (cam.d));
+	
+	o->sx=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->x,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
+	o->sy=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->y,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_HEIGHT>>1)));
+	o->sy = SCREEN_HEIGHT - o->sy;//flip y axis	
 }
 
 /**************************
@@ -181,7 +187,7 @@ void g3d_drawObject(object* o){
 	i=0;
 	//Load and render all distinct vertices into the vertex buffer;
 	//This will render all object vertices based on the objects position,rotation etc..
-	//tickStart = tick;
+	CACHE_ENABLE;
 	while(v < vertices){
 		v1.x = o->objData->data[v];
 		v1.y = o->objData->data[v+1];
@@ -193,20 +199,23 @@ void g3d_drawObject(object* o){
 		i++;
 		v+=3;
 	}
-	//tickEnd = tick;
-	//vbTextOut(0,5,0,"Render");
-	//vbTextOut(0,21,0,itoa((tickEnd - tickStart),10,2));
+	CACHE_DISABLE;
 
 	//This reads the "faces" section of the data and draws lines between points.
 	//We'll use the vertex buffer's already rendered vertices
-	//tickStart = tick;
 	while(v < (lines+vertices)){
 		v1p = &vertexBuffer[o->objData->data[v]];		
 		
 		for(i=1; i<verts; i++){
 			v++;
 			v2p = &vertexBuffer[o->objData->data[v]];
-			g3d_drawLine(v1p,v2p,3,o);
+			
+			//Simple screen z axis clipping
+			if((v1p->z > cam.d) || (v2p->z > cam.d)){
+				g3d_calculateProjection(v1p,(u8)1);
+				g3d_calculateProjection(v2p,(u8)1);
+				g3d_drawLine(v1p,v2p,o->properties.lineColor);
+			}
 			vtp = v2p;
 			v1p = v2p;
 			v2p = vtp;
@@ -214,9 +223,6 @@ void g3d_drawObject(object* o){
 		}
 		v++;
 	}
-	//tickEnd = tick;
-	//vbTextOut(0,5,1,"Draw Lines");
-	//vbTextOut(0,21,1,itoa((tickEnd - tickStart),10,2));
 }
 
 /************************************
@@ -324,7 +330,7 @@ void inline drawPoint(s32 x, s32 y, u8 color, s32 p){
 /*******************************
 My Line Algorithm (Brezenham based)
 *******************************/
-void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
+void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* v2, u8 color){
 	s32 vx,vy,vz,vx2,vy2;
 	s32 dx, dy, dz;
 	s32 sx,sy,sz,pixels,err;
@@ -335,16 +341,14 @@ void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	#else
 	s32 p;
 	#endif
-
+	
+	//Screen x,y clipping
 	vx = v1->sx;
 	vy = v1->sy;
 	vx2 = v2->sx;
 	vy2 = v2->sy;
 	doDraw = g3d_clipLine(&vx,&vy,&vx2,&vy2,SCREEN_HEIGHT,0,SCREEN_WIDTH,0);
-	if(!doDraw) return;
-	
-	//Simple screen z axis clipping
-	if((v1->z <= cam.d) || (v2->z <= cam.d)) return;
+	if(!doDraw) return;		
 	
 	dx=(~(vx - vx2)+1);
 	dy=(~(vy - vy2)+1);
@@ -393,10 +397,9 @@ void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	#else
 	//The VB only runs at 20Mhz but it has 30 registers.
 	//Lets use em all and squeeze out as much processing speed as possible.
-	//2B12 - draw function
 	asm volatile(
 	//Setup all the registers with initial values
-	//r5,r4 are scratch for our purposes
+	//r28,r29 are scratch for our purposes
 	"ld.w %[dy],r6\n"
 	"ld.w %[dx],r7\n"
 	"ld.w %[err],r8\n"
@@ -425,15 +428,15 @@ void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 		"mov r7,r8\n"
 		"sar 0x01,r8\n"
 	//sz=(sz)*(F_NUM_UP(dz)/((dx==0)?(1):(dx)));
-		"mov r7,r5\n"
+		"mov r7,r28\n"
 		"cmp r0,r7\n"
 		"bne _nextLine1\n"
-		"mov 0x01,r5\n"
+		"mov 0x01,r28\n"
 		"_nextLine1:\n"
-		"mov r10,r4\n"
-		"shl %[fixedShift],r4\n"
-		"div r5,r4\n"
-		"mul r4,r9\n"
+		"mov r10,r29\n"
+		"shl %[fixedShift],r29\n"
+		"div r28,r29\n"
+		"mul r29,r9\n"
 	//for(p=0;p<pixels;p++){
 		"_lineLoop1Top:\n"
 		"cmp r0,r11\n"
@@ -463,23 +466,23 @@ void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	//loffset = (((x-p)<<4) + (y>>4));
 		"mov r12,r17\n"
 		"sar 0x04,r17\n"
-		"mov r15,r5\n"
-		"sub r26,r5\n"
-		"shl 0x04,r5\n"
-		"add r5,r17\n"
+		"mov r15,r28\n"
+		"sub r26,r28\n"
+		"shl 0x04,r28\n"
+		"add r28,r17\n"
 	//roffset = (loffset + (p<<5));	
 		"mov r26,r18\n"
 		"shl 0x05,r18\n"
 		"add r17,r18\n"
 	//if(loffset>0x1800 || loffset<0) return;
-		"movea 0x1800,r0,r5\n"
-		"cmp r5,r17\n"
+		"movea 0x1800,r0,r28\n"
+		"cmp r28,r17\n"
 		"bge _endDrawPoint1\n"
 		"cmp r0,r17\n"
 		"blt _endDrawPoint1\n"
 	//if(roffset>0x1800 || roffset<0) return;
-		"movea 0x1800,r0,r5\n"
-		"cmp r5,r18\n"
+		"movea 0x1800,r0,r28\n"
+		"cmp r28,r18\n"
 		"bge _endDrawPoint1\n"
 		"cmp r0,r18\n"
 		"blt _endDrawPoint1\n"
@@ -489,25 +492,25 @@ void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 		"andi 0x0F,r12,r19\n"
 		"shl 0x01,r19\n"
 	//currentFrameBuffer[loffset] |= (color<<yleft);
-		"mov r17,r5\n"
-		"shl 0x02,r5\n"
-		"add r24,r5\n"
-		"ld.w 0x0[r5],r4\n"
+		"mov r17,r28\n"
+		"shl 0x02,r28\n"
+		"add r24,r28\n"
+		"ld.w 0x0[r28],r29\n"
 		"shl r19,r27\n"
-		"or r27,r4\n"
-		"st.w r4,0x0[r5]\n"
+		"or r27,r29\n"
+		"st.w r29,0x0[r28]\n"
 	//((u32*)(currentFrameBuffer+0x4000))[roffset] |= (color<<yleft);
-		//"movhi 0x01,r5,r5\n"
-		//"add r18,r5\n"
-		//"st.w r4,0x0[r5]\n"
+		//"movhi 0x01,r28,r28\n"
+		//"add r18,r28\n"
+		//"st.w r29,0x0[r28]\n"
 	
-		"mov r18,r5\n"
-		"shl 0x02,r5\n"
-		"add r25,r5\n"
-		"add r24,r5\n"
-		"ld.w 0x0[r5],r4\n"
-		"or r27,r4\n"
-		"st.w r4,0x0[r5]\n"
+		"mov r18,r28\n"
+		"shl 0x02,r28\n"
+		"add r25,r28\n"
+		"add r24,r28\n"
+		"ld.w 0x0[r28],r29\n"
+		"or r27,r29\n"
+		"st.w r29,0x0[r28]\n"
 		
 		"_endDrawPoint1:\n"
 	//******************************************************
@@ -535,15 +538,15 @@ void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 		"mov r6,r8\n"
 		"sar 0x01,r8\n"
 	//sz=(sz)*(F_NUM_UP(dz)/((dy==0)?(1):(dy)));
-		"mov r6,r5\n"
+		"mov r6,r28\n"
 		"cmp r0,r6\n"
 		"bne _nextLine3\n"
-		"mov 0x01,r5\n"
+		"mov 0x01,r28\n"
 		"_nextLine3:\n"
-		"mov r10,r4\n"
-		"shl %[fixedShift],r4\n"
-		"div r5,r4\n"
-		"mul r4,r9\n"
+		"mov r10,r29\n"
+		"shl %[fixedShift],r29\n"
+		"div r28,r29\n"
+		"mul r29,r9\n"
 	//for(p=0;p<pixels;p++){
 		"_lineLoop2Top:\n"
 		"cmp r0,r11\n"
@@ -573,23 +576,23 @@ void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	//loffset = (((x-p)<<4) + (y>>4));
 		"mov r12,r17\n"
 		"sar 0x04,r17\n"
-		"mov r15,r5\n"
-		"sub r26,r5\n"
-		"shl 0x04,r5\n"
-		"add r5,r17\n"
+		"mov r15,r28\n"
+		"sub r26,r28\n"
+		"shl 0x04,r28\n"
+		"add r28,r17\n"
 	//roffset = (loffset + (p<<5));	
 		"mov r26,r18\n"
 		"shl 0x05,r18\n"
 		"add r17,r18\n"
 	//if(loffset>0x1800 || loffset<0) return;
-		"movea 0x1800,r0,r5\n"
-		"cmp r5,r17\n"
+		"movea 0x1800,r0,r28\n"
+		"cmp r28,r17\n"
 		"bge _endDrawPoint2\n"
 		"cmp r0,r17\n"
 		"blt _endDrawPoint2\n"
 	//if(roffset>0x1800 || roffset<0) return;
-		"movea 0x1800,r0,r5\n"
-		"cmp r5,r18\n"
+		"movea 0x1800,r0,r28\n"
+		"cmp r28,r18\n"
 		"bge _endDrawPoint2\n"
 		"cmp r0,r18\n"
 		"blt _endDrawPoint2\n"
@@ -599,25 +602,25 @@ void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 		"andi 0x0F,r12,r19\n"
 		"shl 0x01,r19\n"
 	//currentFrameBuffer[loffset] |= (color<<yleft);
-		"mov r17,r5\n"
-		"shl 0x02,r5\n"
-		"add r24,r5\n"
-		"ld.w 0x0[r5],r4\n"
+		"mov r17,r28\n"
+		"shl 0x02,r28\n"
+		"add r24,r28\n"
+		"ld.w 0x0[r28],r29\n"
 		"shl r19,r27\n"
-		"or r27,r4\n"
-		"st.w r4,0x0[r5]\n"
+		"or r27,r29\n"
+		"st.w r29,0x0[r28]\n"
 	//((u32*)(currentFrameBuffer+0x4000))[roffset] |= (color<<yleft);
-		//"movhi 0x01,r5,r5\n"
-		//"add r18,r5\n"
-		//"st.w r4,0x0[r5]\n"
+		//"movhi 0x01,r28,r28\n"
+		//"add r18,r28\n"
+		//"st.w r29,0x0[r28]\n"
 	
-		"mov r18,r5\n"
-		"shl 0x02,r5\n"
-		"add r25,r5\n"
-		"add r24,r5\n"
-		"ld.w 0x0[r5],r4\n"
-		"or r27,r4\n"
-		"st.w r4,0x0[r5]\n"
+		"mov r18,r28\n"
+		"shl 0x02,r28\n"
+		"add r25,r28\n"
+		"add r24,r28\n"
+		"ld.w 0x0[r28],r29\n"
+		"or r27,r29\n"
+		"st.w r29,0x0[r28]\n"
 	
 		
 		"_endDrawPoint2:\n"
@@ -650,7 +653,7 @@ void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color, object* o){
 	 [screenH] "i" (SCREEN_HEIGHT), [screenW] "i" (SCREEN_WIDTH), [parallaxM] "i" (PARALLAX_MAX),
 	 [fbLeft] "m" (currentFrameBuffer), [fbRightOff] "i" (0x4000), [color] "m" (color),
 	 [parallaxShift] "i" (PARALLAX_SHIFT)
-	 :"r4","r5","r6","r7","r8","r9","r10","r11","r12","r13","r14","r15","r16","r17","r18","r19","r20","r21","r22","r23","r24","r25","r26","r27"
+	 :"r6","r7","r8","r9","r10","r11","r12","r13","r14","r15","r16","r17","r18","r19","r20","r21","r22","r23","r24","r25","r26","r27","r28","r29"
 	);
 	#endif
 	CACHE_DISABLE;
@@ -665,9 +668,6 @@ void inline g3d_initObject(object* o){
 	o->worldPosition.x = 0;
 	o->worldPosition.y = 0;
 	o->worldPosition.z = 0;
-	o->position.x = 0;
-	o->position.y = 0;
-	o->position.z = 0;
 	o->moveTo.x = 0;
 	o->moveTo.y = 0;
 	o->moveTo.z = 0;
@@ -686,11 +686,114 @@ void inline g3d_initObject(object* o){
 	o->worldScale.x = F_NUM_UP(1);
 	o->worldScale.y = F_NUM_UP(1);
 	o->worldScale.z = F_NUM_UP(1);
-	o->scale.x = F_NUM_UP(1);
-	o->scale.y = F_NUM_UP(1);
-	o->scale.z = F_NUM_UP(1);
+	o->scale.x = 0;
+	o->scale.y = 0;
+	o->scale.z = 0;
 	o->parent = (object*)0x00;
 	
 	o->properties.visible = 1;
 	o->properties.detectCollision = 0;
+	o->properties.lineColor = 3;
+}
+
+void inline g3d_moveObject(object* o){
+	//Increment attributes	
+	if(o->rotation.x != 0) o->worldRotation.x += o->rotation.x;
+	if(o->rotation.y != 0) o->worldRotation.y += o->rotation.y;
+	if(o->rotation.z != 0) o->worldRotation.z += o->rotation.z;
+	
+	if(o->speed.x != 0) o->worldSpeed.x += o->speed.x;
+	if(o->speed.y != 0) o->worldSpeed.y += o->speed.y;
+	if(o->speed.z != 0) o->worldSpeed.z += o->speed.z;
+	
+	if(o->scale.x != 0) o->worldScale.x += o->scale.x;
+	if(o->scale.y != 0) o->worldScale.y += o->scale.y;
+	if(o->scale.z != 0) o->worldScale.z += o->scale.z;
+	
+	//Check rotation angles
+	while(o->worldRotation.x > 359) o->worldRotation.x -= 360;
+	while(o->worldRotation.y > 359) o->worldRotation.y -= 360;
+	while(o->worldRotation.z > 359) o->worldRotation.z -= 360;
+	while(o->worldRotation.x < -359) o->worldRotation.x += 360;
+	while(o->worldRotation.y < -359) o->worldRotation.y += 360;
+	while(o->worldRotation.z < -359) o->worldRotation.z += 360;
+	
+	//Move the object based on moveto and speed
+	if(o->moveTo.x != o->worldPosition.x){
+		vbTextOut(0,5,1,"X not equal");
+		if(o->worldPosition.x < o->moveTo.x){
+			o->worldPosition.x += o->worldSpeed.x;
+			if(o->worldPosition.x > o->moveTo.x) o->worldPosition.x = o->moveTo.x;
+		}else{
+			o->worldPosition.x -= o->worldSpeed.x;
+			if(o->worldPosition.x < o->moveTo.x) o->worldPosition.x = o->moveTo.x;
+		}
+	}
+	if(o->moveTo.y != o->worldPosition.y){
+		vbTextOut(0,5,2,"Y not equal");
+		if(o->worldPosition.y < o->moveTo.y){
+			o->worldPosition.y += o->worldSpeed.y;
+			if(o->worldPosition.y > o->moveTo.y) o->worldPosition.y = o->moveTo.y;
+		}else{
+			o->worldPosition.y -= o->worldSpeed.y;
+			if(o->worldPosition.y < o->moveTo.y) o->worldPosition.y = o->moveTo.y;
+		}
+	}
+	if(o->moveTo.z != o->worldPosition.z){
+		vbTextOut(0,5,3,"Z not equal");
+		if(o->worldPosition.z < o->moveTo.z){
+			o->worldPosition.z += o->worldSpeed.z;
+			if(o->worldPosition.z > o->moveTo.z) o->worldPosition.z = o->moveTo.z;
+		}else{
+			o->worldPosition.z -= o->worldSpeed.z;
+			if(o->worldPosition.z < o->moveTo.z) o->worldPosition.z = o->moveTo.z;
+		}
+	}	
+}
+
+void inline g3d_moveCamera(camera* c){
+	//Do increments
+	if(c->rotation.x != 0) c->worldRotation.x += c->rotation.x;
+	if(c->rotation.y != 0) c->worldRotation.y += c->rotation.y;
+	if(c->rotation.z != 0) c->worldRotation.z += c->rotation.z;
+	
+	if(c->speed.x != 0) c->worldSpeed.x += c->speed.x;
+	if(c->speed.y != 0) c->worldSpeed.y += c->speed.y;
+	if(c->speed.z != 0) c->worldSpeed.z += c->speed.z;
+	
+	//Check rotation angles
+	while(c->worldRotation.x > 359) c->worldRotation.x -= 360;
+	while(c->worldRotation.y > 359) c->worldRotation.y -= 360;
+	while(c->worldRotation.z > 359) c->worldRotation.z -= 360;
+	while(c->worldRotation.x < -359) c->worldRotation.x += 360;
+	while(c->worldRotation.y < -359) c->worldRotation.y += 360;
+	while(c->worldRotation.z < -359) c->worldRotation.z += 360;
+	//Move camera based on moveto and speed
+	if(c->moveTo.x != c->worldPosition.x){
+		if(c->worldPosition.x < c->moveTo.x){
+			c->worldPosition.x += c->worldSpeed.x;
+			if(c->worldPosition.x > c->moveTo.x) c->worldPosition.x = c->moveTo.x;
+		}else{
+			c->worldPosition.x -= c->worldSpeed.x;
+			if(c->worldPosition.x < c->moveTo.x) c->worldPosition.x = c->moveTo.x;
+		}
+	}
+	if(c->moveTo.y != c->worldPosition.y){
+		if(c->worldPosition.y < c->moveTo.y){
+			c->worldPosition.y += c->worldSpeed.y;
+			if(c->worldPosition.y > c->moveTo.y) c->worldPosition.y = c->moveTo.y;
+		}else{
+			c->worldPosition.y -= c->worldSpeed.y;
+			if(c->worldPosition.y < c->moveTo.y) c->worldPosition.y = c->moveTo.y;
+		}
+	}
+	if(c->moveTo.z != c->worldPosition.z){
+		if(c->worldPosition.z < c->moveTo.z){
+			c->worldPosition.z += c->worldSpeed.z;
+			if(c->worldPosition.z > c->moveTo.z) c->worldPosition.z = c->moveTo.z;
+		}else{
+			c->worldPosition.z -= c->worldSpeed.z;
+			if(c->worldPosition.z < c->moveTo.z) c->worldPosition.z = c->moveTo.z;
+		}
+	}
 }

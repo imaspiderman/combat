@@ -35,7 +35,6 @@ Object functions
 void initObjects();
 void setObjectRelative(object* o, object* parent);
 void setObjectRelativeCamera(object* o);
-void moveObject(object* o);
 /********************************************************/
 
 
