@@ -26,9 +26,51 @@ void inline g3d_scale(vector3d* factor, vector3d* v, vector3d* o){
 Rotates a point around the X axis
 ************************************/
 void inline g3d_rotateXAxis(s32 degrees, vector3d* v, vector3d* o){
+#ifndef __ASM_CODE
 	o->x = v->x;
 	o->z = (F_MUL(v->z, cosine[degrees])) + (F_MUL(sine[degrees], v->y));
-	o->y = (F_MUL(v->z, -sine[degrees])) + (F_MUL(cosine[degrees], v->y));	
+	o->y = (F_MUL(v->z, -sine[degrees])) + (F_MUL(cosine[degrees], v->y));
+#else
+	o->x = v->x;
+	asm(
+	"ld.w %[vx],r6\n"
+	"ld.w %[vy],r7\n"
+	"ld.w %[vz],r8\n"
+	"ld.w %[deg],r9\n"
+	"shl 2,r9\n"
+	"add r9,%[cos]\n"
+	"add r9,%[sin]\n"
+	"ld.w 0x0[%[cos]],r10\n"
+	"ld.w 0x0[%[sin]],r11\n"
+	//F_MUL(v->z, cosine[degrees])
+	"mov r8,r12\n"
+	"mul r10,r12\n"
+	"sar %[fixShift],r12\n"
+	//+ (F_MUL(sine[degrees],v->y))
+	"mov r7,r13\n"
+	"mul r11,r13\n"
+	"sar %[fixShift],r13\n"
+	"add r12,r13\n"
+	"st.w r13, 0x08[%[o]]\n"
+	//F_MUL(v->z, -sine[degrees])
+	"not r11,r11\n"
+	"addi 1,r11,r11\n"
+	"mov r8,r12\n"
+	"mul r11,r12\n"
+	"sar %[fixShift],r12\n"
+	//+ F_MUL(cosine[degrees], v->y)
+	"mov r10,r13\n"
+	"mul r7,r13\n"
+	"sar %[fixShift],r13\n"
+	"add r12,r13\n"
+	"st.w r13,0x04[%[o]]\n"
+	:/*output*/
+	:[vx] "m" (v->x),[vy] "m" (v->y),[vz] "m" (v->z),
+	 [o] "r" ((vector3d*)o),[cos] "r" (cosine),[sin] "r" (sine),
+	 [deg] "m" (degrees),[fixShift] "i" (FIXED_SHIFT)
+	:"r6","r7","r8","r9","r10","r11","r12","r13"
+	);
+#endif
 }
 
 /**********************************
@@ -155,10 +197,7 @@ void g3d_renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube){
 	}
 }
 
-void g3d_calculateProjection(vector3d* o, u8 doZClip){
-	//Projection calculation
-	if(doZClip == 1) o->z = ((o->z > cam.d) ? (o->z) : (cam.d));
-	
+void g3d_calculateProjection(vector3d* o){
 	o->sx=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->x,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
 	o->sy=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->y,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_HEIGHT>>1)));
 	o->sy = SCREEN_HEIGHT - o->sy;//flip y axis	
@@ -212,8 +251,8 @@ void g3d_drawObject(object* o){
 			
 			//Simple screen z axis clipping
 			if((v1p->z > cam.d) || (v2p->z > cam.d)){
-				g3d_calculateProjection(v1p,(u8)1);
-				g3d_calculateProjection(v2p,(u8)1);
+				g3d_calculateProjection(v1p);
+				g3d_calculateProjection(v2p);
 				g3d_drawLine(v1p,v2p,o->properties.lineColor);
 			}
 			vtp = v2p;
@@ -348,11 +387,12 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 	vx2 = v2->sx;
 	vy2 = v2->sy;
 	doDraw = g3d_clipLine(&vx,&vy,&vx2,&vy2,SCREEN_HEIGHT,0,SCREEN_WIDTH,0);
-	if(!doDraw) return;		
+	if(!doDraw) return;
 	
 	dx=(~(vx - vx2)+1);
 	dy=(~(vy - vy2)+1);
 	dz=(~(F_NUM_DN(F_SUB(v1->z,v2->z))+1));
+	//dz=(~(F_NUM_DN(F_SUB(vz,vz2))+1));
 	
 	sx=(dx<0)?(-1):(1);
 	sy=(dy<0)?(-1):(1);
@@ -414,7 +454,6 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 	"ld.w %[loffset],r17\n"
 	"ld.w %[roffset],r18\n"
 	"ld.b %[yleft],r19\n"
-	"ld.w %[fbLeft],r20\n"
 	"movea %[screenH],r0,r21\n"
 	"movea %[screenW],r0,r22\n"
 	"movea %[parallaxM],r0,r23\n"
@@ -495,6 +534,7 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		"mov r17,r28\n"
 		"shl 0x02,r28\n"
 		"add r24,r28\n"
+		//"add r20,r28\n"
 		"ld.w 0x0[r28],r29\n"
 		"shl r19,r27\n"
 		"or r27,r29\n"
@@ -503,7 +543,7 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		//"movhi 0x01,r28,r28\n"
 		//"add r18,r28\n"
 		//"st.w r29,0x0[r28]\n"
-	
+
 		"mov r18,r28\n"
 		"shl 0x02,r28\n"
 		"add r25,r28\n"
@@ -511,7 +551,7 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		"ld.w 0x0[r28],r29\n"
 		"or r27,r29\n"
 		"st.w r29,0x0[r28]\n"
-		
+
 		"_endDrawPoint1:\n"
 	//******************************************************
 	//err+=dy;
@@ -605,6 +645,7 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		"mov r17,r28\n"
 		"shl 0x02,r28\n"
 		"add r24,r28\n"
+		//"add r20,r28\n"
 		"ld.w 0x0[r28],r29\n"
 		"shl r19,r27\n"
 		"or r27,r29\n"
@@ -613,7 +654,7 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		//"movhi 0x01,r28,r28\n"
 		//"add r18,r28\n"
 		//"st.w r29,0x0[r28]\n"
-	
+
 		"mov r18,r28\n"
 		"shl 0x02,r28\n"
 		"add r25,r28\n"
@@ -621,8 +662,7 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		"ld.w 0x0[r28],r29\n"
 		"or r27,r29\n"
 		"st.w r29,0x0[r28]\n"
-	
-		
+
 		"_endDrawPoint2:\n"
 	//******************************************************
 	//err+=dx;
@@ -653,7 +693,7 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 	 [screenH] "i" (SCREEN_HEIGHT), [screenW] "i" (SCREEN_WIDTH), [parallaxM] "i" (PARALLAX_MAX),
 	 [fbLeft] "m" (currentFrameBuffer), [fbRightOff] "i" (0x4000), [color] "m" (color),
 	 [parallaxShift] "i" (PARALLAX_SHIFT)
-	 :"r6","r7","r8","r9","r10","r11","r12","r13","r14","r15","r16","r17","r18","r19","r20","r21","r22","r23","r24","r25","r26","r27","r28","r29"
+	 :"r6","r7","r8","r9","r10","r11","r12","r13","r14","r15","r16","r17","r18","r19","r21","r22","r23","r24","r25","r26","r27","r28","r29"
 	);
 	#endif
 	CACHE_DISABLE;

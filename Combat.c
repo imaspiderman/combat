@@ -68,6 +68,7 @@ int main(){
 		
 		screenControl();
 		while(tick < 266);//about 30 fps
+		vbTextOut(0,5,1,itoa(tick,10,8));
 	}
 }
 
