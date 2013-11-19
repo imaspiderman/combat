@@ -26,22 +26,16 @@ void inline g3d_scale(vector3d* factor, vector3d* v, vector3d* o){
 Rotates a point around the X axis
 ************************************/
 void inline g3d_rotateXAxis(s32 degrees, vector3d* v, vector3d* o){
-#ifndef __ASM_CODE
 	o->x = v->x;
+#ifndef __ASM_CODE
 	o->z = (F_MUL(v->z, cosine[degrees])) + (F_MUL(sine[degrees], v->y));
 	o->y = (F_MUL(v->z, -sine[degrees])) + (F_MUL(cosine[degrees], v->y));
 #else
-	o->x = v->x;
 	asm(
-	"ld.w %[vx],r6\n"
 	"ld.w %[vy],r7\n"
 	"ld.w %[vz],r8\n"
-	"ld.w %[deg],r9\n"
-	"shl 2,r9\n"
-	"add r9,%[cos]\n"
-	"add r9,%[sin]\n"
-	"ld.w 0x0[%[cos]],r10\n"
-	"ld.w 0x0[%[sin]],r11\n"
+	"ld.w %[cos],r10\n"
+	"ld.w %[sin],r11\n"
 	//F_MUL(v->z, cosine[degrees])
 	"mov r8,r12\n"
 	"mul r10,r12\n"
@@ -65,10 +59,10 @@ void inline g3d_rotateXAxis(s32 degrees, vector3d* v, vector3d* o){
 	"add r12,r13\n"
 	"st.w r13,0x04[%[o]]\n"
 	:/*output*/
-	:[vx] "m" (v->x),[vy] "m" (v->y),[vz] "m" (v->z),
-	 [o] "r" ((vector3d*)o),[cos] "r" (cosine),[sin] "r" (sine),
-	 [deg] "m" (degrees),[fixShift] "i" (FIXED_SHIFT)
-	:"r6","r7","r8","r9","r10","r11","r12","r13"
+	:[vy] "m" (v->y),[vz] "m" (v->z),
+	 [o] "r" ((vector3d*)o),[cos] "m" (cosine[degrees]),[sin] "m" (sine[degrees]),
+	 [fixShift] "i" (FIXED_SHIFT)
+	:"r7","r8","r10","r11","r12","r13"
 	);
 #endif
 }
@@ -78,8 +72,44 @@ Rotates a point around the Y axis
 ***********************************/
 void inline g3d_rotateYAxis(s32 degrees, vector3d* v, vector3d* o){
 	o->y = v->y;
+#ifndef __ASM_CODE
 	o->x = (F_MUL(v->x, cosine[degrees])) + (F_MUL(sine[degrees], v->z));
 	o->z = (F_MUL(v->x, -sine[degrees])) + (F_MUL(cosine[degrees], v->z));
+#else
+	asm(
+	"ld.w %[vz],r7\n"
+	"ld.w %[vx],r8\n"
+	"ld.w %[cos],r10\n"
+	"ld.w %[sin],r11\n"
+	//F_MUL(v->x, cosine[degrees])
+	"mov r8,r12\n"
+	"mul r10,r12\n"
+	"sar %[fixShift],r12\n"
+	//+ (F_MUL(sine[degrees],v->z))
+	"mov r7,r13\n"
+	"mul r11,r13\n"
+	"sar %[fixShift],r13\n"
+	"add r12,r13\n"
+	"st.w r13, 0x00[%[o]]\n"
+	//F_MUL(v->x, -sine[degrees])
+	"not r11,r11\n"
+	"addi 1,r11,r11\n"
+	"mov r8,r12\n"
+	"mul r11,r12\n"
+	"sar %[fixShift],r12\n"
+	//+ F_MUL(cosine[degrees], v->z)
+	"mov r10,r13\n"
+	"mul r7,r13\n"
+	"sar %[fixShift],r13\n"
+	"add r12,r13\n"
+	"st.w r13,0x08[%[o]]\n"
+	:/*output*/
+	:[vz] "m" (v->z),[vx] "m" (v->x),
+	 [o] "r" ((vector3d*)o),[cos] "m" (cosine[degrees]),[sin] "m" (sine[degrees]),
+	 [fixShift] "i" (FIXED_SHIFT)
+	:"r7","r8","r10","r11","r12","r13"
+	);
+#endif
 }
 
 /**********************************
@@ -87,8 +117,44 @@ Rotates a point around the Z axis
 ***********************************/
 void inline g3d_rotateZAxis(s32 degrees, vector3d* v, vector3d* o){
 	o->z = v->z;
+#ifndef __ASM_CODE
 	o->x = (F_MUL(v->x, cosine[degrees])) + (F_MUL(sine[degrees], v->y));
 	o->y = (F_MUL(v->x, -sine[degrees])) + (F_MUL(cosine[degrees], v->y));
+#else
+	asm(
+	"ld.w %[vy],r7\n"
+	"ld.w %[vx],r8\n"
+	"ld.w %[cos],r10\n"
+	"ld.w %[sin],r11\n"
+	//F_MUL(v->x, cosine[degrees])
+	"mov r8,r12\n"
+	"mul r10,r12\n"
+	"sar %[fixShift],r12\n"
+	//+ (F_MUL(sine[degrees],v->y))
+	"mov r7,r13\n"
+	"mul r11,r13\n"
+	"sar %[fixShift],r13\n"
+	"add r12,r13\n"
+	"st.w r13, 0x00[%[o]]\n"
+	//F_MUL(v->x, -sine[degrees])
+	"not r11,r11\n"
+	"addi 1,r11,r11\n"
+	"mov r8,r12\n"
+	"mul r11,r12\n"
+	"sar %[fixShift],r12\n"
+	//+ F_MUL(cosine[degrees], v->y)
+	"mov r10,r13\n"
+	"mul r7,r13\n"
+	"sar %[fixShift],r13\n"
+	"add r12,r13\n"
+	"st.w r13,0x04[%[o]]\n"
+	:/*output*/
+	:[vy] "m" (v->y),[vx] "m" (v->x),
+	 [o] "r" ((vector3d*)o),[cos] "m" (cosine[degrees]),[sin] "m" (sine[degrees]),
+	 [fixShift] "i" (FIXED_SHIFT)
+	:"r7","r8","r10","r11","r12","r13"
+	);
+#endif
 }
 
 /***********************************************
@@ -198,9 +264,68 @@ void g3d_renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube){
 }
 
 void g3d_calculateProjection(vector3d* o){
+#ifndef __ASM_CODE
 	o->sx=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->x,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
 	o->sy=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->y,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_HEIGHT>>1)));
-	o->sy = SCREEN_HEIGHT - o->sy;//flip y axis	
+	o->sy = SCREEN_HEIGHT - o->sy;//flip y axis
+#else
+	asm volatile(
+	"ld.w %[ox], r6\n"
+	"ld.w %[oy], r7\n"
+	"ld.w %[oz], r8\n"
+	"ld.w %[camd], r9\n"
+	"movea %[scrHalfW], r0, r10\n"
+	"movea %[scrHalfH], r0, r11\n"
+	"movea %[scrH], r0, r12\n"
+	//F_NUM_UP(SCREEN_WIDTH>>1)
+	"shl %[fixShift], r10\n"
+	//F_NUM_UP(SCREEN_HEIGHT>>1)
+	"shl %[fixShift], r11\n"
+	//F_MUL(o->x,cam.d)
+	"mul r9, r6\n"
+	"sar %[fixShiftm1], r6\n"
+	"andi 0x01, r6, r13\n"
+	"sar 0x01, r6\n"
+	"add r13, r6\n"
+	//F_MUL(o->y,cam.d)
+	"mul r9, r7\n"
+	"sar %[fixShiftm1], r7\n"
+	"andi 0x01, r7, r13\n"
+	"sar 0x01, r7\n"
+	"add r13, r7\n"
+	//F_ADD(cam.d, o->z)
+	"add r9, r8\n"
+	//F_DIV : sx
+	"shl %[fixShift], r6\n"
+	"div r8, r6\n"
+	//F_DIV : sy
+	"shl %[fixShift], r7\n"
+	"div r8, r7\n"
+	//F_ADD : sx
+	"add r10, r6\n"
+	//F_ADD : sy
+	"add r11, r7\n"
+	//F_NUM_DN : sx
+	"sar %[fixShiftm1], r6\n"
+	"andi 0x01, r6, r13\n"
+	"sar 0x01, r6\n"
+	"add r13, r6\n"
+	"st.w r6, 0x0[%[sx]]\n"
+	//F_NUM_DN : sy
+	"sar %[fixShiftm1], r7\n"
+	"andi 0x01, r7, r13\n"
+	"sar 0x01, r7\n"
+	"add r13, r7\n"
+	"sub r7, r12\n"
+	"st.w r12, 0x0[%[sy]]\n"
+	://output
+	:[ox] "m" (o->x), [oy] "m" (o->y), [oz] "m" (o->z),
+	 [scrHalfW] "i" (SCREEN_WIDTH >> 1), [scrHalfH] "i" (SCREEN_HEIGHT>>1), [scrH] "i" (SCREEN_HEIGHT),
+	 [camd] "m" (cam.d), [sx] "r" (&o->sx), [sy] "r" (&o->sy),
+	 [fixShiftm1] "i" (FIXED_SHIFT-1), [fixShift] "i" (FIXED_SHIFT)
+	:"r6","r7","r8","r9","r10","r11","r12","r13"
+	);
+#endif
 }
 
 /**************************
@@ -227,6 +352,7 @@ void g3d_drawObject(object* o){
 	//Load and render all distinct vertices into the vertex buffer;
 	//This will render all object vertices based on the objects position,rotation etc..
 	CACHE_ENABLE;
+	tickStart = tick;
 	while(v < vertices){
 		v1.x = o->objData->data[v];
 		v1.y = o->objData->data[v+1];
@@ -238,6 +364,8 @@ void g3d_drawObject(object* o){
 		i++;
 		v+=3;
 	}
+	tickEnd = tick;
+	tickRender += (tickEnd - tickStart);
 	CACHE_DISABLE;
 
 	//This reads the "faces" section of the data and draws lines between points.
@@ -251,9 +379,15 @@ void g3d_drawObject(object* o){
 			
 			//Simple screen z axis clipping
 			if((v1p->z > cam.d) || (v2p->z > cam.d)){
+				tickStart = tick;
 				g3d_calculateProjection(v1p);
 				g3d_calculateProjection(v2p);
+				tickEnd = tick;
+				tickProject += (tickEnd - tickStart);
+				tickStart = tick;
 				g3d_drawLine(v1p,v2p,o->properties.lineColor);
+				tickEnd = tick;
+				tickDraw += (tickEnd - tickStart);
 			}
 			vtp = v2p;
 			v1p = v2p;
@@ -373,7 +507,7 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 	s32 vx,vy,vz,vx2,vy2;
 	s32 dx, dy, dz;
 	s32 sx,sy,sz,pixels,err;
-	u8 doDraw;
+	//u8 doDraw;
 	#ifdef __ASM_CODE
 	s32 loffset,roffset;
 	u8 yleft;
@@ -386,8 +520,9 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 	vy = v1->sy;
 	vx2 = v2->sx;
 	vy2 = v2->sy;
-	doDraw = g3d_clipLine(&vx,&vy,&vx2,&vy2,SCREEN_HEIGHT,0,SCREEN_WIDTH,0);
-	if(!doDraw) return;
+	//doDraw = g3d_clipLine(&vx,&vy,&vx2,&vy2,SCREEN_HEIGHT,0,SCREEN_WIDTH,0);
+	//if(!doDraw) return;
+	if(v1->z < (cam.worldPosition.z + cam.d) || v2->z < (cam.worldPosition.z + cam.d)) return;
 	
 	dx=(~(vx - vx2)+1);
 	dy=(~(vy - vy2)+1);

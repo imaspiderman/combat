@@ -8,6 +8,9 @@ volatile u8 FPS = 0;
 volatile u32 tick = 0;
 volatile u32 tickStart = 0;
 volatile u32 tickEnd = 0;
+volatile u32 tickDraw = 0;
+volatile u32 tickRender = 0;
+volatile u32 tickProject = 0;
 
 u8 modelnum = 0;
 s32 vertexCount = 0;
@@ -55,6 +58,9 @@ int main(){
 	
 	while(1){		
 		tick = 0;
+		tickDraw = 0;
+		tickRender = 0;
+		tickProject = 0;
 		
 		handleInput(&o_player);
 		
@@ -66,9 +72,14 @@ int main(){
 		g3d_drawObject(&o_enemy);
 		g3d_drawObject(&o_map);
 		
+		vbTextOut(0,5,0,itoa(tick,10,8));
+		vbTextOut(0,5,1,itoa(tickDraw,10,8));
+		vbTextOut(0,5,2,itoa(tickRender,10,8));
+		vbTextOut(0,5,3,itoa(tickProject,10,8));
+		vbTextOut(0,5,4,itoa((tickDraw+tickRender+tickProject),10,8));
+		
 		screenControl();
 		while(tick < 266);//about 30 fps
-		vbTextOut(0,5,1,itoa(tick,10,8));
 	}
 }
 
