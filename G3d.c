@@ -377,9 +377,9 @@ void g3d_drawObject(object* o){
 			v++;
 			v2p = &vertexBuffer[o->objData->data[v]];
 			
-			//Simple screen z axis clipping
 			if((v1p->z > cam.d) || (v2p->z > cam.d)){
 				tickStart = tick;
+				g3d_clipZAxis(v1p, v2p);
 				g3d_calculateProjection(v1p);
 				g3d_calculateProjection(v2p);
 				tickEnd = tick;
@@ -395,6 +395,69 @@ void g3d_drawObject(object* o){
 			
 		}
 		v++;
+	}
+}
+
+/*************************************
+Clips the z axis of the vectors if needed
+We are going to break up the line into 8
+pieces. We'll determine which piece the
+camera is closest to and clip the line
+to the closest piece.
+**************************************/
+void inline g3d_clipZAxis(vector3d* v1, vector3d* v2){
+	s32 frac,diff,mult;
+	vector3d* minV;
+	vector3d* maxV;
+	
+	if(v1->z > cam.d && v2->z > cam.d) return;
+	if(v1->z < cam.d && v2->z < cam.d) return;
+	
+	/****************
+	Calculate 8 positions between the two z points and
+	determine which position the camera is closest to
+	*****************/
+	if(v1->z < v2->z) {
+		minV = v1;
+		maxV = v2;
+	}else {
+		minV = v2;
+		maxV = v1;
+	}
+	frac = (maxV->z - minV->z) >> 3;
+	diff = cam.d - minV->z;
+	
+	if(frac > 0){
+		while(diff > 0){
+			diff -= frac;
+			mult++;
+			if(mult > 8) break;
+		}
+		mult--;
+	}
+	
+	if(mult != 0){
+		if(mult == 1){
+			minV->z += frac;
+		}else
+			if(mult == 2){
+				minV->z += (frac << 1);
+			}else
+				if(mult == 3){
+					minV->z += (frac << 1) + frac;
+				}else
+					if(mult == 4){
+						minV->z += (frac << 2);
+					}else
+						if(mult == 5){
+							minV->z += (frac << 2) + frac;
+						}else
+							if(mult == 6){
+								minV->z += (frac << 2) + (frac << 1);
+							}else
+								if(mult == 7){
+									minV->z += (frac << 2) + (frac << 1) + frac;
+								}else minV->z = maxV->z;
 	}
 }
 
@@ -507,7 +570,7 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 	s32 vx,vy,vz,vx2,vy2;
 	s32 dx, dy, dz;
 	s32 sx,sy,sz,pixels,err;
-	//u8 doDraw;
+	u8 doDraw;
 	#ifdef __ASM_CODE
 	s32 loffset,roffset;
 	u8 yleft;
@@ -520,9 +583,8 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 	vy = v1->sy;
 	vx2 = v2->sx;
 	vy2 = v2->sy;
-	//doDraw = g3d_clipLine(&vx,&vy,&vx2,&vy2,SCREEN_HEIGHT,0,SCREEN_WIDTH,0);
-	//if(!doDraw) return;
-	if(v1->z < (cam.worldPosition.z + cam.d) || v2->z < (cam.worldPosition.z + cam.d)) return;
+	doDraw = g3d_clipLine(&vx,&vy,&vx2,&vy2,SCREEN_HEIGHT,0,SCREEN_WIDTH,0);
+	if(!doDraw) return;
 	
 	dx=(~(vx - vx2)+1);
 	dy=(~(vy - vy2)+1);

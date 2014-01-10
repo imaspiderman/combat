@@ -215,6 +215,7 @@ void inline g3d_initObject(object* o);
 void inline g3d_moveObject(object* o);
 void inline g3d_moveCamera(camera* c);
 void g3d_calculateProjection(vector3d* o);
+void inline g3d_clipZAxis(vector3d* v1, vector3d* v2);
 /********************************************************/
 /********************************************************
 Core Drawing Functions

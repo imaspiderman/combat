@@ -1,6 +1,3 @@
-#ifndef __GameData_H
-#define __GameData_H
-
 const s32 Fighter[] = {186, //total number of vertices
 	248, //total number of line end points
 	2,
@@ -38,6 +35,3 @@ const s32 Fighter[] = {186, //total number of vertices
 	,54,54,55,57,57,56,56,56,57,59,59,58,58,58,59,61
 	,61,60,60,60,61,47,46,46,46,48,48,50,50,52,52,54
 	,54,56,56,58,58,60,61,61};
-
-
-#endif

@@ -3,6 +3,8 @@
 #include "GameFunctions.h"
 #include "GameData.h"
 #include "Font.h"
+#include "crossHairsChars.h"
+#include "crossHairsBGMap.h"
 //Timer for FPS
 volatile u8 FPS = 0;
 volatile u32 tick = 0;
@@ -14,47 +16,28 @@ volatile u32 tickProject = 0;
 
 u8 modelnum = 0;
 s32 vertexCount = 0;
+object objFighter;
+
 #include "G3d.c"
 
 int main(){
-	object o_player;
-	object o_enemy;
-	object o_map;
+	vector3d scale;
+	scale.x = F_NUM_UP(10);
+	scale.y = F_NUM_UP(10);
+	scale.z = F_NUM_UP(10);
 	
 	vbInit();
 	initObjects();
+	g3d_initObject(&objFighter);
+	objFighter.objData = (objectData*)Fighter;
+	objFighter.worldRotation.x = 90;
+	objFighter.worldRotation.z = 180;
+	objFighter.worldScale = scale; 
 	
-	g3d_initObject(&o_enemy);
-	g3d_initObject(&o_player);
-	g3d_initObject(&o_map);
-	
-	o_player.objData = (objectData*)tank;
-	o_player.worldPosition.x = 4000;
-	o_player.worldPosition.z = 16000;
-	o_player.moveTo.z = o_player.worldPosition.z;
-	o_player.moveTo.x = o_player.worldPosition.x;
-	o_player.worldRotation.y = 90;
-	
-	o_enemy.objData = (objectData*)tank;
-	o_enemy.worldPosition.x = 76000;
-	o_enemy.worldPosition.z = 64000;
-	o_enemy.moveTo.z = o_enemy.worldPosition.z;
-	o_enemy.moveTo.x = o_enemy.worldPosition.x;
-	o_enemy.worldRotation.y = -90;
-	
-	o_map.objData = (objectData*)map;
-	o_map.worldPosition.x = 0;
-	o_map.worldPosition.y = 0;
-	o_map.worldPosition.z = 8000;
-	o_map.properties.lineColor = 1;
-	
-	cam.worldPosition.z = -32000;
-	cam.worldPosition.y = 48000;
-	cam.worldPosition.x = 40000;
+	cam.worldPosition.z = F_NUM_UP(-400);
 	cam.moveTo.z = cam.worldPosition.z;
 	cam.moveTo.y = cam.worldPosition.y;
 	cam.moveTo.x = cam.worldPosition.x;
-	cam.worldRotation.x = 40;
 	
 	while(1){		
 		tick = 0;
@@ -62,22 +45,10 @@ int main(){
 		tickRender = 0;
 		tickProject = 0;
 		
-		handleInput(&o_player);
-		
+		handleInput(&objFighter);
 		g3d_moveCamera(&cam);
-		g3d_moveObject(&o_player);
-		g3d_moveObject(&o_enemy);
-		
-		g3d_drawObject(&o_player);
-		g3d_drawObject(&o_enemy);
-		g3d_drawObject(&o_map);
-		
-		vbTextOut(0,5,0,itoa(tick,10,8));
-		vbTextOut(0,5,1,itoa(tickDraw,10,8));
-		vbTextOut(0,5,2,itoa(tickRender,10,8));
-		vbTextOut(0,5,3,itoa(tickProject,10,8));
-		vbTextOut(0,5,4,itoa((tickDraw+tickRender+tickProject),10,8));
-		
+		g3d_drawObject(&objFighter);
+	
 		screenControl();
 		while(tick < 266);//about 30 fps
 	}
@@ -101,16 +72,16 @@ counter
 void handleInput(object* o){
 	buttons = vbReadPad();
 	if(K_LL & buttons){
-		cam.worldRotation.x -= 8;
+		WA[31].gx -= 2;
 	}
 	if(K_LR & buttons){
-		cam.worldRotation.x += 8;
+		WA[31].gx += 2;
 	}
 	if(K_LD & buttons){
-		cam.moveTo.y -= F_NUM_UP(50);
+		WA[31].gy += 2;
 	}
 	if(K_LU & buttons){
-		cam.moveTo.y += F_NUM_UP(50);
+		WA[31].gy -= 2;
 	}
 	if(K_RU & buttons){
 		if(cam.worldPosition.z == cam.moveTo.z) cam.moveTo.z += cam.worldSpeed.z;
@@ -120,9 +91,11 @@ void handleInput(object* o){
 	}
 	if(K_RT & buttons){
 		o->worldRotation.y += 8;
+		if(o->worldRotation.y > 359) o->worldRotation.y = o->worldRotation.y - 360;
 	}
 	if(K_LT & buttons){
 		o->worldRotation.y -= 8;
+		if(o->worldRotation.y < -359) o->worldRotation.y = o->worldRotation.y + 360;
 	}
 }
 
@@ -136,13 +109,15 @@ void initObjects(){
 	cam.worldRotation.x = 0;
 	cam.worldRotation.y = 0;
 	cam.worldRotation.z = 0;
-	cam.worldSpeed.x = F_NUM_UP(100);
-	cam.worldSpeed.y = F_NUM_UP(100);
-	cam.worldSpeed.z = F_NUM_UP(100);
+	cam.worldSpeed.x = F_NUM_UP(10);
+	cam.worldSpeed.y = F_NUM_UP(10);
+	cam.worldSpeed.z = F_NUM_UP(10);
 	cam.d = F_NUM_UP(256);	
 }
 
 void vbInit(){
+	u16 i;
+	
 	vbDisplayOn ();
 	vbSetColTable ();
 	
@@ -163,11 +138,24 @@ void vbInit(){
 	
 	//load font
 	copymem((u8*)CharSeg3, PVB_FONT, 0x2000);
+	
+	//load cross hairs chars
+	for(i=0; i<39*16; i++){
+		((u8*)CharSeg0)[i] = crossHairsChars[i];
+	}
+	//load cross hairs bgmap
+	for(i=0; i<128*4; i++){
+		((u16*)BGMap(0))[i] = crossHairsBGMap[i];
+	}
 
 	//world info
 	WA[31].head = WRLD_ON;
-	WA[31].w = 200;
-	WA[31].h = 200;
+	WA[31].w = 64;
+	WA[31].h = 64;
+	WA[31].gp = 2;
+	WA[31].gx = (SCREEN_WIDTH >> 1) - (WA[31].h >> 1);
+	WA[31].gy = (SCREEN_HEIGHT >> 1) - (WA[31].w >> 1);
+	
 	WA[30].head = WRLD_END;
 }
 

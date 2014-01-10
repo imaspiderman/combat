@@ -2,9 +2,10 @@
 Allocating common symbols
 Common symbol       size              file
 
-buttons             0x2               C:\users\greg\Temp\cc7oU1Sy.o
-vertexBuffer        0x4e20            C:\users\greg\Temp\cc7oU1Sy.o
-cam                 0x90              C:\users\greg\Temp\cc7oU1Sy.o
+objFighter          0xc8              C:\users\greg\Temp\ccGTwev1.o
+buttons             0x2               C:\users\greg\Temp\ccGTwev1.o
+vertexBuffer        0x4e20            C:\users\greg\Temp\ccGTwev1.o
+cam                 0x90              C:\users\greg\Temp\ccGTwev1.o
 
 Memory Configuration
 
@@ -16,20 +17,20 @@ rom              0x07000000         0x01000000         xr
 Linker script and memory map
 
 LOAD c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
-LOAD C:\users\greg\Temp\cc7oU1Sy.o
+LOAD C:\users\greg\Temp\ccGTwev1.o
 TARGET(elf32-v810)
                 0x07000000                __text_start = 0x7000000
                 0x05000000                __data_start = 0x5000000
                 0x05008000                __gp = (__data_start + 0x8000)
                 0x07000000                . = __text_start
 
-.text           0x07000000     0x41bc
+.text           0x07000000     0x43fc
  *(.text)
  .text          0x07000000      0x28e c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
                 0x07000000                start
                 0x07000180                _inthnd
  *fill*         0x0700028e        0x2 ff
- .text          0x07000290     0x3f2c C:\users\greg\Temp\cc7oU1Sy.o
+ .text          0x07000290     0x416c C:\users\greg\Temp\ccGTwev1.o
                 0x07000290                vbWaitFrame
                 0x07000300                vbDisplayOn
                 0x070004c8                vbDisplayOff
@@ -75,102 +76,105 @@ TARGET(elf32-v810)
                 0x07001d00                g3d_renderVector3d
                 0x07002044                g3d_calculateProjection
                 0x070020d4                g3d_drawObject
-                0x0700249c                g3d_clipLine
-                0x0700299c                drawPoint
-                0x07002b24                g3d_drawLine
-                0x07002eb8                g3d_initObject
-                0x07002fa8                g3d_moveObject
-                0x07003454                g3d_moveCamera
-                0x07003824                main
-                0x07003be4                timeHnd
-                0x07003c78                handleInput
-                0x07003e8c                initObjects
-                0x07003f3c                vbInit
-                0x070040c0                screenControl
+                0x070024b4                g3d_clipZAxis
+                0x07002720                g3d_clipLine
+                0x07002c20                drawPoint
+                0x07002da8                g3d_drawLine
+                0x0700313c                g3d_initObject
+                0x0700322c                g3d_moveObject
+                0x070036d8                g3d_moveCamera
+                0x07003aa8                main
+                0x07003c5c                timeHnd
+                0x07003cf0                handleInput
+                0x07003fa4                initObjects
+                0x07004054                vbInit
+                0x07004300                screenControl
  *(.text.*)
  *(.gnu.warning)
  *(.gnu.linkonce.t*)
-                0x070041bc                __text_end = .
+                0x070043fc                __text_end = .
 
-.rodata         0x070041bc     0x2c58
+.rodata         0x070043fc     0x399c
  *(.rodata)
- .rodata        0x070041bc     0x2c58 C:\users\greg\Temp\cc7oU1Sy.o
-                0x070041bc                L_FRAME0
-                0x070041c0                L_FRAME1
-                0x070041c4                R_FRAME0
-                0x070041c8                R_FRAME1
-                0x070041cc                BGMM
-                0x070041d0                WAM
-                0x070041d4                CLMN_TBL
-                0x070041d8                OAM
-                0x070041dc                colTable
-                0x0700425c                WAVEDATA1
-                0x07004260                WAVEDATA2
-                0x07004264                WAVEDATA3
-                0x07004268                WAVEDATA4
-                0x0700426c                WAVEDATA5
-                0x07004270                MODDATA
-                0x07004274                SND_REGS
-                0x07004278                jump_addr
-                0x0700428c                HW_REGS
-                0x07004290                EXPANSION
-                0x07004294                WORKRAM
-                0x07004298                SAVERAM
-                0x0700429c                nums
-                0x070042ac                WA
-                0x070042b0                cosine
-                0x07004850                sine
-                0x07004df0                PVB_FONT
+ .rodata        0x070043fc     0x399c C:\users\greg\Temp\ccGTwev1.o
+                0x070043fc                L_FRAME0
+                0x07004400                L_FRAME1
+                0x07004404                R_FRAME0
+                0x07004408                R_FRAME1
+                0x0700440c                BGMM
+                0x07004410                WAM
+                0x07004414                CLMN_TBL
+                0x07004418                OAM
+                0x0700441c                colTable
+                0x0700449c                WAVEDATA1
+                0x070044a0                WAVEDATA2
+                0x070044a4                WAVEDATA3
+                0x070044a8                WAVEDATA4
+                0x070044ac                WAVEDATA5
+                0x070044b0                MODDATA
+                0x070044b4                SND_REGS
+                0x070044b8                jump_addr
+                0x070044cc                HW_REGS
+                0x070044d0                EXPANSION
+                0x070044d4                WORKRAM
+                0x070044d8                SAVERAM
+                0x070044dc                nums
+                0x070044ec                WA
+                0x070044f0                cosine
+                0x07004a90                sine
+                0x07005030                Fighter
+                0x07005704                PVB_FONT
+                0x07007704                crossHairsChars
+                0x07007974                crossHairsBGMap
  *all.rodata*(*)
  *(.roda)
  *(.rodata.*)
  *(.gnu.linkonce.r*)
-                0x07006e14                __data_lma = .
+                0x07007d98                __data_lma = .
 
-.data           0x05000000      0x744 load address 0x07006e14
+.data           0x05000000        0xc load address 0x07007d98
  *(.data)
  .data          0x05000000        0x0 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
- .data          0x05000000      0x744 C:\users\greg\Temp\cc7oU1Sy.o
+ .data          0x05000000        0xc C:\users\greg\Temp\ccGTwev1.o
                 0x05000000                VIP_REGS
                 0x05000004                currentFrameBuffer
-                0x05000008                tank
-                0x05000634                map
  *(.data.*)
  *(.gnu.linkonce.d*)
 
 .sdata
  *(.sdata)
-                0x05000744                __data_end = .
+                0x0500000c                __data_end = .
 
 .sbss
  *(.sbss)
  *(.scommon)
 
-.bss            0x05000744     0x4ef4 load address 0x07007558
+.bss            0x0500000c     0x4fbc load address 0x07007da4
  *(.dynbss)
  *(.bss)
- .bss           0x05000744        0x0 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
- .bss           0x05000744       0x40 C:\users\greg\Temp\cc7oU1Sy.o
-                0x05000744                oldkeydown
-                0x05000746                oldkeyup
-                0x05000748                tcr_val
-                0x0500074c                numVertices
-                0x05000750                nextFrameBuffer
-                0x05000754                FPS
-                0x05000758                tick
-                0x0500075c                tickStart
-                0x05000760                tickEnd
-                0x05000764                tickDraw
-                0x05000768                tickRender
-                0x0500076c                tickProject
-                0x05000770                modelnum
-                0x05000774                vertexCount
+ .bss           0x0500000c        0x0 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
+ .bss           0x0500000c       0x40 C:\users\greg\Temp\ccGTwev1.o
+                0x0500000c                oldkeydown
+                0x0500000e                oldkeyup
+                0x05000010                tcr_val
+                0x05000014                numVertices
+                0x05000018                nextFrameBuffer
+                0x0500001c                FPS
+                0x05000020                tick
+                0x05000024                tickStart
+                0x05000028                tickEnd
+                0x0500002c                tickDraw
+                0x05000030                tickRender
+                0x05000034                tickProject
+                0x05000038                modelnum
+                0x0500003c                vertexCount
  *(COMMON)
- COMMON         0x05000784     0x4eb4 C:\users\greg\Temp\cc7oU1Sy.o
-                0x05000784                buttons
-                0x05000788                vertexBuffer
-                0x050055a8                cam
-                0x07007558                v = (__data_lma + (__data_end - __data_start))
+ COMMON         0x0500004c     0x4f7c C:\users\greg\Temp\ccGTwev1.o
+                0x0500004c                objFighter
+                0x05000114                buttons
+                0x05000118                vertexBuffer
+                0x05004f38                cam
+                0x07007da4                v = (__data_lma + (__data_end - __data_start))
                 [0x00007fff]                v = (v + 0x21f)
                 [0x00007fff]                v = (v & 0xffffff)
                 [0x00007fff]                v = (v | (v >> 0x1))
@@ -188,5 +192,5 @@ TARGET(elf32-v810)
 OUTPUT(Combat.o elf32-v810)
 
 .comment        0x00000000       0x11
- .comment       0x00000000       0x11 C:\users\greg\Temp\cc7oU1Sy.o
+ .comment       0x00000000       0x11 C:\users\greg\Temp\ccGTwev1.o
                                  0x12 (size before relaxing)
