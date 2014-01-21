@@ -23,7 +23,7 @@ Fixed point math defines
 #define FAR_Z 100000
 #define _CacheEnable asm("mov 2,r15 \n ldsr r15,sr24":::"r15");
 #define _CacheDisable asm("ldsr r0,sr24");
-#define PARALLAX_MAX 20
+#define PARALLAX_MAX 16
 #define PARALLAX_SHIFT 8
 
 
@@ -208,14 +208,14 @@ void inline g3d_rotateYAxis(s32 degrees, vector3d* v, vector3d* o);
 void inline g3d_rotateZAxis(s32 degrees, vector3d* v, vector3d* o);
 void inline g3d_rotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o);
 void inline g3d_translate(s32 x, s32 y, s32 z, vector3d* v, vector3d* o);
-u8 g3d_clipLine(s32* x1, s32* y1, s32* x2, s32* y2, s32 V_MAX, s32 V_MIN, s32 H_MAX, s32 H_MIN);
 void inline g3d_cameraRotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o);
 void inline g3d_cameraTranslate(s32 x, s32 y, s32 z, vector3d* v, vector3d* o);
 void inline g3d_initObject(object* o);
 void inline g3d_moveObject(object* o);
 void inline g3d_moveCamera(camera* c);
-void g3d_calculateProjection(vector3d* o);
+void inline g3d_calculateProjection(vector3d* o);
 void inline g3d_clipZAxis(vector3d* v1, vector3d* v2);
+void inline g3d_clipObject(object* o);
 /********************************************************/
 /********************************************************
 Core Drawing Functions

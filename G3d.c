@@ -265,8 +265,8 @@ void g3d_renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube){
 
 void g3d_calculateProjection(vector3d* o){
 #ifndef __ASM_CODE
-	o->sx=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->x,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
-	o->sy=F_NUM_DN(F_ADD(F_DIV(F_MUL(o->y,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_HEIGHT>>1)));
+	o->sx = F_NUM_DN(F_ADD(F_DIV(F_MUL(o->x,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_WIDTH>>1)));
+	o->sy = F_NUM_DN(F_ADD(F_DIV(F_MUL(o->y,cam.d),F_ADD(cam.d,o->z)),F_NUM_UP(SCREEN_HEIGHT>>1)));
 	o->sy = SCREEN_HEIGHT - o->sy;//flip y axis
 #else
 	asm volatile(
@@ -341,6 +341,21 @@ void g3d_drawObject(object* o){
 	vector3d* vtp;
 	v1p = &v1;
 	v2p = &v2;
+	
+	//Auto rotate objects
+	o->worldRotation.x += o->rotation.x;
+	o->worldRotation.y += o->rotation.y;
+	o->worldRotation.z += o->rotation.z;
+	if(o->worldRotation.x > 359) o->worldRotation.x = 360 - o->worldRotation.x;
+	if(o->worldRotation.x < -359) o->worldRotation.x = o->worldRotation.x + 359;
+	if(o->worldRotation.y > 359) o->worldRotation.y = 360 - o->worldRotation.y;
+	if(o->worldRotation.y < -359) o->worldRotation.y = o->worldRotation.y + 359;
+	if(o->worldRotation.z > 359) o->worldRotation.z = 360 - o->worldRotation.z;
+	if(o->worldRotation.z < -359) o->worldRotation.z = o->worldRotation.z + 365;
+	
+	//Clip objects if needed
+	g3d_clipObject(o);
+	
 	if(o->properties.visible == 0) return;
 	
 	vertices=o->objData->vertexSize;//total elements in array
@@ -398,15 +413,43 @@ void g3d_drawObject(object* o){
 	}
 }
 
+/************************************
+Cheap little object clipping function.
+If the center of the object is off the
+screen we'll clip it.
+*************************************/
+void inline g3d_clipObject(object* o){
+	vector3d worldTemp;
+	
+	worldTemp.x = o->worldPosition.x;
+	worldTemp.y = o->worldPosition.y;
+	worldTemp.z = o->worldPosition.z;
+	
+	g3d_renderVector3d(o,&worldTemp,&worldTemp,0);
+	g3d_calculateProjection(&worldTemp);
+	o->properties.visible = 1;
+	if(worldTemp.sx < (0 - (SCREEN_WIDTH>>1)) || worldTemp.sx > SCREEN_WIDTH + (SCREEN_WIDTH>>1)) o->properties.visible = 0;
+	if(worldTemp.sy < (0 - (SCREEN_HEIGHT>>1)) || worldTemp.sy > SCREEN_HEIGHT + (SCREEN_HEIGHT>>1)) o->properties.visible = 0;
+	if(worldTemp.z < (cam.d>>1)) o->properties.visible = 0;
+	
+	vbTextOut(0,0,1,itoa(o->worldPosition.x,16,8));
+	vbTextOut(0,0,2,itoa(o->worldPosition.y,16,8));
+	vbTextOut(0,0,3,itoa(worldTemp.sx,16,8));
+	vbTextOut(0,0,4,itoa(worldTemp.sy,16,8));
+}
+
 /*************************************
 Clips the z axis of the vectors if needed
-We are going to break up the line into 8
+We are going to break up the line into equal
 pieces. We'll determine which piece the
 camera is closest to and clip the line
-to the closest piece.
+to the closest piece. Not an exact science
+but should be ok for general purposes.
+This function needs performed before the
+projection calculation occurs.
 **************************************/
 void inline g3d_clipZAxis(vector3d* v1, vector3d* v2){
-	s32 frac,diff,mult;
+	s32 fracz,fracx,fracy,diff,mult;
 	vector3d* minV;
 	vector3d* maxV;
 	
@@ -417,122 +460,37 @@ void inline g3d_clipZAxis(vector3d* v1, vector3d* v2){
 	Calculate 8 positions between the two z points and
 	determine which position the camera is closest to
 	*****************/
-	if(v1->z < v2->z) {
+	if(v1->z < cam.d) {
 		minV = v1;
 		maxV = v2;
 	}else {
 		minV = v2;
 		maxV = v1;
 	}
-	frac = (maxV->z - minV->z) >> 3;
+	fracz = (maxV->z - minV->z) >> 4;	
+	//Get the fractional x portion
+	fracx = (maxV->x - minV->x) >> 4;
+	//Do same thing with y as we did with x
+	fracy = (maxV->y - minV->y) >> 4;
+	//Get the difference or length of the z axis line
+	//From the minimum z value to the camara depth position
 	diff = cam.d - minV->z;
-	
-	if(frac > 0){
+	//Determine how many fractional portions there are
+	//and set our multiplier. Division is 36 clock cycles
+	//so it should be less expensive to just loop and subtract under most circumstances
+	if(fracz > 0){
 		while(diff > 0){
-			diff -= frac;
+			diff -= fracz;
 			mult++;
-			if(mult > 8) break;
 		}
-		mult--;
+		if(mult > 0)mult--;//The while loop always makes the mulitiplier one more than needed
 	}
 	
-	if(mult != 0){
-		if(mult == 1){
-			minV->z += frac;
-		}else
-			if(mult == 2){
-				minV->z += (frac << 1);
-			}else
-				if(mult == 3){
-					minV->z += (frac << 1) + frac;
-				}else
-					if(mult == 4){
-						minV->z += (frac << 2);
-					}else
-						if(mult == 5){
-							minV->z += (frac << 2) + frac;
-						}else
-							if(mult == 6){
-								minV->z += (frac << 2) + (frac << 1);
-							}else
-								if(mult == 7){
-									minV->z += (frac << 2) + (frac << 1) + frac;
-								}else minV->z = maxV->z;
-	}
-}
-
-/************************************
-Clips a line to the screen and determines
-if the line should be drawn or not.
-This will use the Cohen Sutherland clipping
-algorithm.
-*************************************/
-u8 g3d_clipLine(s32* x1, s32* y1, s32* x2, s32* y2, s32 V_MAX, s32 V_MIN, s32 H_MAX, s32 H_MIN){
-	u8 regionV1,regionV2;
-	s32 x,y,slope,b;
-	regionV1 = 0;
-	regionV2 = 0;
-	if(*y1 < V_MIN) regionV1 |= 1; //top
-	else if (*y1 > V_MAX) regionV1 |= 2; //bottom
-	else if (*x1 > H_MAX) regionV1 |= 4; //right
-	else if (*x1 < H_MIN) regionV1 |= 8; //left
-	
-	if(*y2 < V_MIN) regionV2 |= 1; //top
-	else if (*y2 > V_MAX) regionV2 |= 2; //bottom
-	else if (*x2 > H_MAX) regionV2 |= 4; //right
-	else if (*x2 < H_MIN) regionV2 |= 8; //left
-	
-	if((regionV1 & regionV2) > 0) return (u8)0;
-	//Clip v1
-	//formulas for line y = mx + b
-	//where m = slope and b = y intercept
-	if(*x2 - *x1 == 0) slope = 0;
-	else slope = F_PRECISION_DIV((F_PRECISION_UP(*y2) - F_PRECISION_UP(*y1)), (F_PRECISION_UP(*x2) - F_PRECISION_UP(*x1)));
-	b = -((F_PRECISION_MUL(slope, F_PRECISION_UP(*x1))) - F_PRECISION_UP(*y1));
-	
-	if(regionV1 > 0){
-		if(regionV1 & 1){//top
-			y = V_MIN;
-			x = (slope == 0)?(*x1):(F_PRECISION_DN(F_PRECISION_DIV(-b, slope)));
-		}
-		if(regionV1 & 2){//bottom
-			y = V_MAX;
-			x = (slope == 0)?(*x1):(F_PRECISION_DN(F_PRECISION_DIV(F_PRECISION_UP(y)-b, slope)));
-		}
-		if(regionV1 & 4){//right
-			x = H_MAX;
-			y = (slope == 0)?(*y1):(F_PRECISION_DN((F_PRECISION_MUL(slope,F_PRECISION_UP(x)) + b)));
-		}
-		if(regionV1 & 8){//left
-			x = H_MIN;
-			y = F_PRECISION_DN(b);
-		}
-		*x1 = x;
-		*y1 = y;		
-	}
-	
-	if(regionV2 > 0){
-		if(regionV2 & 1){//top
-			y = V_MIN;
-			x = (slope == 0)?(*x2):(F_PRECISION_DN(F_PRECISION_DIV(-b, slope)));
-		}
-		if(regionV2 & 2){//bottom
-			y = V_MAX;
-			x = (slope == 0)?(*x2):(F_PRECISION_DN(F_PRECISION_DIV(F_PRECISION_UP(y)-b, slope)));
-		}
-		if(regionV2 & 4){//right
-			x = H_MAX;
-			y = (slope == 0)?(*y2):(F_PRECISION_DN((F_PRECISION_MUL(slope,F_PRECISION_UP(x)) + b)));
-		}
-		if(regionV2 & 8){//left
-			x = H_MIN;
-			y = F_PRECISION_DN(b);
-		}
-		*x2 = x;
-		*y2 = y;
-	}
-	
-	return (u8)1;
+	minV->z = cam.d;
+	//Set new x value	
+	minV->x += (fracx * mult);
+	//Set new y value
+	minV->y += (fracy * mult);
 }
 
 /*******************************
@@ -547,7 +505,7 @@ void inline drawPoint(s32 x, s32 y, u8 color, s32 p){
 	u8 yleft;
 	
 	//Put a cap on parallax
-	if(p>PARALLAX_MAX) p=PARALLAX_MAX;
+	p&=PARALLAX_MAX;
 	
 	loffset = (((x-p)<<4) + (y>>4));
 	roffset = (loffset + (p<<5));
@@ -570,7 +528,6 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 	s32 vx,vy,vz,vx2,vy2;
 	s32 dx, dy, dz;
 	s32 sx,sy,sz,pixels,err;
-	u8 doDraw;
 	#ifdef __ASM_CODE
 	s32 loffset,roffset;
 	u8 yleft;
@@ -578,13 +535,10 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 	s32 p;
 	#endif
 	
-	//Screen x,y clipping
 	vx = v1->sx;
 	vy = v1->sy;
 	vx2 = v2->sx;
 	vy2 = v2->sy;
-	doDraw = g3d_clipLine(&vx,&vy,&vx2,&vy2,SCREEN_HEIGHT,0,SCREEN_WIDTH,0);
-	if(!doDraw) return;
 	
 	dx=(~(vx - vx2)+1);
 	dy=(~(vy - vy2)+1);
@@ -695,10 +649,11 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		"cmp r15,r22\n"
 		"blt _endDrawPoint1\n"
 	//if(p>PARALLAX_MAX) p=PARALLAX_MAX;
-		"cmp r26,r23\n"
-		"bgt _nextPoint1\n"
-		"mov r23,r26\n"
-		"_nextPoint1:\n"
+		"and r23,r26\n"
+		//"cmp r26,r23\n"
+		//"bgt _nextPoint1\n"
+		//"mov r23,r26\n"
+		//"_nextPoint1:\n"
 	//loffset = (((x-p)<<4) + (y>>4));
 		"mov r12,r17\n"
 		"sar 0x04,r17\n"
@@ -710,14 +665,14 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		"mov r26,r18\n"
 		"shl 0x05,r18\n"
 		"add r17,r18\n"
-	//if(loffset>0x1800 || loffset<0) return;
-		"movea 0x1800,r0,r28\n"
+	//if(loffset>0x1800 || loffset<0) return;		
+		"movea 0x17FF,r0,r28\n"
 		"cmp r28,r17\n"
 		"bge _endDrawPoint1\n"
 		"cmp r0,r17\n"
 		"blt _endDrawPoint1\n"
 	//if(roffset>0x1800 || roffset<0) return;
-		"movea 0x1800,r0,r28\n"
+		//"movea 0x17FF,r0,r28\n"
 		"cmp r28,r18\n"
 		"bge _endDrawPoint1\n"
 		"cmp r0,r18\n"
@@ -731,7 +686,6 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		"mov r17,r28\n"
 		"shl 0x02,r28\n"
 		"add r24,r28\n"
-		//"add r20,r28\n"
 		"ld.w 0x0[r28],r29\n"
 		"shl r19,r27\n"
 		"or r27,r29\n"
@@ -805,11 +759,8 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		"blt _endDrawPoint2\n"
 		"cmp r15,r22\n"
 		"blt _endDrawPoint2\n"
-	//if(p>PARALLAX_MAX) p=PARALLAX_MAX;
-		"cmp r26,r23\n"
-		"bgt _nextPoint2\n"
-		"mov r23,r26\n"
-		"_nextPoint2:\n"
+	//p&=PARALLAX_MAX;
+		"and r23,r26\n"
 	//loffset = (((x-p)<<4) + (y>>4));
 		"mov r12,r17\n"
 		"sar 0x04,r17\n"
@@ -842,7 +793,6 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		"mov r17,r28\n"
 		"shl 0x02,r28\n"
 		"add r24,r28\n"
-		//"add r20,r28\n"
 		"ld.w 0x0[r28],r29\n"
 		"shl r19,r27\n"
 		"or r27,r29\n"

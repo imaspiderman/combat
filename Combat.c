@@ -21,10 +21,6 @@ object objFighter;
 #include "G3d.c"
 
 int main(){
-	vector3d scale;
-	scale.x = F_NUM_UP(10);
-	scale.y = F_NUM_UP(10);
-	scale.z = F_NUM_UP(10);
 	
 	vbInit();
 	initObjects();
@@ -32,9 +28,13 @@ int main(){
 	objFighter.objData = (objectData*)Fighter;
 	objFighter.worldRotation.x = 90;
 	objFighter.worldRotation.z = 180;
-	objFighter.worldScale = scale; 
+	objFighter.rotation.y = 10;
+	objFighter.rotation.z = 10;
+	objFighter.worldPosition.z = F_NUM_UP(500);
+	objFighter.worldPosition.x = F_NUM_UP(5);
+	objFighter.worldPosition.y = F_NUM_UP(100);
 	
-	cam.worldPosition.z = F_NUM_UP(-400);
+	cam.worldPosition.z = F_NUM_UP(-10);
 	cam.moveTo.z = cam.worldPosition.z;
 	cam.moveTo.y = cam.worldPosition.y;
 	cam.moveTo.x = cam.worldPosition.x;
