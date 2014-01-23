@@ -23,7 +23,7 @@ Fixed point math defines
 #define FAR_Z 100000
 #define _CacheEnable asm("mov 2,r15 \n ldsr r15,sr24":::"r15");
 #define _CacheDisable asm("ldsr r0,sr24");
-#define PARALLAX_MAX 16
+#define PARALLAX_MAX 20
 #define PARALLAX_SHIFT 8
 
 

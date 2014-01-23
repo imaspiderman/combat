@@ -17,24 +17,36 @@ volatile u32 tickProject = 0;
 u8 modelnum = 0;
 s32 vertexCount = 0;
 object objFighter;
+object objTree[5];
 
 #include "G3d.c"
 
 int main(){
+	u8 i;
 	
 	vbInit();
 	initObjects();
 	g3d_initObject(&objFighter);
+	for(i=0;i<5;i++){
+		g3d_initObject(&objTree[i]);
+		objTree[i].objData = (objectData*)Tree;
+		objTree[i].worldPosition.x = i * F_NUM_UP(1000);
+		objTree[i].worldPosition.z = i * F_NUM_UP(1000) + F_NUM_UP(1000);
+		objTree[i].worldPosition.y = 0;
+		objTree[i].worldScale.x = F_NUM_UP(2);
+		objTree[i].worldScale.y = F_NUM_UP(2);
+		objTree[i].worldScale.z = F_NUM_UP(2);
+	}
+	
 	objFighter.objData = (objectData*)Fighter;
-	objFighter.worldRotation.x = 90;
-	objFighter.worldRotation.z = 180;
-	objFighter.rotation.y = 10;
-	objFighter.rotation.z = 10;
-	objFighter.worldPosition.z = F_NUM_UP(500);
-	objFighter.worldPosition.x = F_NUM_UP(5);
-	objFighter.worldPosition.y = F_NUM_UP(100);
+	objFighter.worldPosition.z = F_NUM_UP(5000);
+	objFighter.worldPosition.y = F_NUM_UP(3000);
+	objFighter.worldSpeed.x = F_NUM_UP(50);
+	objFighter.worldSpeed.y = F_NUM_UP(50);
+	objFighter.worldSpeed.z = F_NUM_UP(50);
 	
 	cam.worldPosition.z = F_NUM_UP(-10);
+	cam.worldPosition.y = F_NUM_UP(1000);
 	cam.moveTo.z = cam.worldPosition.z;
 	cam.moveTo.y = cam.worldPosition.y;
 	cam.moveTo.x = cam.worldPosition.x;
@@ -47,7 +59,16 @@ int main(){
 		
 		handleInput(&objFighter);
 		g3d_moveCamera(&cam);
+		
+		objFighter.moveTo.x = cam.worldPosition.x;
+		objFighter.moveTo.y = cam.worldPosition.y;
+		objFighter.moveTo.z = cam.worldPosition.z + cam.d + F_NUM_UP(500);
+		
+		g3d_moveObject(&objFighter);
 		g3d_drawObject(&objFighter);
+		for(i=0; i<5; i++){
+			g3d_drawObject(&objTree[i]);
+		}
 	
 		screenControl();
 		while(tick < 266);//about 30 fps
@@ -71,31 +92,37 @@ counter
 *****************************************/
 void handleInput(object* o){
 	buttons = vbReadPad();
+	o->worldRotation.z = 0;
+	o->worldRotation.x = 0;
 	if(K_LL & buttons){
-		WA[31].gx -= 2;
+		o->worldRotation.z = -24;
+		if(cam.worldPosition.x == cam.moveTo.x) cam.moveTo.x -= cam.worldSpeed.x;
 	}
 	if(K_LR & buttons){
-		WA[31].gx += 2;
+		o->worldRotation.z = 24;
+		if(cam.worldPosition.x == cam.moveTo.x) cam.moveTo.x += cam.worldSpeed.x;
 	}
 	if(K_LD & buttons){
-		WA[31].gy += 2;
+		o->worldRotation.x = -24;
+		if(cam.worldPosition.y == cam.moveTo.y) cam.moveTo.y += cam.worldSpeed.y;
 	}
 	if(K_LU & buttons){
-		WA[31].gy -= 2;
+		o->worldRotation.x = 24;
+		if(cam.worldPosition.y == cam.moveTo.y) cam.moveTo.y -= cam.worldSpeed.y;
 	}
+	
 	if(K_RU & buttons){
 		if(cam.worldPosition.z == cam.moveTo.z) cam.moveTo.z += cam.worldSpeed.z;
 	}
 	if(K_RD & buttons){
 		if(cam.worldPosition.z == cam.moveTo.z) cam.moveTo.z -= cam.worldSpeed.z;
 	}
+	
 	if(K_RT & buttons){
-		o->worldRotation.y += 8;
-		if(o->worldRotation.y > 359) o->worldRotation.y = o->worldRotation.y - 360;
+		o->worldRotation.z = 90;		
 	}
 	if(K_LT & buttons){
-		o->worldRotation.y -= 8;
-		if(o->worldRotation.y < -359) o->worldRotation.y = o->worldRotation.y + 360;
+		o->worldRotation.z = -90;
 	}
 }
 
@@ -109,9 +136,9 @@ void initObjects(){
 	cam.worldRotation.x = 0;
 	cam.worldRotation.y = 0;
 	cam.worldRotation.z = 0;
-	cam.worldSpeed.x = F_NUM_UP(10);
-	cam.worldSpeed.y = F_NUM_UP(10);
-	cam.worldSpeed.z = F_NUM_UP(10);
+	cam.worldSpeed.x = F_NUM_UP(50);
+	cam.worldSpeed.y = F_NUM_UP(50);
+	cam.worldSpeed.z = F_NUM_UP(50);
 	cam.d = F_NUM_UP(256);	
 }
 
@@ -139,6 +166,7 @@ void vbInit(){
 	//load font
 	copymem((u8*)CharSeg3, PVB_FONT, 0x2000);
 	
+	/*
 	//load cross hairs chars
 	for(i=0; i<39*16; i++){
 		((u8*)CharSeg0)[i] = crossHairsChars[i];
@@ -157,6 +185,7 @@ void vbInit(){
 	WA[31].gy = (SCREEN_HEIGHT >> 1) - (WA[31].w >> 1);
 	
 	WA[30].head = WRLD_END;
+	*/
 }
 
 /*******************************

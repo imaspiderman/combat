@@ -342,17 +342,6 @@ void g3d_drawObject(object* o){
 	v1p = &v1;
 	v2p = &v2;
 	
-	//Auto rotate objects
-	o->worldRotation.x += o->rotation.x;
-	o->worldRotation.y += o->rotation.y;
-	o->worldRotation.z += o->rotation.z;
-	if(o->worldRotation.x > 359) o->worldRotation.x = 360 - o->worldRotation.x;
-	if(o->worldRotation.x < -359) o->worldRotation.x = o->worldRotation.x + 359;
-	if(o->worldRotation.y > 359) o->worldRotation.y = 360 - o->worldRotation.y;
-	if(o->worldRotation.y < -359) o->worldRotation.y = o->worldRotation.y + 359;
-	if(o->worldRotation.z > 359) o->worldRotation.z = 360 - o->worldRotation.z;
-	if(o->worldRotation.z < -359) o->worldRotation.z = o->worldRotation.z + 365;
-	
 	//Clip objects if needed
 	g3d_clipObject(o);
 	
@@ -419,23 +408,25 @@ If the center of the object is off the
 screen we'll clip it.
 *************************************/
 void inline g3d_clipObject(object* o){
-	vector3d worldTemp;
+	vector3d worldTemp, worldOrig;
 	
-	worldTemp.x = o->worldPosition.x;
-	worldTemp.y = o->worldPosition.y;
-	worldTemp.z = o->worldPosition.z;
+	worldOrig.x = o->worldPosition.x;
+	worldOrig.y = o->worldPosition.y;
+	worldOrig.z = o->worldPosition.z;
 	
-	g3d_renderVector3d(o,&worldTemp,&worldTemp,0);
-	g3d_calculateProjection(&worldTemp);
+	g3d_cameraTranslate(cam.worldPosition.x,cam.worldPosition.y,cam.worldPosition.z,&worldOrig,&worldTemp);
+	g3d_copyVector3d(&worldTemp,&worldOrig);
+	
+	if(cam.worldRotation.x != 0 || cam.worldRotation.y != 0 || cam.worldRotation.z != 0){			
+		g3d_cameraRotateAllAxis(cam.worldRotation.x,cam.worldRotation.y,cam.worldRotation.z,&worldOrig,&worldTemp);
+		g3d_copyVector3d(&worldTemp,&worldOrig);
+	}
+	
+	g3d_calculateProjection(&worldOrig);
 	o->properties.visible = 1;
-	if(worldTemp.sx < (0 - (SCREEN_WIDTH>>1)) || worldTemp.sx > SCREEN_WIDTH + (SCREEN_WIDTH>>1)) o->properties.visible = 0;
-	if(worldTemp.sy < (0 - (SCREEN_HEIGHT>>1)) || worldTemp.sy > SCREEN_HEIGHT + (SCREEN_HEIGHT>>1)) o->properties.visible = 0;
-	if(worldTemp.z < (cam.d>>1)) o->properties.visible = 0;
-	
-	vbTextOut(0,0,1,itoa(o->worldPosition.x,16,8));
-	vbTextOut(0,0,2,itoa(o->worldPosition.y,16,8));
-	vbTextOut(0,0,3,itoa(worldTemp.sx,16,8));
-	vbTextOut(0,0,4,itoa(worldTemp.sy,16,8));
+	if(worldOrig.sx < 0 || worldOrig.sx > SCREEN_WIDTH) o->properties.visible = 0;
+	if(worldOrig.sy < 0 || worldOrig.sy > SCREEN_HEIGHT) o->properties.visible = 0;
+	if(worldOrig.z < (cam.d>>1)) o->properties.visible = 0;
 }
 
 /*************************************
@@ -505,7 +496,7 @@ void inline drawPoint(s32 x, s32 y, u8 color, s32 p){
 	u8 yleft;
 	
 	//Put a cap on parallax
-	p&=PARALLAX_MAX;
+	if(p>PARALLAX_MAX) p=PARALLAX_MAX;
 	
 	loffset = (((x-p)<<4) + (y>>4));
 	roffset = (loffset + (p<<5));
@@ -649,11 +640,11 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		"cmp r15,r22\n"
 		"blt _endDrawPoint1\n"
 	//if(p>PARALLAX_MAX) p=PARALLAX_MAX;
-		"and r23,r26\n"
-		//"cmp r26,r23\n"
-		//"bgt _nextPoint1\n"
-		//"mov r23,r26\n"
-		//"_nextPoint1:\n"
+		//"and r23,r26\n"
+		"cmp r26,r23\n"
+		"bgt _nextPoint1\n"
+		"mov r23,r26\n"
+		"_nextPoint1:\n"
 	//loffset = (((x-p)<<4) + (y>>4));
 		"mov r12,r17\n"
 		"sar 0x04,r17\n"
@@ -759,8 +750,12 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 		"blt _endDrawPoint2\n"
 		"cmp r15,r22\n"
 		"blt _endDrawPoint2\n"
-	//p&=PARALLAX_MAX;
-		"and r23,r26\n"
+	//if(p>PARALLAX_MAX) p=PARALLAX_MAX;
+		//"and r23,r26\n"
+		"cmp r26,r23\n"
+		"bgt _nextPoint2\n"
+		"mov r23,r26\n"
+		"_nextPoint2:\n"
 	//loffset = (((x-p)<<4) + (y>>4));
 		"mov r12,r17\n"
 		"sar 0x04,r17\n"
@@ -896,7 +891,7 @@ void inline g3d_moveObject(object* o){
 	if(o->scale.x != 0) o->worldScale.x += o->scale.x;
 	if(o->scale.y != 0) o->worldScale.y += o->scale.y;
 	if(o->scale.z != 0) o->worldScale.z += o->scale.z;
-	
+		
 	//Check rotation angles
 	while(o->worldRotation.x > 359) o->worldRotation.x -= 360;
 	while(o->worldRotation.y > 359) o->worldRotation.y -= 360;

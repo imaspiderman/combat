@@ -2,10 +2,11 @@
 Allocating common symbols
 Common symbol       size              file
 
-objFighter          0xc8              C:\users\greg\Temp\ccmqs3dE.o
-buttons             0x2               C:\users\greg\Temp\ccmqs3dE.o
-vertexBuffer        0x4e20            C:\users\greg\Temp\ccmqs3dE.o
-cam                 0x90              C:\users\greg\Temp\ccmqs3dE.o
+objFighter          0xc8              C:\users\greg\Temp\ccdfp7AJ.o
+objTree             0x3e8             C:\users\greg\Temp\ccdfp7AJ.o
+buttons             0x2               C:\users\greg\Temp\ccdfp7AJ.o
+vertexBuffer        0x4e20            C:\users\greg\Temp\ccdfp7AJ.o
+cam                 0x90              C:\users\greg\Temp\ccdfp7AJ.o
 
 Memory Configuration
 
@@ -17,20 +18,20 @@ rom              0x07000000         0x01000000         xr
 Linker script and memory map
 
 LOAD c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
-LOAD C:\users\greg\Temp\ccmqs3dE.o
+LOAD C:\users\greg\Temp\ccdfp7AJ.o
 TARGET(elf32-v810)
                 0x07000000                __text_start = 0x7000000
                 0x05000000                __data_start = 0x5000000
                 0x05008000                __gp = (__data_start + 0x8000)
                 0x07000000                . = __text_start
 
-.text           0x07000000     0x40d4
+.text           0x07000000     0x405c
  *(.text)
  .text          0x07000000      0x28e c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
                 0x07000000                start
                 0x07000180                _inthnd
  *fill*         0x0700028e        0x2 ff
- .text          0x07000290     0x3e44 C:\users\greg\Temp\ccmqs3dE.o
+ .text          0x07000290     0x3dcc C:\users\greg\Temp\ccdfp7AJ.o
                 0x07000290                vbWaitFrame
                 0x07000300                vbDisplayOn
                 0x070004c8                vbDisplayOff
@@ -76,66 +77,67 @@ TARGET(elf32-v810)
                 0x07001d00                g3d_renderVector3d
                 0x07002044                g3d_calculateProjection
                 0x070020d4                g3d_drawObject
-                0x070025f4                g3d_clipObject
-                0x070027a8                g3d_clipZAxis
-                0x07002964                drawPoint
-                0x07002ae4                g3d_drawLine
-                0x07002e10                g3d_initObject
-                0x07002f00                g3d_moveObject
-                0x070033ac                g3d_moveCamera
-                0x0700377c                main
-                0x07003934                timeHnd
-                0x070039c8                handleInput
-                0x07003c7c                initObjects
-                0x07003d2c                vbInit
-                0x07003fd8                screenControl
+                0x070024c8                g3d_clipObject
+                0x07002670                g3d_clipZAxis
+                0x0700282c                drawPoint
+                0x070029b4                g3d_drawLine
+                0x07002ce8                g3d_initObject
+                0x07002dd8                g3d_moveObject
+                0x07003284                g3d_moveCamera
+                0x07003654                main
+                0x07003a1c                timeHnd
+                0x07003ab0                handleInput
+                0x07003d8c                initObjects
+                0x07003e3c                vbInit
+                0x07003f60                screenControl
  *(.text.*)
  *(.gnu.warning)
  *(.gnu.linkonce.t*)
-                0x070040d4                __text_end = .
+                0x0700405c                __text_end = .
 
-.rodata         0x070040d4     0x5638
+.rodata         0x0700405c     0x3574
  *(.rodata)
- .rodata        0x070040d4     0x5638 C:\users\greg\Temp\ccmqs3dE.o
-                0x070040d4                L_FRAME0
-                0x070040d8                L_FRAME1
-                0x070040dc                R_FRAME0
-                0x070040e0                R_FRAME1
-                0x070040e4                BGMM
-                0x070040e8                WAM
-                0x070040ec                CLMN_TBL
-                0x070040f0                OAM
-                0x070040f4                colTable
-                0x07004174                WAVEDATA1
-                0x07004178                WAVEDATA2
-                0x0700417c                WAVEDATA3
-                0x07004180                WAVEDATA4
-                0x07004184                WAVEDATA5
-                0x07004188                MODDATA
-                0x0700418c                SND_REGS
-                0x07004190                jump_addr
-                0x070041a4                HW_REGS
-                0x070041a8                EXPANSION
-                0x070041ac                WORKRAM
-                0x070041b0                SAVERAM
-                0x070041b4                nums
-                0x070041c4                WA
-                0x070041c8                cosine
-                0x07004768                sine
-                0x07004d08                Fighter
-                0x07007078                PVB_FONT
-                0x07009078                crossHairsChars
-                0x070092e8                crossHairsBGMap
+ .rodata        0x0700405c     0x3574 C:\users\greg\Temp\ccdfp7AJ.o
+                0x0700405c                L_FRAME0
+                0x07004060                L_FRAME1
+                0x07004064                R_FRAME0
+                0x07004068                R_FRAME1
+                0x0700406c                BGMM
+                0x07004070                WAM
+                0x07004074                CLMN_TBL
+                0x07004078                OAM
+                0x0700407c                colTable
+                0x070040fc                WAVEDATA1
+                0x07004100                WAVEDATA2
+                0x07004104                WAVEDATA3
+                0x07004108                WAVEDATA4
+                0x0700410c                WAVEDATA5
+                0x07004110                MODDATA
+                0x07004114                SND_REGS
+                0x07004118                jump_addr
+                0x0700412c                HW_REGS
+                0x07004130                EXPANSION
+                0x07004134                WORKRAM
+                0x07004138                SAVERAM
+                0x0700413c                nums
+                0x0700414c                WA
+                0x07004150                cosine
+                0x070046f0                sine
+                0x07004c90                Fighter
+                0x07004e14                Tree
+                0x07004f3c                PVB_FONT
+                0x07006f3c                crossHairsChars
+                0x070071ac                crossHairsBGMap
  *all.rodata*(*)
  *(.roda)
  *(.rodata.*)
  *(.gnu.linkonce.r*)
-                0x0700970c                __data_lma = .
+                0x070075d0                __data_lma = .
 
-.data           0x05000000        0xc load address 0x0700970c
+.data           0x05000000        0xc load address 0x070075d0
  *(.data)
  .data          0x05000000        0x0 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
- .data          0x05000000        0xc C:\users\greg\Temp\ccmqs3dE.o
+ .data          0x05000000        0xc C:\users\greg\Temp\ccdfp7AJ.o
                 0x05000000                VIP_REGS
                 0x05000004                currentFrameBuffer
  *(.data.*)
@@ -149,11 +151,11 @@ TARGET(elf32-v810)
  *(.sbss)
  *(.scommon)
 
-.bss            0x0500000c     0x4fbc load address 0x07009718
+.bss            0x0500000c     0x53a4 load address 0x070075dc
  *(.dynbss)
  *(.bss)
  .bss           0x0500000c        0x0 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
- .bss           0x0500000c       0x40 C:\users\greg\Temp\ccmqs3dE.o
+ .bss           0x0500000c       0x40 C:\users\greg\Temp\ccdfp7AJ.o
                 0x0500000c                oldkeydown
                 0x0500000e                oldkeyup
                 0x05000010                tcr_val
@@ -169,28 +171,29 @@ TARGET(elf32-v810)
                 0x05000038                modelnum
                 0x0500003c                vertexCount
  *(COMMON)
- COMMON         0x0500004c     0x4f7c C:\users\greg\Temp\ccmqs3dE.o
+ COMMON         0x0500004c     0x5364 C:\users\greg\Temp\ccdfp7AJ.o
                 0x0500004c                objFighter
-                0x05000114                buttons
-                0x05000118                vertexBuffer
-                0x05004f38                cam
-                0x07009718                v = (__data_lma + (__data_end - __data_start))
-                [0x0000ffff]                v = (v + 0x21f)
-                [0x0000ffff]                v = (v & 0xffffff)
-                [0x0000ffff]                v = (v | (v >> 0x1))
-                [0x0000ffff]                v = (v | (v >> 0x2))
-                [0x0000ffff]                v = (v | (v >> 0x4))
-                [0x0000ffff]                v = (v | (v >> 0x8))
-                [0x0000ffff]                v = (v | (v >> 0x10))
-                0x0700ffff                __vectors_end = (__text_start + v)
-                0x0700fde0                __vectors_lma = (__vectors_end - 0x21f)
+                0x05000114                objTree
+                0x050004fc                buttons
+                0x05000500                vertexBuffer
+                0x05005320                cam
+                0x070075dc                v = (__data_lma + (__data_end - __data_start))
+                [0x00007fff]                v = (v + 0x21f)
+                [0x00007fff]                v = (v & 0xffffff)
+                [0x00007fff]                v = (v | (v >> 0x1))
+                [0x00007fff]                v = (v | (v >> 0x2))
+                [0x00007fff]                v = (v | (v >> 0x4))
+                [0x00007fff]                v = (v | (v >> 0x8))
+                [0x00007fff]                v = (v | (v >> 0x10))
+                0x07007fff                __vectors_end = (__text_start + v)
+                0x07007de0                __vectors_lma = (__vectors_end - 0x21f)
 
-.vectors        0x0700fde0      0x220
+.vectors        0x07007de0      0x220
  *(.vectors)
- .vectors       0x0700fde0      0x220 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
-                0x0700fde0                rom_header
+ .vectors       0x07007de0      0x220 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
+                0x07007de0                rom_header
 OUTPUT(Combat.o elf32-v810)
 
 .comment        0x00000000       0x11
- .comment       0x00000000       0x11 C:\users\greg\Temp\ccmqs3dE.o
+ .comment       0x00000000       0x11 C:\users\greg\Temp\ccdfp7AJ.o
                                  0x12 (size before relaxing)
