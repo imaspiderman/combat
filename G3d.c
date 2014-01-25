@@ -426,7 +426,7 @@ void inline g3d_clipObject(object* o){
 	o->properties.visible = 1;
 	if(worldOrig.sx < 0 || worldOrig.sx > SCREEN_WIDTH) o->properties.visible = 0;
 	if(worldOrig.sy < 0 || worldOrig.sy > SCREEN_HEIGHT) o->properties.visible = 0;
-	if(worldOrig.z < (cam.d>>1)) o->properties.visible = 0;
+	if(worldOrig.z < (cam.d>>1) || worldOrig.z > FAR_Z) o->properties.visible = 0;
 }
 
 /*************************************
@@ -846,7 +846,7 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 /*********************************
 This initializes an object type
 *********************************/
-void inline g3d_initObject(object* o){
+void inline g3d_initObject(object* o, objectData* objData){
 	o->worldPosition.x = 0;
 	o->worldPosition.y = 0;
 	o->worldPosition.z = 0;
@@ -872,6 +872,7 @@ void inline g3d_initObject(object* o){
 	o->scale.y = 0;
 	o->scale.z = 0;
 	o->parent = (object*)0x00;
+	o->objData = (objectData*)objData;
 	
 	o->properties.visible = 1;
 	o->properties.detectCollision = 0;
@@ -902,7 +903,6 @@ void inline g3d_moveObject(object* o){
 	
 	//Move the object based on moveto and speed
 	if(o->moveTo.x != o->worldPosition.x){
-		vbTextOut(0,5,1,"X not equal");
 		if(o->worldPosition.x < o->moveTo.x){
 			o->worldPosition.x += o->worldSpeed.x;
 			if(o->worldPosition.x > o->moveTo.x) o->worldPosition.x = o->moveTo.x;
@@ -912,7 +912,6 @@ void inline g3d_moveObject(object* o){
 		}
 	}
 	if(o->moveTo.y != o->worldPosition.y){
-		vbTextOut(0,5,2,"Y not equal");
 		if(o->worldPosition.y < o->moveTo.y){
 			o->worldPosition.y += o->worldSpeed.y;
 			if(o->worldPosition.y > o->moveTo.y) o->worldPosition.y = o->moveTo.y;
@@ -922,7 +921,6 @@ void inline g3d_moveObject(object* o){
 		}
 	}
 	if(o->moveTo.z != o->worldPosition.z){
-		vbTextOut(0,5,3,"Z not equal");
 		if(o->worldPosition.z < o->moveTo.z){
 			o->worldPosition.z += o->worldSpeed.z;
 			if(o->worldPosition.z > o->moveTo.z) o->worldPosition.z = o->moveTo.z;

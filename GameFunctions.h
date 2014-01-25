@@ -1,12 +1,6 @@
 #include "GameData.h"
 #ifndef __GameFunctions_H
 #define __GameFunctions_H
-
-/*******************************
-Defines
-*******************************/
-#define ROTATION_SPEED F_NUM_UP(6)
-#define FLYING_SPEED F_NUM_UP(50)
 /*******************************
 Variables
 *******************************/
@@ -35,6 +29,8 @@ Object functions
 void initObjects();
 void setObjectRelative(object* o, object* parent);
 void setObjectRelativeCamera(object* o);
+void doMoveEnemy(object* o);
+void doGroundEffects();
 /********************************************************/
 
 

@@ -20,7 +20,7 @@ Fixed point math defines
 //Definitions
 #define SCREEN_HEIGHT 224
 #define SCREEN_WIDTH 384
-#define FAR_Z 100000
+#define FAR_Z F_NUM_UP(10000)
 #define _CacheEnable asm("mov 2,r15 \n ldsr r15,sr24":::"r15");
 #define _CacheDisable asm("ldsr r0,sr24");
 #define PARALLAX_MAX 20
@@ -210,7 +210,7 @@ void inline g3d_rotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o);
 void inline g3d_translate(s32 x, s32 y, s32 z, vector3d* v, vector3d* o);
 void inline g3d_cameraRotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o);
 void inline g3d_cameraTranslate(s32 x, s32 y, s32 z, vector3d* v, vector3d* o);
-void inline g3d_initObject(object* o);
+void inline g3d_initObject(object* o, objectData* objData);
 void inline g3d_moveObject(object* o);
 void inline g3d_moveCamera(camera* c);
 void inline g3d_calculateProjection(vector3d* o);
