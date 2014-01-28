@@ -2,11 +2,29 @@
 Copies one vector to another
 *****************************/
 void inline g3d_copyVector3d(vector3d* from, vector3d* to){
+#ifndef __ASM_CODE
 	to->x = from->x;
 	to->y = from->y;
 	to->z = from->z;
 	to->sx = from->sx;
 	to->sy = from->sy;
+#else
+	asm(
+	"ld.w 0x0[%[from]],  r6\n"
+	"st.w r6,          0x0[%[to]]\n"
+	"ld.w 0x4[%[from]],  r6\n"
+	"st.w r6,          0x4[%[to]]\n"
+	"ld.w 0x8[%[from]],  r6\n"
+	"st.w r6,          0x8[%[to]]\n"
+	"ld.w 0xc[%[from]], r6\n"
+	"st.w r6,          0xc[%[to]]\n"
+	"ld.w 0x10[%[from]], r6\n"
+	"st.w r6,          0x10[%[to]]\n"
+	:
+	:[from] "r" ((vector3d*)from), [to] "r" ((vector3d*)to)
+	:"r6"
+	);
+#endif
 }
 
 /****************************
@@ -17,9 +35,45 @@ void inline g3d_scale(vector3d* factor, vector3d* v, vector3d* o){
 		g3d_copyVector3d(v,o);
 		return;
 	}
+#ifndef __ASM_CODE
 	o->x = F_MUL(v->x,factor->x);
 	o->y = F_MUL(v->y,factor->y);
 	o->z = F_MUL(v->z,factor->z);
+#else
+	asm(
+	"ld.w 0[%[factor]], r5\n"
+	"ld.w 0[%[v]], r6\n"
+	"mul r5, r6\n"
+	"mov r6, r7\n"
+	"sar %[fshiftm1], r7\n"
+	"andi 0x01, r7, r7\n"
+	"sar %[fshift], r6\n"
+	"add r6, r7\n"
+	"st.w r7, 0[%[o]]\n"
+	"ld.w 4[%[factor]], r5\n"
+	"ld.w 4[%[v]], r6\n"
+	"mul r5, r6\n"
+	"mov r6, r7\n"
+	"sar %[fshiftm1], r7\n"
+	"andi 0x01, r7, r7\n"
+	"sar %[fshift], r6\n"
+	"add r6, r7\n"
+	"st.w r7, 4[%[o]]\n"
+	"ld.w 8[%[factor]], r5\n"
+	"ld.w 8[%[v]], r6\n"
+	"mul r5, r6\n"
+	"mov r6, r7\n"
+	"sar %[fshiftm1], r7\n"
+	"andi 0x01, r7, r7\n"
+	"sar %[fshift], r6\n"
+	"add r6, r7\n"
+	"st.w r7, 8[%[o]]\n"
+	:
+	:[factor] "r" ((vector3d*)factor), [v] "r" ((vector3d*)v), [o] "r" ((vector3d*)o),
+	 [fshift] "r" (FIXED_SHIFT), [fshiftm1] "r" (FIXED_SHIFT-1)
+	:"r5","r6","r7"
+	);
+#endif
 }
 
 /***********************************
@@ -196,9 +250,26 @@ void inline g3d_rotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o){
 This translates or moves a point
 ********************************/
 void inline g3d_translate(s32 x, s32 y, s32 z, vector3d* v, vector3d* o){
+#ifndef __ASM_CODE
 	o->x = v->x + x;
 	o->y = v->y + y;
 	o->z = v->z + z;
+#else
+	asm(
+	"ld.w 0[%[v]], r5\n"
+	"add %[x],     r5\n"
+	"st.w r5,      0[%[o]]\n"
+	"ld.w 4[%[v]], r5\n"
+	"add %[y],     r5\n"
+	"st.w r5,      4[%[o]]\n"
+	"ld.w 8[%[v]], r5\n"
+	"add %[z],     r5\n"
+	"st.w r5,      8[%[o]]\n"
+	:
+	:[x] "r" (x), [y] "r" (y), [z] "r" (z), [v] "r" ((vector3d*)v), [o] "r" ((vector3d*)o)
+	:"r5"
+	);
+#endif
 }
 
 /********************************
@@ -207,9 +278,29 @@ It just rotates a point in the opposite direction
 of the cameras rotation angles.
 *********************************/
 void inline g3d_cameraRotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o){
+#ifndef __ASM_CODE
 	rx = (~rx)+1;
 	ry = (~ry)+1;
 	rz = (~rz)+1;
+#else
+	asm(
+	"ld.w %[rx], r5\n"
+	"not r5, r5\n"
+	"addi 0x01, r5, r5\n"
+	"st.w r5, %[rx]\n"
+	"ld.w %[ry], r5\n"
+	"not r5, r5\n"
+	"addi 0x01, r5, r5\n"
+	"st.w r5, %[ry]\n"
+	"ld.w %[rz], r5\n"
+	"not r5, r5\n"
+	"addi 0x01, r5, r5\n"
+	"st.w r5, %[rz]\n"
+	:
+	:[rx] "m" (rx), [ry] "m" (ry), [rz] "m" (rz)
+	:"r5"
+	);
+#endif
 	g3d_rotateAllAxis(rx,ry,rz,v,o);
 }
 
@@ -219,9 +310,26 @@ calculating the difference between the camera's position
 and the points position.
 ***********************************/
 void inline g3d_cameraTranslate(s32 x, s32 y, s32 z, vector3d* v, vector3d* o){
+#ifndef __ASM_CODE
 	o->x = v->x - x;
 	o->y = v->y - y;
 	o->z = v->z - z;
+#else
+	asm(
+	"ld.w 0[%[v]], r5\n"
+	"sub %[x],     r5\n"
+	"st.w r5,      0[%[o]]\n"
+	"ld.w 4[%[v]], r5\n"
+	"sub %[y],     r5\n"
+	"st.w r5,      4[%[o]]\n"
+	"ld.w 8[%[v]], r5\n"
+	"sub %[z],     r5\n"
+	"st.w r5,      8[%[o]]\n"
+	:
+	:[x] "r" (x), [y] "r" (y), [z] "r" (z), [v] "r" ((vector3d*)v), [o] "r" ((vector3d*)o)
+	:"r5"
+	);
+#endif
 }
 
 /**********************************
@@ -356,7 +464,6 @@ void g3d_drawObject(object* o){
 	//Load and render all distinct vertices into the vertex buffer;
 	//This will render all object vertices based on the objects position,rotation etc..
 	CACHE_ENABLE;
-	tickStart = tick;
 	while(v < vertices){
 		v1.x = o->objData->data[v];
 		v1.y = o->objData->data[v+1];
@@ -367,9 +474,7 @@ void g3d_drawObject(object* o){
 		vertexBuffer[i] = v2;
 		i++;
 		v+=3;
-	}
-	tickEnd = tick;
-	tickRender += (tickEnd - tickStart);
+	};
 	CACHE_DISABLE;
 
 	//This reads the "faces" section of the data and draws lines between points.
@@ -382,16 +487,10 @@ void g3d_drawObject(object* o){
 			v2p = &vertexBuffer[o->objData->data[v]];
 			
 			if((v1p->z > cam.d) || (v2p->z > cam.d)){
-				tickStart = tick;
 				g3d_clipZAxis(v1p, v2p);
 				g3d_calculateProjection(v1p);
 				g3d_calculateProjection(v2p);
-				tickEnd = tick;
-				tickProject += (tickEnd - tickStart);
-				tickStart = tick;
 				g3d_drawLine(v1p,v2p,o->properties.lineColor);
-				tickEnd = tick;
-				tickDraw += (tickEnd - tickStart);
 			}
 			vtp = v2p;
 			v1p = v2p;

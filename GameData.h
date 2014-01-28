@@ -49,7 +49,7 @@ const s32 GroundEffect[] = {6, //total number of vertices
 	2, //total number of line end points
 	2,
 	//Distinct vertices
-	0,0,800,0,0,-800
+	0,0,2000,0,0,-2000
 	//Vertex indexes
 	,0,1};
 
