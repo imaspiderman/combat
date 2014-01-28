@@ -1,4 +1,4 @@
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 1
 
 
    1              		.file	"Combat.c"
@@ -58,7 +58,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
   55              		.size	_OAM, 4
   56              	_OAM:
   57 001c 00E00300 		.long	253952
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 2
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 2
 
 
   58              		.section .text
@@ -118,7 +118,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  112 008c 4ACD0000 		ld.w 0[r10],r10
  113 0090 4AA54200 		addi 66,r10,r10
  114 0094 60BD0000 		movhi hi(_VIP_REGS),r0,r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 3
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 3
 
 
  115 0098 6BA10000 		movea lo(_VIP_REGS),r11,r11
@@ -178,7 +178,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  169 016e 4AA56000 		addi 96,r10,r10
  170 0172 60A1E400 		movea lo(228),r0,r11
  171 0176 6AD50000 		st.h r11,0[r10]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 4
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 4
 
 
  172 017a 40BD0000 		movhi hi(_VIP_REGS),r0,r10
@@ -238,7 +238,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  226 023c 4AA10000 		movea lo(_VIP_REGS),r10,r10
  227 0240 4ACD0000 		ld.w 0[r10],r10
  228 0244 4AA52A00 		addi 42,r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 5
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 5
 
 
  229 0248 0AD40000 		st.h r0,0[r10]
@@ -298,7 +298,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  283              		.type	_vbDisplayHide, @function
  284              	_vbDisplayHide:
  285 02fc 40BD0000 		movhi hi(_VIP_REGS),r0,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 6
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 6
 
 
  286 0300 4AA10000 		movea lo(_VIP_REGS),r10,r10
@@ -358,7 +358,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  340 03b4 4AA52800 		addi 40,r10,r10
  341 03b8 63C11300 		ld.b 19[sp],r11
  342 03bc 6BB5FF00 		andi 255,r11,r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 7
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 7
 
 
  343 03c0 6AD50000 		st.h r11,0[r10]
@@ -418,7 +418,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  397 0460 4AA10000 		movea lo(_VIP_REGS),r10,r10
  398 0464 4ACD0000 		ld.w 0[r10],r10
  399 0468 4AA52800 		addi 40,r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 8
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 8
 
 
  400 046c 63C11300 		ld.b 19[sp],r11
@@ -478,7 +478,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  454 003f FE       		.byte	-2
  455 0040 FE       		.byte	-2
  456 0041 FE       		.byte	-2
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 9
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 9
 
 
  457 0042 FE       		.byte	-2
@@ -538,7 +538,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  511 0078 48       		.byte	72
  512 0079 48       		.byte	72
  513 007a 46       		.byte	70
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 10
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 10
 
 
  514 007b 46       		.byte	70
@@ -598,7 +598,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  568 04c2 8BA10000 		movea lo(_colTable),r11,r12
  569 04c6 63C10300 		ld.b 3[sp],r11
  570 04ca 6BB5FF00 		andi 255,r11,r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 11
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 11
 
 
  571 04ce 6C05     		add r12,r11
@@ -658,7 +658,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  625 0588 80BD0000 		movhi hi(_colTable),r0,r12
  626 058c 8CA10000 		movea lo(_colTable),r12,r12
  627 0590 6C05     		add r12,r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 12
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 12
 
 
  628 0592 6BC10000 		ld.b 0[r11],r11
@@ -718,7 +718,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  682 0624 6ACD0000 		ld.w 0[r10],r11
  683 0628 43CD0400 		ld.w 4[sp],r10
  684 062c 4845     		add 8,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 13
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 13
 
 
  685 062e 4A05     		add r10,r10
@@ -778,7 +778,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  739 06ca 4BF90018 		mulf.s r11,r10
  740 06ce 4AF9000C 		cvt.sw r10,r10
  741 06d2 60BD0400 		movhi hi(262144),r0,r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 14
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 14
 
 
  742 06d6 AB01     		mov r11,r13
@@ -838,7 +838,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  796 0788 4B05     		add r11,r10
  797 078a 63C51200 		ld.h 18[sp],r11
  798 078e 6AD50000 		st.h r11,0[r10]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 15
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 15
 
 
  799 0792 43CD0400 		ld.w 4[sp],r10
@@ -898,7 +898,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  853              		.global _affine_fast_scale
  854              		.type	_affine_fast_scale, @function
  855              	_affine_fast_scale:
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 16
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 16
 
 
  856 0834 63A4ECFF 		addi -20,sp,sp
@@ -958,7 +958,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  910 08e2 705D     		sar 16,r11
  911 08e4 6AD50000 		st.h r11,0[r10]
  912 08e8 43CD0000 		ld.w 0[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 17
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 17
 
 
  913 08ec 4145     		add 1,r10
@@ -1018,7 +1018,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  967              	_WAVEDATA3:
  968 00a8 00010001 		.long	16777472
  969              		.global _WAVEDATA4
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 18
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 18
 
 
  970              		.align 2
@@ -1078,7 +1078,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1023              	_get_intlevel:
  1024 0980 7C44     		add -4,sp
  1025              	#APP
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 19
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 19
 
 
  1026              	# 42 "C:\vbde\libs\libgccvb/asm.h" 1
@@ -1138,7 +1138,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1080 09e0 4851     		shl 8,r10
  1081 09e2 60BD0000 		movhi hi(_HW_REGS),r0,r11
  1082 09e6 6BA10000 		movea lo(_HW_REGS),r11,r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 20
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 20
 
 
  1083 09ea 6BCD0000 		ld.w 0[r11],r11
@@ -1198,7 +1198,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1137 0a80 4AB5FFFF 		andi 65535,r10,r10
  1138 0a84 7C41     		mov -4,r11
  1139 0a86 4B35     		and r11,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 21
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 21
 
 
  1140 0a88 43D51000 		st.h r10,16[sp]
@@ -1258,7 +1258,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1194 0aee 43CD0400 		ld.w 4[sp],r10
  1195 0af2 6AD10000 		st.b r11,0[r10]
  1196 0af6 43CD0400 		ld.w 4[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 22
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 22
 
 
  1197 0afa 4145     		add 1,r10
@@ -1318,7 +1318,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1251 0b7c 7C44     		add -4,sp
  1252 0b7e C3DC0400 		st.w r6,4[sp]
  1253 0b82 E3DC0800 		st.w r7,8[sp]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 23
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 23
 
 
  1254 0b86 6801     		mov r8,r11
@@ -1378,7 +1378,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1305 0c02 5E8A     		br .L62
  1306              	.L63:
  1307 0c04 6941     		mov 9,r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 24
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 24
 
 
  1308 0c06 43CD0000 		ld.w 0[sp],r10
@@ -1438,7 +1438,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1362 0ca2 6A09     		sub r10,r11
  1363 0ca4 43CD0000 		ld.w 0[sp],r10
  1364 0ca8 6A0D     		cmp r10,r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 25
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 25
 
 
  1365 0caa 169E     		bgt .L66
@@ -1498,7 +1498,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1419 0d34 4B05     		add r11,r10
  1420 0d36 43D50200 		st.h r10,2[sp]
  1421 0d3a 5C8A     		br .L71
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 26
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 26
 
 
  1422              	.L72:
@@ -1558,7 +1558,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1476 0dd0 43D50000 		st.h r10,0[sp]
  1477 0dd4 03D40600 		st.h r0,6[sp]
  1478 0dd8 03D40800 		st.h r0,8[sp]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 27
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 27
 
 
  1479 0ddc 43C51000 		ld.h 16[sp],r10
@@ -1618,7 +1618,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1533 0e5e 43C51400 		ld.h 20[sp],r10
  1534 0e62 4145     		add 1,r10
  1535 0e64 43D51400 		st.h r10,20[sp]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 28
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 28
 
 
  1536 0e68 43C50A00 		ld.h 10[sp],r10
@@ -1678,7 +1678,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1590 0f08 43C50600 		ld.h 6[sp],r10
  1591 0f0c 4AB5FFFF 		andi 65535,r10,r10
  1592 0f10 63CD1800 		ld.w 24[sp],r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 29
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 29
 
 
  1593 0f14 4B05     		add r11,r10
@@ -1738,7 +1738,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1647 0fb0 4AB5FFFF 		andi 65535,r10,r10
  1648 0fb4 4BD50000 		st.h r10,0[r11]
  1649 0fb8 40BD0000 		movhi hi(_OAM),r0,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 30
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 30
 
 
  1650 0fbc 4AA10000 		movea lo(_OAM),r10,r10
@@ -1798,7 +1798,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1704 105a 43DD0000 		st.w r10,0[sp]
  1705              	.L90:
  1706 105e 63CD0400 		ld.w 4[sp],r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 31
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 31
 
 
  1707 1062 43CD0C00 		ld.w 12[sp],r10
@@ -1858,7 +1858,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1761              		.type	_vbSetWorld, @function
  1762              	_vbSetWorld:
  1763 10d4 63A4E4FF 		addi -28,sp,sp
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 32
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 32
 
 
  1764 10d8 6602     		mov r6,r19
@@ -1918,7 +1918,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1818 1196 63C52800 		ld.h 40[sp],r11
  1819 119a 6BB5FFFF 		andi 65535,r11,r11
  1820 119e 6AD50000 		st.h r11,0[r10]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 33
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 33
 
 
  1821 11a2 43C51A00 		ld.h 26[sp],r10
@@ -1978,7 +1978,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1875 1260 6ACD0000 		ld.w 0[r10],r11
  1876 1264 43C51A00 		ld.h 26[sp],r10
  1877 1268 4AB5FFFF 		andi 65535,r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 34
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 34
 
 
  1878 126c 4A05     		add r10,r10
@@ -2038,7 +2038,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1932 12fa 40BD0000 		movhi hi(_HW_REGS),r0,r10
  1933 12fe 4AA10000 		movea lo(_HW_REGS),r10,r10
  1934 1302 4ACD0000 		ld.w 0[r10],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 35
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 35
 
 
  1935 1306 4AA52000 		addi 32,r10,r10
@@ -2098,7 +2098,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  1989              	_timer_freq:
  1990 139c C3DC0000 		st.w r6,0[sp]
  1991 13a0 43CD0000 		ld.w 0[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 36
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 36
 
 
  1992 13a4 400D     		cmp r0,r10
@@ -2158,7 +2158,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2046 144e 4AC10000 		ld.b 0[r10],r10
  2047 1452 4AB5FF00 		andi 255,r10,r10
  2048 1456 4AB5F700 		andi 247,r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 37
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 37
 
 
  2049 145a 60BD0000 		movhi hi(_tcr_val),r0,r11
@@ -2218,7 +2218,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2103              		.global _currentFrameBuffer
  2104              		.section .data
  2105              		.align 2
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 38
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 38
 
 
  2106              		.type	_currentFrameBuffer, @object
@@ -2278,7 +2278,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2160 0188 06000000 		.long	6
  2161 018c 06000000 		.long	6
  2162 0190 06000000 		.long	6
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 39
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 39
 
 
  2163 0194 06000000 		.long	6
@@ -2338,7 +2338,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2217 026c FFFFFFFF 		.long	-1
  2218 0270 FFFFFFFF 		.long	-1
  2219 0274 FFFFFFFF 		.long	-1
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 40
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 40
 
 
  2220 0278 FFFFFFFF 		.long	-1
@@ -2398,7 +2398,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2274 0350 F9FFFFFF 		.long	-7
  2275 0354 F9FFFFFF 		.long	-7
  2276 0358 F9FFFFFF 		.long	-7
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 41
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 41
 
 
  2277 035c F9FFFFFF 		.long	-7
@@ -2458,7 +2458,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2331 0434 F9FFFFFF 		.long	-7
  2332 0438 F9FFFFFF 		.long	-7
  2333 043c F9FFFFFF 		.long	-7
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 42
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 42
 
 
  2334 0440 F9FFFFFF 		.long	-7
@@ -2518,7 +2518,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2388 0518 FFFFFFFF 		.long	-1
  2389 051c FFFFFFFF 		.long	-1
  2390 0520 00000000 		.long	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 43
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 43
 
 
  2391 0524 00000000 		.long	0
@@ -2578,7 +2578,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2445 05fc 06000000 		.long	6
  2446 0600 06000000 		.long	6
  2447 0604 06000000 		.long	6
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 44
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 44
 
 
  2448 0608 07000000 		.long	7
@@ -2638,7 +2638,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2502 06cc 02000000 		.long	2
  2503 06d0 02000000 		.long	2
  2504 06d4 02000000 		.long	2
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 45
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 45
 
 
  2505 06d8 02000000 		.long	2
@@ -2698,7 +2698,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2559 07b0 08000000 		.long	8
  2560 07b4 08000000 		.long	8
  2561 07b8 08000000 		.long	8
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 46
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 46
 
 
  2562 07bc 08000000 		.long	8
@@ -2758,7 +2758,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2616 0894 06000000 		.long	6
  2617 0898 06000000 		.long	6
  2618 089c 06000000 		.long	6
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 47
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 47
 
 
  2619 08a0 06000000 		.long	6
@@ -2818,7 +2818,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2673 0978 FFFFFFFF 		.long	-1
  2674 097c FFFFFFFF 		.long	-1
  2675 0980 FFFFFFFF 		.long	-1
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 48
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 48
 
 
  2676 0984 FFFFFFFF 		.long	-1
@@ -2878,7 +2878,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2730 0a5c F9FFFFFF 		.long	-7
  2731 0a60 F9FFFFFF 		.long	-7
  2732 0a64 F9FFFFFF 		.long	-7
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 49
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 49
 
 
  2733 0a68 F9FFFFFF 		.long	-7
@@ -2938,7 +2938,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2787 0b40 F9FFFFFF 		.long	-7
  2788 0b44 F9FFFFFF 		.long	-7
  2789 0b48 F9FFFFFF 		.long	-7
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 50
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 50
 
 
  2790 0b4c F9FFFFFF 		.long	-7
@@ -2998,7 +2998,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2844 0c24 FFFFFFFF 		.long	-1
  2845 0c28 00000000 		.long	0
  2846 0c2c 00000000 		.long	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 51
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 51
 
 
  2847 0c30 00000000 		.long	0
@@ -3058,7 +3058,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2901 0cf4 800C0000 		.long	3200
  2902 0cf8 E0FCFFFF 		.long	-800
  2903 0cfc 30F8FFFF 		.long	-2000
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 52
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 52
 
 
  2904 0d00 00000000 		.long	0
@@ -3118,7 +3118,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  2958 0dc4 70FEFFFF 		.long	-400
  2959 0dc8 00000000 		.long	0
  2960 0dcc 70FEFFFF 		.long	-400
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 53
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 53
 
 
  2961 0dd0 70FEFFFF 		.long	-400
@@ -3178,7 +3178,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3015 0ea8 09000000 		.long	9
  3016 0eac 0A000000 		.long	10
  3017 0eb0 0A000000 		.long	10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 54
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 54
 
 
  3018 0eb4 0B000000 		.long	11
@@ -3238,7 +3238,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3072 0f78 40060000 		.long	1600
  3073 0f7c 20030000 		.long	800
  3074 0f80 30F8FFFF 		.long	-2000
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 55
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 55
 
 
  3075 0f84 40060000 		.long	1600
@@ -3298,7 +3298,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3129 105c 0B000000 		.long	11
  3130 1060 0C000000 		.long	12
  3131 1064 0C000000 		.long	12
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 56
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 56
 
 
  3132 1068 0A000000 		.long	10
@@ -3358,7 +3358,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3186 112c 06000000 		.long	6
  3187 1130 02000000 		.long	2
  3188 1134 02000000 		.long	2
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 57
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 57
 
 
  3189 1138 00000000 		.long	0
@@ -3418,7 +3418,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3243 11fc 40060000 		.long	1600
  3244 1200 30F8FFFF 		.long	-2000
  3245 1204 F00A0000 		.long	2800
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 58
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 58
 
 
  3246 1208 40060000 		.long	1600
@@ -3478,7 +3478,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3300 12c5 00       		.byte	0
  3301 12c6 00       		.byte	0
  3302 12c7 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 59
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 59
 
 
  3303 12c8 00       		.byte	0
@@ -3538,7 +3538,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3357 12fe F0       		.byte	-16
  3358 12ff 03       		.byte	3
  3359 1300 C0       		.byte	-64
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 60
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 60
 
 
  3360 1301 00       		.byte	0
@@ -3598,7 +3598,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3414 1337 00       		.byte	0
  3415 1338 C0       		.byte	-64
  3416 1339 03       		.byte	3
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 61
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 61
 
 
  3417 133a F0       		.byte	-16
@@ -3658,7 +3658,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3471 1370 0F       		.byte	15
  3472 1371 F0       		.byte	-16
  3473 1372 FF       		.byte	-1
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 62
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 62
 
 
  3474 1373 FF       		.byte	-1
@@ -3718,7 +3718,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3528 13a9 FF       		.byte	-1
  3529 13aa 3C       		.byte	60
  3530 13ab F0       		.byte	-16
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 63
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 63
 
 
  3531 13ac 3C       		.byte	60
@@ -3778,7 +3778,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3585 13e2 00       		.byte	0
  3586 13e3 00       		.byte	0
  3587 13e4 C0       		.byte	-64
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 64
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 64
 
 
  3588 13e5 03       		.byte	3
@@ -3838,7 +3838,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3642 141b 0F       		.byte	15
  3643 141c 0F       		.byte	15
  3644 141d 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 65
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 65
 
 
  3645 141e FC       		.byte	-4
@@ -3898,7 +3898,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3699 1454 C0       		.byte	-64
  3700 1455 03       		.byte	3
  3701 1456 C0       		.byte	-64
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 66
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 66
 
 
  3702 1457 03       		.byte	3
@@ -3958,7 +3958,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3756 148d 00       		.byte	0
  3757 148e FF       		.byte	-1
  3758 148f 3F       		.byte	63
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 67
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 67
 
 
  3759 1490 00       		.byte	0
@@ -4018,7 +4018,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3813 14c6 00       		.byte	0
  3814 14c7 00       		.byte	0
  3815 14c8 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 68
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 68
 
 
  3816 14c9 00       		.byte	0
@@ -4078,7 +4078,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3870 14ff 0F       		.byte	15
  3871 1500 3C       		.byte	60
  3872 1501 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 69
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 69
 
 
  3873 1502 00       		.byte	0
@@ -4138,7 +4138,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3927 1538 0F       		.byte	15
  3928 1539 00       		.byte	0
  3929 153a 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 70
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 70
 
 
  3930 153b 00       		.byte	0
@@ -4198,7 +4198,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  3984 1571 00       		.byte	0
  3985 1572 00       		.byte	0
  3986 1573 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 71
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 71
 
 
  3987 1574 00       		.byte	0
@@ -4258,7 +4258,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4041 15aa 00       		.byte	0
  4042 15ab 00       		.byte	0
  4043 15ac 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 72
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 72
 
 
  4044 15ad 00       		.byte	0
@@ -4318,7 +4318,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4098 15e3 00       		.byte	0
  4099 15e4 FC       		.byte	-4
  4100 15e5 03       		.byte	3
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 73
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 73
 
 
  4101 15e6 0F       		.byte	15
@@ -4378,7 +4378,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4155 161c 00       		.byte	0
  4156 161d 0F       		.byte	15
  4157 161e 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 74
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 74
 
 
  4158 161f 0F       		.byte	15
@@ -4438,7 +4438,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4212 1655 03       		.byte	3
  4213 1656 0F       		.byte	15
  4214 1657 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 75
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 75
 
 
  4215 1658 0F       		.byte	15
@@ -4498,7 +4498,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4269 168e F0       		.byte	-16
  4270 168f 00       		.byte	0
  4271 1690 C0       		.byte	-64
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 76
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 76
 
 
  4272 1691 03       		.byte	3
@@ -4558,7 +4558,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4326 16c7 3C       		.byte	60
  4327 16c8 CF       		.byte	-49
  4328 16c9 3F       		.byte	63
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 77
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 77
 
 
  4329 16ca CF       		.byte	-49
@@ -4618,7 +4618,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4383 1700 F0       		.byte	-16
  4384 1701 0F       		.byte	15
  4385 1702 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 78
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 78
 
 
  4386 1703 00       		.byte	0
@@ -4678,7 +4678,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4440 1739 00       		.byte	0
  4441 173a 0F       		.byte	15
  4442 173b 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 79
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 79
 
 
  4443 173c 0F       		.byte	15
@@ -4738,7 +4738,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4497 1772 00       		.byte	0
  4498 1773 00       		.byte	0
  4499 1774 3F       		.byte	63
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 80
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 80
 
 
  4500 1775 3C       		.byte	60
@@ -4798,7 +4798,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4554 17ab 3F       		.byte	63
  4555 17ac 0F       		.byte	15
  4556 17ad 3F       		.byte	63
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 81
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 81
 
 
  4557 17ae 0F       		.byte	15
@@ -4858,7 +4858,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4611 17e4 FF       		.byte	-1
  4612 17e5 0F       		.byte	15
  4613 17e6 3C       		.byte	60
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 82
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 82
 
 
  4614 17e7 3C       		.byte	60
@@ -4918,7 +4918,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4668 181d 0F       		.byte	15
  4669 181e 0F       		.byte	15
  4670 181f 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 83
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 83
 
 
  4671 1820 FF       		.byte	-1
@@ -4978,7 +4978,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4725 1856 0F       		.byte	15
  4726 1857 0F       		.byte	15
  4727 1858 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 84
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 84
 
 
  4728 1859 0F       		.byte	15
@@ -5038,7 +5038,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4782 188f 3C       		.byte	60
  4783 1890 00       		.byte	0
  4784 1891 30       		.byte	48
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 85
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 85
 
 
  4785 1892 00       		.byte	0
@@ -5098,7 +5098,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4839 18c8 C0       		.byte	-64
  4840 18c9 03       		.byte	3
  4841 18ca 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 86
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 86
 
 
  4842 18cb 00       		.byte	0
@@ -5158,7 +5158,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4896 1901 03       		.byte	3
  4897 1902 00       		.byte	0
  4898 1903 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 87
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 87
 
 
  4899 1904 C0       		.byte	-64
@@ -5218,7 +5218,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  4953 193a 0F       		.byte	15
  4954 193b 0F       		.byte	15
  4955 193c 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 88
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 88
 
 
  4956 193d 0F       		.byte	15
@@ -5278,7 +5278,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5010 1973 00       		.byte	0
  5011 1974 3F       		.byte	63
  5012 1975 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 89
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 89
 
 
  5013 1976 3C       		.byte	60
@@ -5338,7 +5338,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5067 19ac 0F       		.byte	15
  5068 19ad 0F       		.byte	15
  5069 19ae 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 90
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 90
 
 
  5070 19af 0F       		.byte	15
@@ -5398,7 +5398,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5124 19e5 00       		.byte	0
  5125 19e6 00       		.byte	0
  5126 19e7 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 91
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 91
 
 
  5127 19e8 CF       		.byte	-49
@@ -5458,7 +5458,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5181 1a1e 0F       		.byte	15
  5182 1a1f 0F       		.byte	15
  5183 1a20 FC       		.byte	-4
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 92
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 92
 
 
  5184 1a21 3C       		.byte	60
@@ -5518,7 +5518,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5238 1a57 00       		.byte	0
  5239 1a58 0F       		.byte	15
  5240 1a59 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 93
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 93
 
 
  5241 1a5a 0F       		.byte	15
@@ -5578,7 +5578,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5295 1a90 C0       		.byte	-64
  5296 1a91 03       		.byte	3
  5297 1a92 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 94
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 94
 
 
  5298 1a93 00       		.byte	0
@@ -5638,7 +5638,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5352 1ac9 00       		.byte	0
  5353 1aca FF       		.byte	-1
  5354 1acb 03       		.byte	3
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 95
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 95
 
 
  5355 1acc 0F       		.byte	15
@@ -5698,7 +5698,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5409 1b02 FC       		.byte	-4
  5410 1b03 00       		.byte	0
  5411 1b04 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 96
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 96
 
 
  5412 1b05 00       		.byte	0
@@ -5758,7 +5758,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5466 1b3b 03       		.byte	3
  5467 1b3c C0       		.byte	-64
  5468 1b3d 03       		.byte	3
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 97
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 97
 
 
  5469 1b3e F0       		.byte	-16
@@ -5818,7 +5818,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5523 1b74 00       		.byte	0
  5524 1b75 00       		.byte	0
  5525 1b76 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 98
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 98
 
 
  5526 1b77 0F       		.byte	15
@@ -5878,7 +5878,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5580 1bad 00       		.byte	0
  5581 1bae 3C       		.byte	60
  5582 1baf 0C       		.byte	12
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 99
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 99
 
 
  5583 1bb0 FF       		.byte	-1
@@ -5938,7 +5938,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5637 1be6 F0       		.byte	-16
  5638 1be7 00       		.byte	0
  5639 1be8 FC       		.byte	-4
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 100
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 100
 
 
  5640 1be9 00       		.byte	0
@@ -5998,7 +5998,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5694 1c1f 03       		.byte	3
  5695 1c20 00       		.byte	0
  5696 1c21 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 101
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 101
 
 
  5697 1c22 00       		.byte	0
@@ -6058,7 +6058,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5751 1c58 CC       		.byte	-52
  5752 1c59 0F       		.byte	15
  5753 1c5a CC       		.byte	-52
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 102
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 102
 
 
  5754 1c5b 0C       		.byte	12
@@ -6118,7 +6118,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5808 1c91 3C       		.byte	60
  5809 1c92 00       		.byte	0
  5810 1c93 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 103
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 103
 
 
  5811 1c94 00       		.byte	0
@@ -6178,7 +6178,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5865 1cca 00       		.byte	0
  5866 1ccb 00       		.byte	0
  5867 1ccc 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 104
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 104
 
 
  5868 1ccd 00       		.byte	0
@@ -6238,7 +6238,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5922 1d03 00       		.byte	0
  5923 1d04 00       		.byte	0
  5924 1d05 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 105
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 105
 
 
  5925 1d06 00       		.byte	0
@@ -6298,7 +6298,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  5979 1d3c F0       		.byte	-16
  5980 1d3d 03       		.byte	3
  5981 1d3e 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 106
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 106
 
 
  5982 1d3f 0C       		.byte	12
@@ -6358,7 +6358,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6036 1d75 00       		.byte	0
  6037 1d76 F0       		.byte	-16
  6038 1d77 F0       		.byte	-16
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 107
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 107
 
 
  6039 1d78 3C       		.byte	60
@@ -6418,7 +6418,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6093 1dae 0C       		.byte	12
  6094 1daf 0C       		.byte	12
  6095 1db0 F0       		.byte	-16
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 108
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 108
 
 
  6096 1db1 03       		.byte	3
@@ -6478,7 +6478,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6150 1de7 0F       		.byte	15
  6151 1de8 F0       		.byte	-16
  6152 1de9 03       		.byte	3
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 109
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 109
 
 
  6153 1dea 3C       		.byte	60
@@ -6538,7 +6538,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6207 1e20 3C       		.byte	60
  6208 1e21 00       		.byte	0
  6209 1e22 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 110
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 110
 
 
  6210 1e23 00       		.byte	0
@@ -6598,7 +6598,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6264 1e59 00       		.byte	0
  6265 1e5a F0       		.byte	-16
  6266 1e5b 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 111
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 111
 
 
  6267 1e5c FC       		.byte	-4
@@ -6658,7 +6658,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6321 1e92 00       		.byte	0
  6322 1e93 F0       		.byte	-16
  6323 1e94 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 112
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 112
 
 
  6324 1e95 3C       		.byte	60
@@ -6718,7 +6718,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6378 1ecb 0F       		.byte	15
  6379 1ecc 0F       		.byte	15
  6380 1ecd 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 113
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 113
 
 
  6381 1ece FF       		.byte	-1
@@ -6778,7 +6778,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6435 1f04 0F       		.byte	15
  6436 1f05 0F       		.byte	15
  6437 1f06 F0       		.byte	-16
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 114
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 114
 
 
  6438 1f07 00       		.byte	0
@@ -6838,7 +6838,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6492 1f3d 0F       		.byte	15
  6493 1f3e FC       		.byte	-4
  6494 1f3f 03       		.byte	3
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 115
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 115
 
 
  6495 1f40 00       		.byte	0
@@ -6898,7 +6898,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6549 1f76 00       		.byte	0
  6550 1f77 00       		.byte	0
  6551 1f78 FF       		.byte	-1
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 116
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 116
 
 
  6552 1f79 0F       		.byte	15
@@ -6958,7 +6958,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6606 1faf 03       		.byte	3
  6607 1fb0 F0       		.byte	-16
  6608 1fb1 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 117
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 117
 
 
  6609 1fb2 00       		.byte	0
@@ -7018,7 +7018,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6663 1fe8 F0       		.byte	-16
  6664 1fe9 3F       		.byte	63
  6665 1fea 3C       		.byte	60
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 118
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 118
 
 
  6666 1feb F0       		.byte	-16
@@ -7078,7 +7078,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6720 2021 0F       		.byte	15
  6721 2022 00       		.byte	0
  6722 2023 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 119
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 119
 
 
  6723 2024 0F       		.byte	15
@@ -7138,7 +7138,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6777 205a F0       		.byte	-16
  6778 205b F0       		.byte	-16
  6779 205c F0       		.byte	-16
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 120
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 120
 
 
  6780 205d F0       		.byte	-16
@@ -7198,7 +7198,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6834 2093 00       		.byte	0
  6835 2094 C0       		.byte	-64
  6836 2095 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 121
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 121
 
 
  6837 2096 00       		.byte	0
@@ -7258,7 +7258,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6891 20cc FC       		.byte	-4
  6892 20cd 0F       		.byte	15
  6893 20ce 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 122
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 122
 
 
  6894 20cf 0F       		.byte	15
@@ -7318,7 +7318,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  6948 2105 0F       		.byte	15
  6949 2106 00       		.byte	0
  6950 2107 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 123
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 123
 
 
  6951 2108 FC       		.byte	-4
@@ -7378,7 +7378,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7005 213e C0       		.byte	-64
  7006 213f 03       		.byte	3
  7007 2140 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 124
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 124
 
 
  7008 2141 0F       		.byte	15
@@ -7438,7 +7438,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7062 2177 00       		.byte	0
  7063 2178 FC       		.byte	-4
  7064 2179 03       		.byte	3
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 125
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 125
 
 
  7065 217a 0F       		.byte	15
@@ -7498,7 +7498,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7119 21b0 F0       		.byte	-16
  7120 21b1 0F       		.byte	15
  7121 21b2 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 126
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 126
 
 
  7122 21b3 00       		.byte	0
@@ -7558,7 +7558,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7176 21e9 00       		.byte	0
  7177 21ea FC       		.byte	-4
  7178 21eb 03       		.byte	3
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 127
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 127
 
 
  7179 21ec 0F       		.byte	15
@@ -7618,7 +7618,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7233 2222 00       		.byte	0
  7234 2223 00       		.byte	0
  7235 2224 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 128
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 128
 
 
  7236 2225 00       		.byte	0
@@ -7678,7 +7678,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7290 225b 0F       		.byte	15
  7291 225c 0F       		.byte	15
  7292 225d 0F       		.byte	15
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 129
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 129
 
 
  7293 225e 0F       		.byte	15
@@ -7738,7 +7738,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7347 2294 C0       		.byte	-64
  7348 2295 0F       		.byte	15
  7349 2296 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 130
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 130
 
 
  7350 2297 00       		.byte	0
@@ -7798,7 +7798,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7404 22cd 00       		.byte	0
  7405 22ce 00       		.byte	0
  7406 22cf 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 131
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 131
 
 
  7407 22d0 00       		.byte	0
@@ -7858,7 +7858,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7461 2306 00       		.byte	0
  7462 2307 00       		.byte	0
  7463 2308 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 132
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 132
 
 
  7464 2309 00       		.byte	0
@@ -7918,7 +7918,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7518 233f 00       		.byte	0
  7519 2340 00       		.byte	0
  7520 2341 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 133
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 133
 
 
  7521 2342 00       		.byte	0
@@ -7978,7 +7978,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7575 2378 00       		.byte	0
  7576 2379 00       		.byte	0
  7577 237a 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 134
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 134
 
 
  7578 237b 00       		.byte	0
@@ -8038,7 +8038,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7632 23b1 00       		.byte	0
  7633 23b2 00       		.byte	0
  7634 23b3 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 135
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 135
 
 
  7635 23b4 00       		.byte	0
@@ -8098,7 +8098,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7689 23ea 00       		.byte	0
  7690 23eb 00       		.byte	0
  7691 23ec 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 136
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 136
 
 
  7692 23ed 00       		.byte	0
@@ -8158,7 +8158,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7746 2423 00       		.byte	0
  7747 2424 00       		.byte	0
  7748 2425 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 137
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 137
 
 
  7749 2426 00       		.byte	0
@@ -8218,7 +8218,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7803 245c 00       		.byte	0
  7804 245d 00       		.byte	0
  7805 245e 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 138
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 138
 
 
  7806 245f 00       		.byte	0
@@ -8278,7 +8278,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7860 2495 00       		.byte	0
  7861 2496 00       		.byte	0
  7862 2497 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 139
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 139
 
 
  7863 2498 00       		.byte	0
@@ -8338,7 +8338,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7917 24ce 00       		.byte	0
  7918 24cf 00       		.byte	0
  7919 24d0 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 140
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 140
 
 
  7920 24d1 00       		.byte	0
@@ -8398,7 +8398,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  7974 2507 00       		.byte	0
  7975 2508 00       		.byte	0
  7976 2509 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 141
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 141
 
 
  7977 250a 00       		.byte	0
@@ -8458,7 +8458,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8031 2540 00       		.byte	0
  8032 2541 00       		.byte	0
  8033 2542 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 142
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 142
 
 
  8034 2543 00       		.byte	0
@@ -8518,7 +8518,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8088 2579 00       		.byte	0
  8089 257a 00       		.byte	0
  8090 257b 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 143
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 143
 
 
  8091 257c 00       		.byte	0
@@ -8578,7 +8578,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8145 25b2 00       		.byte	0
  8146 25b3 00       		.byte	0
  8147 25b4 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 144
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 144
 
 
  8148 25b5 00       		.byte	0
@@ -8638,7 +8638,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8202 25eb 00       		.byte	0
  8203 25ec 00       		.byte	0
  8204 25ed 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 145
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 145
 
 
  8205 25ee 00       		.byte	0
@@ -8698,7 +8698,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8259 2624 00       		.byte	0
  8260 2625 00       		.byte	0
  8261 2626 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 146
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 146
 
 
  8262 2627 00       		.byte	0
@@ -8758,7 +8758,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8316 265d 00       		.byte	0
  8317 265e 00       		.byte	0
  8318 265f 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 147
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 147
 
 
  8319 2660 00       		.byte	0
@@ -8818,7 +8818,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8373 2696 00       		.byte	0
  8374 2697 00       		.byte	0
  8375 2698 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 148
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 148
 
 
  8376 2699 00       		.byte	0
@@ -8878,7 +8878,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8430 26cf 00       		.byte	0
  8431 26d0 00       		.byte	0
  8432 26d1 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 149
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 149
 
 
  8433 26d2 00       		.byte	0
@@ -8938,7 +8938,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8487 2708 00       		.byte	0
  8488 2709 00       		.byte	0
  8489 270a 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 150
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 150
 
 
  8490 270b 00       		.byte	0
@@ -8998,7 +8998,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8544 2741 00       		.byte	0
  8545 2742 00       		.byte	0
  8546 2743 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 151
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 151
 
 
  8547 2744 00       		.byte	0
@@ -9058,7 +9058,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8601 277a 00       		.byte	0
  8602 277b 00       		.byte	0
  8603 277c 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 152
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 152
 
 
  8604 277d 00       		.byte	0
@@ -9118,7 +9118,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8658 27b3 00       		.byte	0
  8659 27b4 00       		.byte	0
  8660 27b5 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 153
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 153
 
 
  8661 27b6 00       		.byte	0
@@ -9178,7 +9178,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8715 27ec 00       		.byte	0
  8716 27ed 00       		.byte	0
  8717 27ee 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 154
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 154
 
 
  8718 27ef 00       		.byte	0
@@ -9238,7 +9238,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8772 2825 00       		.byte	0
  8773 2826 00       		.byte	0
  8774 2827 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 155
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 155
 
 
  8775 2828 00       		.byte	0
@@ -9298,7 +9298,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8829 285e 00       		.byte	0
  8830 285f 00       		.byte	0
  8831 2860 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 156
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 156
 
 
  8832 2861 00       		.byte	0
@@ -9358,7 +9358,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8886 2897 00       		.byte	0
  8887 2898 00       		.byte	0
  8888 2899 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 157
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 157
 
 
  8889 289a 00       		.byte	0
@@ -9418,7 +9418,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  8943 28d0 00       		.byte	0
  8944 28d1 00       		.byte	0
  8945 28d2 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 158
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 158
 
 
  8946 28d3 00       		.byte	0
@@ -9478,7 +9478,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9000 2909 00       		.byte	0
  9001 290a 00       		.byte	0
  9002 290b 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 159
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 159
 
 
  9003 290c 00       		.byte	0
@@ -9538,7 +9538,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9057 2942 00       		.byte	0
  9058 2943 00       		.byte	0
  9059 2944 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 160
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 160
 
 
  9060 2945 00       		.byte	0
@@ -9598,7 +9598,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9114 297b 00       		.byte	0
  9115 297c 00       		.byte	0
  9116 297d 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 161
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 161
 
 
  9117 297e 00       		.byte	0
@@ -9658,7 +9658,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9171 29b4 00       		.byte	0
  9172 29b5 00       		.byte	0
  9173 29b6 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 162
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 162
 
 
  9174 29b7 00       		.byte	0
@@ -9718,7 +9718,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9228 29ed 00       		.byte	0
  9229 29ee 00       		.byte	0
  9230 29ef 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 163
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 163
 
 
  9231 29f0 00       		.byte	0
@@ -9778,7 +9778,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9285 2a26 00       		.byte	0
  9286 2a27 00       		.byte	0
  9287 2a28 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 164
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 164
 
 
  9288 2a29 00       		.byte	0
@@ -9838,7 +9838,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9342 2a5f 00       		.byte	0
  9343 2a60 00       		.byte	0
  9344 2a61 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 165
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 165
 
 
  9345 2a62 00       		.byte	0
@@ -9898,7 +9898,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9399 2a98 00       		.byte	0
  9400 2a99 00       		.byte	0
  9401 2a9a 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 166
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 166
 
 
  9402 2a9b 00       		.byte	0
@@ -9958,7 +9958,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9456 2ad1 00       		.byte	0
  9457 2ad2 00       		.byte	0
  9458 2ad3 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 167
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 167
 
 
  9459 2ad4 00       		.byte	0
@@ -10018,7 +10018,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9513 2b0a 00       		.byte	0
  9514 2b0b 00       		.byte	0
  9515 2b0c 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 168
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 168
 
 
  9516 2b0d 00       		.byte	0
@@ -10078,7 +10078,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9570 2b43 00       		.byte	0
  9571 2b44 00       		.byte	0
  9572 2b45 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 169
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 169
 
 
  9573 2b46 00       		.byte	0
@@ -10138,7 +10138,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9627 2b7c 00       		.byte	0
  9628 2b7d 00       		.byte	0
  9629 2b7e 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 170
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 170
 
 
  9630 2b7f 00       		.byte	0
@@ -10198,7 +10198,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9684 2bb5 00       		.byte	0
  9685 2bb6 00       		.byte	0
  9686 2bb7 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 171
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 171
 
 
  9687 2bb8 00       		.byte	0
@@ -10258,7 +10258,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9741 2bee 00       		.byte	0
  9742 2bef 00       		.byte	0
  9743 2bf0 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 172
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 172
 
 
  9744 2bf1 00       		.byte	0
@@ -10318,7 +10318,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9798 2c27 00       		.byte	0
  9799 2c28 00       		.byte	0
  9800 2c29 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 173
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 173
 
 
  9801 2c2a 00       		.byte	0
@@ -10378,7 +10378,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9855 2c60 00       		.byte	0
  9856 2c61 00       		.byte	0
  9857 2c62 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 174
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 174
 
 
  9858 2c63 00       		.byte	0
@@ -10438,7 +10438,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9912 2c99 00       		.byte	0
  9913 2c9a 00       		.byte	0
  9914 2c9b 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 175
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 175
 
 
  9915 2c9c 00       		.byte	0
@@ -10498,7 +10498,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  9969 2cd2 00       		.byte	0
  9970 2cd3 00       		.byte	0
  9971 2cd4 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 176
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 176
 
 
  9972 2cd5 00       		.byte	0
@@ -10558,7 +10558,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10026 2d0b 00       		.byte	0
  10027 2d0c 00       		.byte	0
  10028 2d0d 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 177
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 177
 
 
  10029 2d0e 00       		.byte	0
@@ -10618,7 +10618,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10083 2d44 00       		.byte	0
  10084 2d45 00       		.byte	0
  10085 2d46 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 178
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 178
 
 
  10086 2d47 00       		.byte	0
@@ -10678,7 +10678,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10140 2d7d 00       		.byte	0
  10141 2d7e 00       		.byte	0
  10142 2d7f 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 179
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 179
 
 
  10143 2d80 00       		.byte	0
@@ -10738,7 +10738,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10197 2db6 00       		.byte	0
  10198 2db7 00       		.byte	0
  10199 2db8 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 180
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 180
 
 
  10200 2db9 00       		.byte	0
@@ -10798,7 +10798,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10254 2def 00       		.byte	0
  10255 2df0 00       		.byte	0
  10256 2df1 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 181
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 181
 
 
  10257 2df2 00       		.byte	0
@@ -10858,7 +10858,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10311 2e28 00       		.byte	0
  10312 2e29 00       		.byte	0
  10313 2e2a 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 182
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 182
 
 
  10314 2e2b 00       		.byte	0
@@ -10918,7 +10918,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10368 2e61 00       		.byte	0
  10369 2e62 00       		.byte	0
  10370 2e63 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 183
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 183
 
 
  10371 2e64 00       		.byte	0
@@ -10978,7 +10978,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10425 2e9a 00       		.byte	0
  10426 2e9b 00       		.byte	0
  10427 2e9c 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 184
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 184
 
 
  10428 2e9d 00       		.byte	0
@@ -11038,7 +11038,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10482 2ed3 00       		.byte	0
  10483 2ed4 00       		.byte	0
  10484 2ed5 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 185
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 185
 
 
  10485 2ed6 00       		.byte	0
@@ -11098,7 +11098,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10539 2f0c 00       		.byte	0
  10540 2f0d 00       		.byte	0
  10541 2f0e 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 186
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 186
 
 
  10542 2f0f 00       		.byte	0
@@ -11158,7 +11158,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10596 2f45 00       		.byte	0
  10597 2f46 00       		.byte	0
  10598 2f47 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 187
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 187
 
 
  10599 2f48 00       		.byte	0
@@ -11218,7 +11218,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10653 2f7e 00       		.byte	0
  10654 2f7f 00       		.byte	0
  10655 2f80 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 188
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 188
 
 
  10656 2f81 00       		.byte	0
@@ -11278,7 +11278,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10710 2fb7 00       		.byte	0
  10711 2fb8 00       		.byte	0
  10712 2fb9 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 189
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 189
 
 
  10713 2fba 00       		.byte	0
@@ -11338,7 +11338,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10767 2ff0 00       		.byte	0
  10768 2ff1 00       		.byte	0
  10769 2ff2 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 190
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 190
 
 
  10770 2ff3 00       		.byte	0
@@ -11398,7 +11398,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10824 3029 00       		.byte	0
  10825 302a 00       		.byte	0
  10826 302b 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 191
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 191
 
 
  10827 302c 00       		.byte	0
@@ -11458,7 +11458,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10881 3062 00       		.byte	0
  10882 3063 00       		.byte	0
  10883 3064 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 192
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 192
 
 
  10884 3065 00       		.byte	0
@@ -11518,7 +11518,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10938 309b 00       		.byte	0
  10939 309c 00       		.byte	0
  10940 309d 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 193
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 193
 
 
  10941 309e 00       		.byte	0
@@ -11578,7 +11578,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  10995 30d4 00       		.byte	0
  10996 30d5 00       		.byte	0
  10997 30d6 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 194
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 194
 
 
  10998 30d7 00       		.byte	0
@@ -11638,7 +11638,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11052 310d 00       		.byte	0
  11053 310e 00       		.byte	0
  11054 310f 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 195
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 195
 
 
  11055 3110 00       		.byte	0
@@ -11698,7 +11698,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11109 3146 00       		.byte	0
  11110 3147 00       		.byte	0
  11111 3148 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 196
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 196
 
 
  11112 3149 00       		.byte	0
@@ -11758,7 +11758,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11166 317f 00       		.byte	0
  11167 3180 00       		.byte	0
  11168 3181 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 197
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 197
 
 
  11169 3182 00       		.byte	0
@@ -11818,7 +11818,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11223 31b8 00       		.byte	0
  11224 31b9 00       		.byte	0
  11225 31ba 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 198
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 198
 
 
  11226 31bb 00       		.byte	0
@@ -11878,7 +11878,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11280 31f1 00       		.byte	0
  11281 31f2 00       		.byte	0
  11282 31f3 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 199
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 199
 
 
  11283 31f4 00       		.byte	0
@@ -11938,7 +11938,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11337 322a 00       		.byte	0
  11338 322b 00       		.byte	0
  11339 322c 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 200
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 200
 
 
  11340 322d 00       		.byte	0
@@ -11998,7 +11998,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11394 3263 00       		.byte	0
  11395 3264 00       		.byte	0
  11396 3265 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 201
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 201
 
 
  11397 3266 00       		.byte	0
@@ -12058,7 +12058,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11451 329c 00       		.byte	0
  11452 329d 00       		.byte	0
  11453 329e 00       		.byte	0
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 202
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 202
 
 
  11454 329f 00       		.byte	0
@@ -12118,7 +12118,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11508 0013 00       		.align 2
  11509              		.type	_tick, @object
  11510              		.size	_tick, 4
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 203
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 203
 
 
  11511              	_tick:
@@ -12178,7 +12178,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11565              		.section .bss
  11566              		.type	_movePathIdx, @object
  11567              		.size	_movePathIdx, 1
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 204
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 204
 
 
  11568              	_movePathIdx:
@@ -12238,7 +12238,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11599              	#NO_APP
  11600 1514 1F18     		jmp [r31]
  11601              		.size	_g3d_copyVector3d, .-_g3d_copyVector3d
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 205
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 205
 
 
  11602 1516 0000     		.align 2
@@ -12298,7 +12298,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
   41              		o->z = F_MUL(v->z,factor->z);
   42              	#else
   43 157a AACC0000 		asm(
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 206
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 206
 
 
   44 157e CBCC0000 		"ld.w 0[%[factor]], r5\n"
@@ -12358,7 +12358,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11665              	st.w r7, 8[r12]
  11666              	
  11667              	# 0 "" 2
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 207
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 207
 
 
  11668              	#NO_APP
@@ -12418,7 +12418,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
   92 1630 8801     		"ld.w %[sin],r11\n"
   93 1632 8A21     		//F_MUL(v->z, cosine[degrees])
   94 1634 835D     		"mov r8,r12\n"
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 208
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 208
 
 
   95 1636 A701     		"mul r10,r12\n"
@@ -12478,7 +12478,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11739 1674 6ADD0400 		st.w r11,4[r10]
  11740 1678 63CD0000 		ld.w 0[sp],r11
  11741 167c 43CD0000 		ld.w 0[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 209
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 209
 
 
  11742 1680 C3CD0400 		ld.w 4[sp],r14
@@ -12538,7 +12538,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  151 16d8 A721     		"mov r8,r12\n"
  152 16da A35D     		"mul r11,r12\n"
  153 16dc AC05     		"sar %[fixShift],r12\n"
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 210
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 210
 
 
  154 16de B0DD0800 		//+ F_MUL(cosine[degrees], v->z)
@@ -12598,7 +12598,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11808 172c 4B02     		mov r11,r18
  11809 172e 4A06     		add r10,r18
  11810              	#APP
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 211
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 211
 
 
  11811              	# 178 "G3d.c" 1
@@ -12658,7 +12658,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11820              	mul r11,r13
  11821              	sar 3,r13
  11822              	add r12,r13
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 212
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 212
 
 
  11823              	st.w r13, 0x00[r16]
@@ -12718,7 +12718,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11877 17d4 43CD2C00 		ld.w 44[sp],r10
  11878 17d8 4AA56701 		addi 359,r10,r10
  11879 17dc 43DD2C00 		st.w r10,44[sp]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 213
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 213
 
 
  11880              	.L135:
@@ -12737,15 +12737,15 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11893 1806 00AC0400 		jal .+4
  11894 180a E447     		add 4,r31
  11895 180c 0A18     		jmp r10
- 11896 180e 43CD2800 		ld.w 40[sp],r10
+ 11896 180e 43CD2C00 		ld.w 44[sp],r10
  11897 1812 400D     		cmp r0,r10
  11898 1814 3A84     		be .L137
  11899 1816 43A51000 		addi 16,sp,r10
- 11900 181a C3CC2800 		ld.w 40[sp],r6
+ 11900 181a C3CC2C00 		ld.w 44[sp],r6
  11901 181e EA00     		mov r10,r7
  11902 1820 03CD3800 		ld.w 56[sp],r8
- 11903 1824 40BD0000 		movhi hi(_g3d_rotateXAxis),r0,r10
- 11904 1828 4AA10000 		movea lo(_g3d_rotateXAxis),r10,r10
+ 11903 1824 40BD0000 		movhi hi(_g3d_rotateYAxis),r0,r10
+ 11904 1828 4AA10000 		movea lo(_g3d_rotateYAxis),r10,r10
  11905 182c 00AC0400 		jal .+4
  11906 1830 E447     		add 4,r31
  11907 1832 0A18     		jmp r10
@@ -12758,15 +12758,15 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11914 184a E447     		add 4,r31
  11915 184c 0A18     		jmp r10
  11916              	.L137:
- 11917 184e 43CD2C00 		ld.w 44[sp],r10
+ 11917 184e 43CD2800 		ld.w 40[sp],r10
  11918 1852 400D     		cmp r0,r10
  11919 1854 3A84     		be .L138
  11920 1856 43A51000 		addi 16,sp,r10
- 11921 185a C3CC2C00 		ld.w 44[sp],r6
+ 11921 185a C3CC2800 		ld.w 40[sp],r6
  11922 185e EA00     		mov r10,r7
  11923 1860 03CD3800 		ld.w 56[sp],r8
- 11924 1864 40BD0000 		movhi hi(_g3d_rotateYAxis),r0,r10
- 11925 1868 4AA10000 		movea lo(_g3d_rotateYAxis),r10,r10
+ 11924 1864 40BD0000 		movhi hi(_g3d_rotateXAxis),r0,r10
+ 11925 1868 4AA10000 		movea lo(_g3d_rotateXAxis),r10,r10
  11926 186c 00AC0400 		jal .+4
  11927 1870 E447     		add 4,r31
  11928 1872 0A18     		jmp r10
@@ -12778,7 +12778,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  11934 1886 00AC0400 		jal .+4
  11935 188a E447     		add 4,r31
  11936 188c 0A18     		jmp r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 214
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 214
 
 
  11937              	.L138:
@@ -12838,7 +12838,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  206              		:[vy] "m" (v->y),[vx] "m" (v->x),
  207              		 [o] "r" ((vector3d*)o),[cos] "m" (cosine[degrees]),[sin] "m" (sine[degrees]),
  208              		 [fixShift] "i" (FIXED_SHIFT)
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 215
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 215
 
 
  209              		:"r7","r8","r10","r11","r12","r13"
@@ -12866,12 +12866,12 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  231              		if(rz<0) rz=359+rz;
  232              		
  233              		g3d_copyVector3d(v,&t);
- 234              		if(rx != 0){
- 235              			g3d_rotateXAxis(rx,&t,o);
+ 234              		if(ry != 0){
+ 235              			g3d_rotateYAxis(ry,&t,o);
  236              			g3d_copyVector3d(o,&t);
  237              		}
- 238              		if(ry != 0){
- 239              			g3d_rotateYAxis(ry,&t,o);
+ 238              		if(rx != 0){
+ 239              			g3d_rotateXAxis(rx,&t,o);
  240              			g3d_copyVector3d(o,&t);
  241              		}
  242              		if(rz != 0){
@@ -12898,7 +12898,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  263 1928 AEDC0400 		"add %[y],     r5\n"
  264 192c ADCC0800 		"st.w r5,      4[%[o]]\n"
  265 1930 AC04     		"ld.w 8[%[v]], r5\n"
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 216
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 216
 
 
  266 1932 AEDC0800 		"add %[z],     r5\n"
@@ -12958,7 +12958,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  294 196c A3CC2000 		"st.w r5, %[ry]\n"
  295 1970 A53C     		"ld.w %[rz], r5\n"
  296 1972 A5A40100 		"not r5, r5\n"
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 217
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 217
 
 
  297 1976 A3DC2000 		"addi 0x01, r5, r5\n"
@@ -13018,7 +13018,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  303              	#endif
  304              		g3d_rotateAllAxis(rx,ry,rz,v,o);
  305              	}
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 218
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 218
 
 
  306              	
@@ -13078,7 +13078,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12092 1a26 40BD0000 		movhi hi(_g3d_scale),r0,r10
  12093 1a2a 4AA10000 		movea lo(_g3d_scale),r10,r10
  12094 1a2e 00AC0400 		jal .+4
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 219
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 219
 
 
  12095 1a32 E447     		add 4,r31
@@ -13138,7 +13138,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12149 1ae4 E3CC3400 		ld.w 52[sp],r7
  12150 1ae8 40BD0000 		movhi hi(_g3d_copyVector3d),r0,r10
  12151 1aec 4AA10000 		movea lo(_g3d_copyVector3d),r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 220
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 220
 
 
  12152 1af0 00AC0400 		jal .+4
@@ -13146,80 +13146,80 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12154 1af6 0A18     		jmp r10
  12155 1af8 40BD0000 		movhi hi(_cam),r0,r10
  12156 1afc 4AA10000 		movea lo(_cam),r10,r10
- 12157 1b00 8ACD0000 		ld.w 0[r10],r12
- 12158 1b04 40BD0000 		movhi hi(_cam),r0,r10
- 12159 1b08 4AA10000 		movea lo(_cam),r10,r10
- 12160 1b0c 6ACD0400 		ld.w 4[r10],r11
- 12161 1b10 40BD0000 		movhi hi(_cam),r0,r10
- 12162 1b14 4AA10000 		movea lo(_cam),r10,r10
- 12163 1b18 4ACD0800 		ld.w 8[r10],r10
- 12164 1b1c A3A51400 		addi 20,sp,r13
- 12165 1b20 A3DD1000 		st.w r13,16[sp]
- 12166 1b24 CC00     		mov r12,r6
- 12167 1b26 EB00     		mov r11,r7
- 12168 1b28 0A01     		mov r10,r8
- 12169 1b2a 23CD3400 		ld.w 52[sp],r9
- 12170 1b2e 40BD0000 		movhi hi(_g3d_cameraTranslate),r0,r10
- 12171 1b32 4AA10000 		movea lo(_g3d_cameraTranslate),r10,r10
- 12172 1b36 00AC0400 		jal .+4
- 12173 1b3a E447     		add 4,r31
- 12174 1b3c 0A18     		jmp r10
- 12175 1b3e 43A51400 		addi 20,sp,r10
- 12176 1b42 CA00     		mov r10,r6
- 12177 1b44 E3CC3400 		ld.w 52[sp],r7
- 12178 1b48 40BD0000 		movhi hi(_g3d_copyVector3d),r0,r10
- 12179 1b4c 4AA10000 		movea lo(_g3d_copyVector3d),r10,r10
- 12180 1b50 00AC0400 		jal .+4
- 12181 1b54 E447     		add 4,r31
- 12182 1b56 0A18     		jmp r10
- 12183 1b58 40BD0000 		movhi hi(_cam),r0,r10
- 12184 1b5c 4AA10000 		movea lo(_cam),r10,r10
- 12185 1b60 4ACD6400 		ld.w 100[r10],r10
- 12186 1b64 400D     		cmp r0,r10
- 12187 1b66 2294     		bne .L148
- 12188 1b68 40BD0000 		movhi hi(_cam),r0,r10
- 12189 1b6c 4AA10000 		movea lo(_cam),r10,r10
- 12190 1b70 4ACD6800 		ld.w 104[r10],r10
- 12191 1b74 400D     		cmp r0,r10
- 12192 1b76 1294     		bne .L148
- 12193 1b78 40BD0000 		movhi hi(_cam),r0,r10
- 12194 1b7c 4AA10000 		movea lo(_cam),r10,r10
- 12195 1b80 4ACD6C00 		ld.w 108[r10],r10
- 12196 1b84 400D     		cmp r0,r10
- 12197 1b86 6284     		be .L149
- 12198              	.L148:
- 12199 1b88 40BD0000 		movhi hi(_cam),r0,r10
- 12200 1b8c 4AA10000 		movea lo(_cam),r10,r10
- 12201 1b90 8ACD6400 		ld.w 100[r10],r12
- 12202 1b94 40BD0000 		movhi hi(_cam),r0,r10
- 12203 1b98 4AA10000 		movea lo(_cam),r10,r10
- 12204 1b9c 6ACD6800 		ld.w 104[r10],r11
- 12205 1ba0 40BD0000 		movhi hi(_cam),r0,r10
- 12206 1ba4 4AA10000 		movea lo(_cam),r10,r10
- 12207 1ba8 4ACD6C00 		ld.w 108[r10],r10
- 12208 1bac A3A51400 		addi 20,sp,r13
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 221
+ 12157 1b00 4ACD6400 		ld.w 100[r10],r10
+ 12158 1b04 400D     		cmp r0,r10
+ 12159 1b06 2294     		bne .L148
+ 12160 1b08 40BD0000 		movhi hi(_cam),r0,r10
+ 12161 1b0c 4AA10000 		movea lo(_cam),r10,r10
+ 12162 1b10 4ACD6800 		ld.w 104[r10],r10
+ 12163 1b14 400D     		cmp r0,r10
+ 12164 1b16 1294     		bne .L148
+ 12165 1b18 40BD0000 		movhi hi(_cam),r0,r10
+ 12166 1b1c 4AA10000 		movea lo(_cam),r10,r10
+ 12167 1b20 4ACD6C00 		ld.w 108[r10],r10
+ 12168 1b24 400D     		cmp r0,r10
+ 12169 1b26 6284     		be .L149
+ 12170              	.L148:
+ 12171 1b28 40BD0000 		movhi hi(_cam),r0,r10
+ 12172 1b2c 4AA10000 		movea lo(_cam),r10,r10
+ 12173 1b30 8ACD6400 		ld.w 100[r10],r12
+ 12174 1b34 40BD0000 		movhi hi(_cam),r0,r10
+ 12175 1b38 4AA10000 		movea lo(_cam),r10,r10
+ 12176 1b3c 6ACD6800 		ld.w 104[r10],r11
+ 12177 1b40 40BD0000 		movhi hi(_cam),r0,r10
+ 12178 1b44 4AA10000 		movea lo(_cam),r10,r10
+ 12179 1b48 4ACD6C00 		ld.w 108[r10],r10
+ 12180 1b4c A3A51400 		addi 20,sp,r13
+ 12181 1b50 A3DD1000 		st.w r13,16[sp]
+ 12182 1b54 CC00     		mov r12,r6
+ 12183 1b56 EB00     		mov r11,r7
+ 12184 1b58 0A01     		mov r10,r8
+ 12185 1b5a 23CD3400 		ld.w 52[sp],r9
+ 12186 1b5e 40BD0000 		movhi hi(_g3d_cameraRotateAllAxis),r0,r10
+ 12187 1b62 4AA10000 		movea lo(_g3d_cameraRotateAllAxis),r10,r10
+ 12188 1b66 00AC0400 		jal .+4
+ 12189 1b6a E447     		add 4,r31
+ 12190 1b6c 0A18     		jmp r10
+ 12191 1b6e 43A51400 		addi 20,sp,r10
+ 12192 1b72 CA00     		mov r10,r6
+ 12193 1b74 E3CC3400 		ld.w 52[sp],r7
+ 12194 1b78 40BD0000 		movhi hi(_g3d_copyVector3d),r0,r10
+ 12195 1b7c 4AA10000 		movea lo(_g3d_copyVector3d),r10,r10
+ 12196 1b80 00AC0400 		jal .+4
+ 12197 1b84 E447     		add 4,r31
+ 12198 1b86 0A18     		jmp r10
+ 12199              	.L149:
+ 12200 1b88 40BD0000 		movhi hi(_cam),r0,r10
+ 12201 1b8c 4AA10000 		movea lo(_cam),r10,r10
+ 12202 1b90 8ACD0000 		ld.w 0[r10],r12
+ 12203 1b94 40BD0000 		movhi hi(_cam),r0,r10
+ 12204 1b98 4AA10000 		movea lo(_cam),r10,r10
+ 12205 1b9c 6ACD0400 		ld.w 4[r10],r11
+ 12206 1ba0 40BD0000 		movhi hi(_cam),r0,r10
+ 12207 1ba4 4AA10000 		movea lo(_cam),r10,r10
+ 12208 1ba8 4ACD0800 		ld.w 8[r10],r10
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 221
 
 
- 12209 1bb0 A3DD1000 		st.w r13,16[sp]
- 12210 1bb4 CC00     		mov r12,r6
- 12211 1bb6 EB00     		mov r11,r7
- 12212 1bb8 0A01     		mov r10,r8
- 12213 1bba 23CD3400 		ld.w 52[sp],r9
- 12214 1bbe 40BD0000 		movhi hi(_g3d_cameraRotateAllAxis),r0,r10
- 12215 1bc2 4AA10000 		movea lo(_g3d_cameraRotateAllAxis),r10,r10
- 12216 1bc6 00AC0400 		jal .+4
- 12217 1bca E447     		add 4,r31
- 12218 1bcc 0A18     		jmp r10
- 12219 1bce 43A51400 		addi 20,sp,r10
- 12220 1bd2 CA00     		mov r10,r6
- 12221 1bd4 E3CC3400 		ld.w 52[sp],r7
- 12222 1bd8 40BD0000 		movhi hi(_g3d_copyVector3d),r0,r10
- 12223 1bdc 4AA10000 		movea lo(_g3d_copyVector3d),r10,r10
- 12224 1be0 00AC0400 		jal .+4
- 12225 1be4 E447     		add 4,r31
- 12226 1be6 0A18     		jmp r10
- 12227              	.L149:
+ 12209 1bac A3A51400 		addi 20,sp,r13
+ 12210 1bb0 A3DD1000 		st.w r13,16[sp]
+ 12211 1bb4 CC00     		mov r12,r6
+ 12212 1bb6 EB00     		mov r11,r7
+ 12213 1bb8 0A01     		mov r10,r8
+ 12214 1bba 23CD3400 		ld.w 52[sp],r9
+ 12215 1bbe 40BD0000 		movhi hi(_g3d_cameraTranslate),r0,r10
+ 12216 1bc2 4AA10000 		movea lo(_g3d_cameraTranslate),r10,r10
+ 12217 1bc6 00AC0400 		jal .+4
+ 12218 1bca E447     		add 4,r31
+ 12219 1bcc 0A18     		jmp r10
+ 12220 1bce 43A51400 		addi 20,sp,r10
+ 12221 1bd2 CA00     		mov r10,r6
+ 12222 1bd4 E3CC3400 		ld.w 52[sp],r7
+ 12223 1bd8 40BD0000 		movhi hi(_g3d_copyVector3d),r0,r10
+ 12224 1bdc 4AA10000 		movea lo(_g3d_copyVector3d),r10,r10
+ 12225 1be0 00AC0400 		jal .+4
+ 12226 1be4 E447     		add 4,r31
+ 12227 1be6 0A18     		jmp r10
  12228 1be8 43C13800 		ld.b 56[sp],r10
  12229 1bec 4AB5FF00 		andi 255,r10,r10
  12230 1bf0 400D     		cmp r0,r10
@@ -13258,7 +13258,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12263 1c5c 6ADD0C00 		st.w r11,12[r10]
  12264              	.L153:
  12265 1c60 43CD3400 		ld.w 52[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 222
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 222
 
 
  12266 1c64 6ACD0400 		ld.w 4[r10],r11
@@ -13318,7 +13318,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12320 1d22 6ACD1C00 		ld.w 28[r10],r11
  12321 1d26 43CD2C00 		ld.w 44[sp],r10
  12322 1d2a 6ADD1000 		st.w r11,16[r10]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 223
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 223
 
 
  12323 1d2e 048A     		br .L158
@@ -13365,20 +13365,20 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  346              		g3d_copyVector3d(&t,o);
  347              		
  348              		g3d_translate(obj->worldPosition.x,obj->worldPosition.y,obj->worldPosition.z,o,&t);
- 349              		g3d_copyVector3d(&t,o);
+ 349              		g3d_copyVector3d(&t,o);		
  350              		
- 351              		g3d_cameraTranslate(cam.worldPosition.x,cam.worldPosition.y,cam.worldPosition.z,o,&t);
- 352              		g3d_copyVector3d(&t,o);
- 353              		
- 354              		if(cam.worldRotation.x != 0 || cam.worldRotation.y != 0 || cam.worldRotation.z != 0){			
- 355              			g3d_cameraRotateAllAxis(cam.worldRotation.x,cam.worldRotation.y,cam.worldRotation.z,o,&t);
- 356              			g3d_copyVector3d(&t,o);
- 357              		}
+ 351              		if(cam.worldRotation.x != 0 || cam.worldRotation.y != 0 || cam.worldRotation.z != 0){			
+ 352              			g3d_cameraRotateAllAxis(cam.worldRotation.x,cam.worldRotation.y,cam.worldRotation.z,o,&t);
+ 353              			g3d_copyVector3d(&t,o);
+ 354              		}
+ 355              		
+ 356              		g3d_cameraTranslate(cam.worldPosition.x,cam.worldPosition.y,cam.worldPosition.z,o,&t);
+ 357              		g3d_copyVector3d(&t,o);
  358              		
  359              		//Collision cube	
  360              		if(initHitCube == 0){
  361              			if(o->x < obj->properties.hitCube.minX) obj->properties.hitCube.minX = o->x;
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 224
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 224
 
 
  362              			if(o->x > obj->properties.hitCube.maxX) obj->properties.hitCube.maxX = o->x;
@@ -13438,7 +13438,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  416 1dc4 93DD0000 		//F_NUM_DN : sx
  417              		"sar %[fixShiftm1], r6\n"
  418              		"andi 0x01, r6, r13\n"
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 225
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 225
 
 
  12347              		ld.w 0[r14], r6
@@ -13498,7 +13498,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12401 1dec 40BD0000 		movhi hi(_g3d_clipObject),r0,r10
  12402 1df0 4AA10000 		movea lo(_g3d_clipObject),r10,r10
  12403 1df4 00AC0400 		jal .+4
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 226
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 226
 
 
  12404 1df8 E447     		add 4,r31
@@ -13558,7 +13558,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  448              		vector3d* v2p;
  449              		vector3d* vtp;
  450              		v1p = &v1;
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 227
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 227
 
 
  451              		v2p = &v2;
@@ -13618,7 +13618,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12465 1eae 4249     		setf z,r10
  12466 1eb0 C3CC5C00 		ld.w 92[sp],r6
  12467 1eb4 EC00     		mov r12,r7
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 228
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 228
 
 
  12468 1eb6 0B01     		mov r11,r8
@@ -13678,7 +13678,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12511 1f2e 43CD5C00 		ld.w 92[sp],r10
  12512 1f32 6ACDC400 		ld.w 196[r10],r11
  12513 1f36 43CD4000 		ld.w 64[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 229
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 229
 
 
  12514 1f3a 4345     		add 3,r10
@@ -13738,7 +13738,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12568 1fdc E447     		add 4,r31
  12569 1fde 0A18     		jmp r10
  12570 1fe0 C3CC4C00 		ld.w 76[sp],r6
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 230
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 230
 
 
  12571 1fe4 40BD0000 		movhi hi(_g3d_calculateProjection),r0,r10
@@ -13798,7 +13798,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12625 2088 1F18     		jmp [r31]
  12626              		.size	_g3d_drawObject, .-_g3d_drawObject
  12627 208a 0000     		.align 2
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 231
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 231
 
 
  12628              		.global _g3d_clipObject
@@ -13858,7 +13858,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12682 213e 1294     		bne .L176
  12683 2140 40BD0000 		movhi hi(_cam),r0,r10
  12684 2144 4AA10000 		movea lo(_cam),r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 232
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 232
 
 
  12685 2148 4ACD6C00 		ld.w 108[r10],r10
@@ -13918,7 +13918,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12739 21ec 0AD00000 		st.b r0,0[r10]
  12740              	.L179:
  12741 21f0 43CD2400 		ld.w 36[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 233
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 233
 
 
  12742 21f4 400D     		cmp r0,r10
@@ -13978,7 +13978,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12796 2288 6ACD0800 		ld.w 8[r10],r11
  12797 228c 40BD0000 		movhi hi(_cam),r0,r10
  12798 2290 4AA10000 		movea lo(_cam),r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 234
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 234
 
 
  12799 2294 4ACD8C00 		ld.w 140[r10],r10
@@ -14038,7 +14038,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12853 233e 4C01     		mov r12,r10
  12854 2340 445D     		sar 4,r10
  12855 2342 43DD0800 		st.w r10,8[sp]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 235
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 235
 
 
  12856 2346 40BD0000 		movhi hi(_cam),r0,r10
@@ -14098,7 +14098,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12910 23ec 6ADD0400 		st.w r11,4[r10]
  12911 23f0 088A     		br .L194
  12912              	.L195:
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 236
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 236
 
 
  12913 23f2 009A     		nop
@@ -14158,7 +14158,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  12967 2478 4B05     		add r11,r10
  12968 247a 43DD0000 		st.w r10,0[sp]
  12969 247e 43CD1800 		ld.w 24[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 237
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 237
 
 
  12970 2482 6A01     		mov r10,r11
@@ -14218,7 +14218,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13024 252c 6A05     		add r10,r11
  13025 252e 40BD0000 		movhi hi(_currentFrameBuffer),r0,r10
  13026 2532 4AA10000 		movea lo(_currentFrameBuffer),r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 238
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 238
 
 
  13027 2536 8ACD0000 		ld.w 0[r10],r12
@@ -14278,7 +14278,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13081 25ac 83DF4400 		st.w r28,68[sp]
  13082 25b0 A3DF4000 		st.w r29,64[sp]
  13083 25b4 C3DC6800 		st.w r6,104[sp]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 239
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 239
 
 
  13084 25b8 E3DC6C00 		st.w r7,108[sp]
@@ -14338,7 +14338,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13138 2660 4141     		mov 1,r10
  13139              	.L219:
  13140 2662 43DD1C00 		st.w r10,28[sp]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 240
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 240
 
 
  13141 2666 43CD2400 		ld.w 36[sp],r10
@@ -14398,7 +14398,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13195              	# 649 "G3d.c" 1
  480              		//This reads the "faces" section of the data and draws lines between points.
  481              		//We'll use the vertex buffer's already rendered vertices
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 241
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 241
 
 
  482              		while(v < (lines+vertices)){
@@ -14458,7 +14458,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  536              	to the closest piece. Not an exact science
  537              	but should be ok for general purposes.
  538              	This function needs performed before the
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 242
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 242
 
 
  539              	projection calculation occurs.
@@ -14518,7 +14518,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  593              		
  594              		s32 loffset,roffset;
  595              		u8 yleft;
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 243
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 243
 
 
  596              		
@@ -14578,7 +14578,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  650 26e8 3870     		#ifndef __ASM_CODE
  651              		if(dy<dx){
  13196              		mov 2,r1 
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 244
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 244
 
 
  13197              	  ldsr r1,sr24
@@ -14638,7 +14638,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  699 273a 20A30040 		"movea %[screenW],r0,r22\n"
  700 273e 2253     		"movea %[parallaxM],r0,r23\n"
  701 2740 E60C     		"ld.w %[fbLeft],r24\n"
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 245
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 245
 
 
  702 2742 A48E     		"movea %[fbRightOff],r0,r25\n"
@@ -14698,7 +14698,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  756 27b2 8253     			"shl 0x05,r18\n"
  757 27b4 9807     			"add r17,r18\n"
  758 27b6 BCCF0000 		//if(loffset>0x1800 || loffset<0) return;		
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 246
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 246
 
 
  759 27ba 7313     			"movea 0x17FF,r0,r28\n"
@@ -14758,7 +14758,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  813 2824 245E     		//}
  814 2826 8F03     			"jr _lineLoop1Top\n"
  815 2828 9A0B     			"_lineLoop1End:\n"
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 247
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 247
 
 
  816 282a 8453     		//else{
@@ -14818,7 +14818,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13212              	ld.w 44[sp],r14
  13213              	ld.w 52[sp],r15
  13214              	ld.w 28[sp],r16
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 248
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 248
 
 
  13215              	ld.w 8[sp],r17
@@ -14878,7 +14878,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13269              	cmp r0,r17
  13270              	blt _endDrawPoint1
  13271              	cmp r28,r18
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 249
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 249
 
 
  13272              	bge _endDrawPoint1
@@ -14938,7 +14938,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13326              	blt _endDrawPoint2
  13327              	cmp r0,r15
  13328              	blt _endDrawPoint2
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 250
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 250
 
 
  13329              	cmp r15,r22
@@ -14998,7 +14998,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13383              	
  13384              	# 0 "" 2
  13385              	# 940 "G3d.c" 1
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 251
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 251
 
 
  862              			"sub r26,r28\n"
@@ -15058,7 +15058,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  916              		//err-=dy;
  917              			"sub r6,r8\n"
  918              		//}
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 252
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 252
 
 
  919              			"_nextLine4:\n"
@@ -15118,7 +15118,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13417 28e8 0ADC3C00 		st.w r0,60[r10]
  13418 28ec 43CD0000 		ld.w 0[sp],r10
  13419 28f0 0ADC4000 		st.w r0,64[r10]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 253
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 253
 
 
  13420 28f4 43CD0000 		ld.w 0[sp],r10
@@ -15178,7 +15178,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13474              		.align 2
  13475              		.global _g3d_moveObject
  13476              		.type	_g3d_moveObject, @function
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 254
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 254
 
 
  13477              	_g3d_moveObject:
@@ -15238,7 +15238,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13531 2a64 43CD0000 		ld.w 0[sp],r10
  13532 2a68 6ACD7800 		ld.w 120[r10],r11
  13533 2a6c 43CD0000 		ld.w 0[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 255
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 255
 
 
  13534 2a70 4ACD8C00 		ld.w 140[r10],r10
@@ -15298,7 +15298,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13588 2b18 43CD0000 		ld.w 0[sp],r10
  13589 2b1c 4ACD4C00 		ld.w 76[r10],r10
  13590 2b20 6AA598FE 		addi -360,r10,r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 256
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 256
 
 
  13591 2b24 43CD0000 		ld.w 0[sp],r10
@@ -15358,7 +15358,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13645 2bbc 6AA56801 		addi 360,r10,r11
  13646 2bc0 43CD0000 		ld.w 0[sp],r10
  13647 2bc4 6ADD5000 		st.w r11,80[r10]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 257
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 257
 
 
  13648              	.L249:
@@ -15418,7 +15418,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13702 2c76 6A09     		sub r10,r11
  13703 2c78 43CD0000 		ld.w 0[sp],r10
  13704 2c7c 6ADD2400 		st.w r11,36[r10]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 258
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 258
 
 
  13705 2c80 43CD0000 		ld.w 0[sp],r10
@@ -15478,7 +15478,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13759 2d32 43CD0000 		ld.w 0[sp],r10
  13760 2d36 4ACD3C00 		ld.w 60[r10],r10
  13761 2d3a 6A0D     		cmp r10,r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 259
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 259
 
 
  13762 2d3c 169C     		bge .L256
@@ -15538,7 +15538,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13816 2dec 6ACD4000 		ld.w 64[r10],r11
  13817 2df0 43CD0000 		ld.w 0[sp],r10
  13818 2df4 6ADD2C00 		st.w r11,44[r10]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 260
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 260
 
 
  13819 2df8 048A     		br .L262
@@ -15598,7 +15598,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13873 2e8e 4ACD2800 		ld.w 40[r10],r10
  13874 2e92 6A05     		add r10,r11
  13875 2e94 43CD0000 		ld.w 0[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 261
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 261
 
 
  13876 2e98 6ADD1400 		st.w r11,20[r10]
@@ -15658,7 +15658,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13930 2f38 168A     		br .L278
  13931              	.L279:
  13932 2f3a 43CD0000 		ld.w 0[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 262
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 262
 
 
  13933 2f3e 4ACD6C00 		ld.w 108[r10],r10
@@ -15718,7 +15718,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  13987 2fe2 9884     		be .L286
  13988 2fe4 43CD0000 		ld.w 0[sp],r10
  13989 2fe8 6ACD0000 		ld.w 0[r10],r11
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 263
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 263
 
 
  13990 2fec 43CD0000 		ld.w 0[sp],r10
@@ -15778,7 +15778,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14044 309e 6A0D     		cmp r10,r11
  14045 30a0 429C     		bge .L290
  14046 30a2 43CD0000 		ld.w 0[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 264
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 264
 
 
  14047 30a6 6ACD0400 		ld.w 4[r10],r11
@@ -15838,7 +15838,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14101 3158 4ACD1C00 		ld.w 28[r10],r10
  14102 315c 6A05     		add r10,r11
  14103 315e 43CD0000 		ld.w 0[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 265
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 265
 
 
  14104 3162 6ADD0800 		st.w r11,8[r10]
@@ -15898,7 +15898,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14158 31fe 40BD0000 		movhi hi(_Fighter),r0,r10
  14159 3202 EAA00000 		movea lo(_Fighter),r10,r7
  14160 3206 40BD0000 		movhi hi(_g3d_initObject),r0,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 266
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 266
 
 
  14161 320a 4AA10000 		movea lo(_g3d_initObject),r10,r10
@@ -15958,7 +15958,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14215 32be 4AA10000 		movea lo(_g3d_initObject),r10,r10
  14216 32c2 00AC0400 		jal .+4
  14217 32c6 E447     		add 4,r31
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 267
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 267
 
 
  14218 32c8 0A18     		jmp r10
@@ -16018,7 +16018,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14272 3396 43DD5C03 		st.w r10,860[sp]
  14273 339a 43CD5C03 		ld.w 860[sp],r10
  14274 339e 43DD7003 		st.w r10,880[sp]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 268
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 268
 
 
  14275 33a2 40A1401F 		movea lo(8000),r0,r10
@@ -16078,7 +16078,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14329 3474 43DD0002 		st.w r10,512[sp]
  14330 3478 40A18002 		movea lo(640),r0,r10
  14331 347c 43DD1402 		st.w r10,532[sp]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 269
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 269
 
 
  14332 3480 40A18002 		movea lo(640),r0,r10
@@ -16138,7 +16138,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14386 3552 6ADD0800 		st.w r11,8[r10]
  14387 3556 40BD0000 		movhi hi(_enemyTable),r0,r10
  14388 355a 4AA10000 		movea lo(_enemyTable),r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 270
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 270
 
 
  14389 355e 63A5A001 		addi 416,sp,r11
@@ -16198,7 +16198,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14443 3614 40BD0000 		movhi hi(_enemyTable),r0,r10
  14444 3618 6AA10000 		movea lo(_enemyTable),r10,r11
  14445 361c 43C15306 		ld.b 1619[sp],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 271
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 271
 
 
  14446 3620 4AB5FF00 		andi 255,r10,r10
@@ -16258,7 +16258,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14500 36d2 1A8A     		br .L304
  14501              	.L303:
  14502 36d4 40BD0000 		movhi hi(_frameSkip),r0,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 272
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 272
 
 
  14503 36d8 4AA10000 		movea lo(_frameSkip),r10,r10
@@ -16318,7 +16318,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14557 3780 4AA10000 		movea lo(_enemyTableCount),r10,r10
  14558 3784 4AC10000 		ld.b 0[r10],r10
  14559 3788 4AB5FF00 		andi 255,r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 273
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 273
 
 
  14560 378c 63C15306 		ld.b 1619[sp],r11
@@ -16378,7 +16378,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14614 3830 40BD0000 		movhi hi(_movePathIdx),r0,r10
  14615 3834 4AA10000 		movea lo(_movePathIdx),r10,r10
  14616 3838 0AD00000 		st.b r0,0[r10]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 274
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 274
 
 
  14617              	.L313:
@@ -16438,7 +16438,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14671 38f4 40BD0000 		movhi hi(_movePathIdx),r0,r10
  14672 38f8 4AA10000 		movea lo(_movePathIdx),r10,r10
  14673 38fc 4AC10000 		ld.b 0[r10],r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 275
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 275
 
 
  14674 3900 4AB5FF00 		andi 255,r10,r10
@@ -16498,7 +16498,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14728 399c C3CC1800 		ld.w 24[sp],r6
  14729 39a0 40BD0000 		movhi hi(_g3d_drawObject),r0,r10
  14730 39a4 4AA10000 		movea lo(_g3d_drawObject),r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 276
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 276
 
 
  14731 39a8 00AC0400 		jal .+4
@@ -16558,7 +16558,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14785              		.size	_doGroundEffects, .-_doGroundEffects
  14786 3a5a 0000     		.align 2
  14787              		.global _timeHnd
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 277
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 277
 
 
  14788              		.type	_timeHnd, @function
@@ -16618,7 +16618,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14842 3afc 40BD0000 		movhi hi(_vbReadPad),r0,r10
  14843 3b00 4AA10000 		movea lo(_vbReadPad),r10,r10
  14844 3b04 00AC0400 		jal .+4
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 278
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 278
 
 
  14845 3b08 E447     		add 4,r31
@@ -16678,7 +16678,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14899 3bc6 4AC50000 		ld.h 0[r10],r10
  14900 3bca 4AB5FFFF 		andi 65535,r10,r10
  14901 3bce 4AB50001 		andi 256,r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 279
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 279
 
 
  14902 3bd2 400D     		cmp r0,r10
@@ -16738,7 +16738,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  14956 3c8e 2894     		bne .L332
  14957 3c90 40BD0000 		movhi hi(_cam),r0,r10
  14958 3c94 4AA10000 		movea lo(_cam),r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 280
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 280
 
 
  14959 3c98 6ACD4000 		ld.w 64[r10],r11
@@ -16798,7 +16798,7 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  15013 3d50 40BD0000 		movhi hi(_cam),r0,r10
  15014 3d54 4AA10000 		movea lo(_cam),r10,r10
  15015 3d58 0ADC4000 		st.w r0,64[r10]
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 281
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 281
 
 
  15016              	.L333:
@@ -16806,436 +16806,467 @@ GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 1
  15018 3d60 4AA10000 		movea lo(_buttons),r10,r10
  15019 3d64 4AC50000 		ld.h 0[r10],r10
  15020 3d68 4AB5FFFF 		andi 65535,r10,r10
- 15021 3d6c 4AB50040 		andi 16384,r10,r10
+ 15021 3d6c 4AB54000 		andi 64,r10,r10
  15022 3d70 400D     		cmp r0,r10
  15023 3d72 1E84     		be .L335
  15024 3d74 40BD0000 		movhi hi(_cam),r0,r10
  15025 3d78 4AA10000 		movea lo(_cam),r10,r10
- 15026 3d7c 4ACD6800 		ld.w 104[r10],r10
+ 15026 3d7c 4ACD6400 		ld.w 100[r10],r10
  15027 3d80 6AA5F8FF 		addi -8,r10,r11
  15028 3d84 40BD0000 		movhi hi(_cam),r0,r10
  15029 3d88 4AA10000 		movea lo(_cam),r10,r10
- 15030 3d8c 6ADD6800 		st.w r11,104[r10]
+ 15030 3d8c 6ADD6400 		st.w r11,100[r10]
  15031              	.L335:
  15032 3d90 40BD0000 		movhi hi(_buttons),r0,r10
  15033 3d94 4AA10000 		movea lo(_buttons),r10,r10
  15034 3d98 4AC50000 		ld.h 0[r10],r10
  15035 3d9c 4AB5FFFF 		andi 65535,r10,r10
- 15036 3da0 4AB58000 		andi 128,r10,r10
- 15037 3da4 400D     		cmp r0,r10
- 15038 3da6 1E84     		be .L336
- 15039 3da8 40BD0000 		movhi hi(_cam),r0,r10
- 15040 3dac 4AA10000 		movea lo(_cam),r10,r10
- 15041 3db0 4ACD6800 		ld.w 104[r10],r10
- 15042 3db4 6AA50800 		addi 8,r10,r11
- 15043 3db8 40BD0000 		movhi hi(_cam),r0,r10
- 15044 3dbc 4AA10000 		movea lo(_cam),r10,r10
- 15045 3dc0 6ADD6800 		st.w r11,104[r10]
- 15046              	.L336:
- 15047 3dc4 40BD0000 		movhi hi(_buttons),r0,r10
- 15048 3dc8 4AA10000 		movea lo(_buttons),r10,r10
- 15049 3dcc 4AC50000 		ld.h 0[r10],r10
- 15050 3dd0 4AB5FFFF 		andi 65535,r10,r10
- 15051 3dd4 4AB51000 		andi 16,r10,r10
- 15052 3dd8 400D     		cmp r0,r10
- 15053 3dda 0E84     		be .L337
- 15054 3ddc 43CD1400 		ld.w 20[sp],r10
- 15055 3de0 60A15A00 		movea lo(90),r0,r11
- 15056 3de4 6ADD5400 		st.w r11,84[r10]
- 15057              	.L337:
- 15058 3de8 40BD0000 		movhi hi(_buttons),r0,r10
- 15059 3dec 4AA10000 		movea lo(_buttons),r10,r10
- 15060 3df0 4AC50000 		ld.h 0[r10],r10
- 15061 3df4 4AB5FFFF 		andi 65535,r10,r10
- 15062 3df8 4AB52000 		andi 32,r10,r10
- 15063 3dfc 400D     		cmp r0,r10
- 15064 3dfe 0E84     		be .L339
- 15065 3e00 43CD1400 		ld.w 20[sp],r10
- 15066 3e04 60A1A6FF 		movea lo(-90),r0,r11
- 15067 3e08 6ADD5400 		st.w r11,84[r10]
- 15068              	.L339:
- 15069 3e0c E3CF1000 		ld.w 16[sp],r31
- 15070 3e10 63A41400 		addi 20,sp,sp
- 15071 3e14 1F18     		jmp [r31]
- 15072              		.size	_handleInput, .-_handleInput
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 282
+ 15036 3da0 5051     		shl 16,r10
+ 15037 3da2 505D     		sar 16,r10
+ 15038 3da4 400D     		cmp r0,r10
+ 15039 3da6 1E9C     		bge .L336
+ 15040 3da8 40BD0000 		movhi hi(_cam),r0,r10
+ 15041 3dac 4AA10000 		movea lo(_cam),r10,r10
+ 15042 3db0 4ACD6400 		ld.w 100[r10],r10
+ 15043 3db4 6AA50800 		addi 8,r10,r11
+ 15044 3db8 40BD0000 		movhi hi(_cam),r0,r10
+ 15045 3dbc 4AA10000 		movea lo(_cam),r10,r10
+ 15046 3dc0 6ADD6400 		st.w r11,100[r10]
+ 15047              	.L336:
+ 15048 3dc4 40BD0000 		movhi hi(_buttons),r0,r10
+ 15049 3dc8 4AA10000 		movea lo(_buttons),r10,r10
+ 15050 3dcc 4AC50000 		ld.h 0[r10],r10
+ 15051 3dd0 4AB5FFFF 		andi 65535,r10,r10
+ 15052 3dd4 4AB50040 		andi 16384,r10,r10
+ 15053 3dd8 400D     		cmp r0,r10
+ 15054 3dda 1E84     		be .L337
+ 15055 3ddc 40BD0000 		movhi hi(_cam),r0,r10
+ 15056 3de0 4AA10000 		movea lo(_cam),r10,r10
+ 15057 3de4 4ACD6800 		ld.w 104[r10],r10
+ 15058 3de8 6AA5F8FF 		addi -8,r10,r11
+ 15059 3dec 40BD0000 		movhi hi(_cam),r0,r10
+ 15060 3df0 4AA10000 		movea lo(_cam),r10,r10
+ 15061 3df4 6ADD6800 		st.w r11,104[r10]
+ 15062              	.L337:
+ 15063 3df8 40BD0000 		movhi hi(_buttons),r0,r10
+ 15064 3dfc 4AA10000 		movea lo(_buttons),r10,r10
+ 15065 3e00 4AC50000 		ld.h 0[r10],r10
+ 15066 3e04 4AB5FFFF 		andi 65535,r10,r10
+ 15067 3e08 4AB58000 		andi 128,r10,r10
+ 15068 3e0c 400D     		cmp r0,r10
+ 15069 3e0e 1E84     		be .L338
+ 15070 3e10 40BD0000 		movhi hi(_cam),r0,r10
+ 15071 3e14 4AA10000 		movea lo(_cam),r10,r10
+ 15072 3e18 4ACD6800 		ld.w 104[r10],r10
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 282
 
 
- 15073 3e16 0000     		.align 2
- 15074              		.global _initObjects
- 15075              		.type	_initObjects, @function
- 15076              	_initObjects:
- 15077 3e18 40BD0000 		movhi hi(_cam),r0,r10
- 15078 3e1c 4AA10000 		movea lo(_cam),r10,r10
- 15079 3e20 0ADC0000 		st.w r0,0[r10]
- 15080 3e24 40BD0000 		movhi hi(_cam),r0,r10
- 15081 3e28 4AA10000 		movea lo(_cam),r10,r10
- 15082 3e2c 0ADC0400 		st.w r0,4[r10]
- 15083 3e30 40BD0000 		movhi hi(_cam),r0,r10
- 15084 3e34 4AA10000 		movea lo(_cam),r10,r10
- 15085 3e38 0ADC0800 		st.w r0,8[r10]
- 15086 3e3c 40BD0000 		movhi hi(_cam),r0,r10
- 15087 3e40 4AA10000 		movea lo(_cam),r10,r10
- 15088 3e44 0ADC3C00 		st.w r0,60[r10]
- 15089 3e48 40BD0000 		movhi hi(_cam),r0,r10
- 15090 3e4c 4AA10000 		movea lo(_cam),r10,r10
- 15091 3e50 0ADC4000 		st.w r0,64[r10]
- 15092 3e54 40BD0000 		movhi hi(_cam),r0,r10
- 15093 3e58 4AA10000 		movea lo(_cam),r10,r10
- 15094 3e5c 0ADC4400 		st.w r0,68[r10]
- 15095 3e60 40BD0000 		movhi hi(_cam),r0,r10
- 15096 3e64 4AA10000 		movea lo(_cam),r10,r10
- 15097 3e68 0ADC6400 		st.w r0,100[r10]
- 15098 3e6c 40BD0000 		movhi hi(_cam),r0,r10
- 15099 3e70 4AA10000 		movea lo(_cam),r10,r10
- 15100 3e74 0ADC6800 		st.w r0,104[r10]
- 15101 3e78 40BD0000 		movhi hi(_cam),r0,r10
- 15102 3e7c 4AA10000 		movea lo(_cam),r10,r10
- 15103 3e80 0ADC6C00 		st.w r0,108[r10]
- 15104 3e84 40BD0000 		movhi hi(_cam),r0,r10
- 15105 3e88 4AA10000 		movea lo(_cam),r10,r10
- 15106 3e8c 60A12003 		movea lo(800),r0,r11
- 15107 3e90 6ADD1400 		st.w r11,20[r10]
- 15108 3e94 40BD0000 		movhi hi(_cam),r0,r10
- 15109 3e98 4AA10000 		movea lo(_cam),r10,r10
- 15110 3e9c 60A19001 		movea lo(400),r0,r11
- 15111 3ea0 6ADD1800 		st.w r11,24[r10]
- 15112 3ea4 40BD0000 		movhi hi(_cam),r0,r10
- 15113 3ea8 4AA10000 		movea lo(_cam),r10,r10
- 15114 3eac 60A12003 		movea lo(800),r0,r11
- 15115 3eb0 6ADD1C00 		st.w r11,28[r10]
- 15116 3eb4 40BD0000 		movhi hi(_cam),r0,r10
- 15117 3eb8 4AA10000 		movea lo(_cam),r10,r10
- 15118 3ebc 60A10008 		movea lo(2048),r0,r11
- 15119 3ec0 6ADD8C00 		st.w r11,140[r10]
- 15120 3ec4 1F18     		jmp [r31]
- 15121              		.size	_initObjects, .-_initObjects
- 15122 3ec6 0000     		.align 2
- 15123              		.global _vbInit
- 15124              		.type	_vbInit, @function
- 15125              	_vbInit:
- 15126 3ec8 63A4ECFF 		addi -20,sp,sp
- 15127 3ecc E3DF1000 		st.w r31,16[sp]
- 15128 3ed0 40BD0000 		movhi hi(_vbDisplayOn),r0,r10
- 15129 3ed4 4AA10000 		movea lo(_vbDisplayOn),r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 283
+ 15073 3e1c 6AA50800 		addi 8,r10,r11
+ 15074 3e20 40BD0000 		movhi hi(_cam),r0,r10
+ 15075 3e24 4AA10000 		movea lo(_cam),r10,r10
+ 15076 3e28 6ADD6800 		st.w r11,104[r10]
+ 15077              	.L338:
+ 15078 3e2c 40BD0000 		movhi hi(_buttons),r0,r10
+ 15079 3e30 4AA10000 		movea lo(_buttons),r10,r10
+ 15080 3e34 4AC50000 		ld.h 0[r10],r10
+ 15081 3e38 4AB5FFFF 		andi 65535,r10,r10
+ 15082 3e3c 4AB51000 		andi 16,r10,r10
+ 15083 3e40 400D     		cmp r0,r10
+ 15084 3e42 0E84     		be .L339
+ 15085 3e44 43CD1400 		ld.w 20[sp],r10
+ 15086 3e48 60A15A00 		movea lo(90),r0,r11
+ 15087 3e4c 6ADD5400 		st.w r11,84[r10]
+ 15088              	.L339:
+ 15089 3e50 40BD0000 		movhi hi(_buttons),r0,r10
+ 15090 3e54 4AA10000 		movea lo(_buttons),r10,r10
+ 15091 3e58 4AC50000 		ld.h 0[r10],r10
+ 15092 3e5c 4AB5FFFF 		andi 65535,r10,r10
+ 15093 3e60 4AB52000 		andi 32,r10,r10
+ 15094 3e64 400D     		cmp r0,r10
+ 15095 3e66 0E84     		be .L341
+ 15096 3e68 43CD1400 		ld.w 20[sp],r10
+ 15097 3e6c 60A1A6FF 		movea lo(-90),r0,r11
+ 15098 3e70 6ADD5400 		st.w r11,84[r10]
+ 15099              	.L341:
+ 15100 3e74 E3CF1000 		ld.w 16[sp],r31
+ 15101 3e78 63A41400 		addi 20,sp,sp
+ 15102 3e7c 1F18     		jmp [r31]
+ 15103              		.size	_handleInput, .-_handleInput
+ 15104 3e7e 0000     		.align 2
+ 15105              		.global _initObjects
+ 15106              		.type	_initObjects, @function
+ 15107              	_initObjects:
+ 15108 3e80 40BD0000 		movhi hi(_cam),r0,r10
+ 15109 3e84 4AA10000 		movea lo(_cam),r10,r10
+ 15110 3e88 0ADC0000 		st.w r0,0[r10]
+ 15111 3e8c 40BD0000 		movhi hi(_cam),r0,r10
+ 15112 3e90 4AA10000 		movea lo(_cam),r10,r10
+ 15113 3e94 0ADC0400 		st.w r0,4[r10]
+ 15114 3e98 40BD0000 		movhi hi(_cam),r0,r10
+ 15115 3e9c 4AA10000 		movea lo(_cam),r10,r10
+ 15116 3ea0 0ADC0800 		st.w r0,8[r10]
+ 15117 3ea4 40BD0000 		movhi hi(_cam),r0,r10
+ 15118 3ea8 4AA10000 		movea lo(_cam),r10,r10
+ 15119 3eac 0ADC3C00 		st.w r0,60[r10]
+ 15120 3eb0 40BD0000 		movhi hi(_cam),r0,r10
+ 15121 3eb4 4AA10000 		movea lo(_cam),r10,r10
+ 15122 3eb8 0ADC4000 		st.w r0,64[r10]
+ 15123 3ebc 40BD0000 		movhi hi(_cam),r0,r10
+ 15124 3ec0 4AA10000 		movea lo(_cam),r10,r10
+ 15125 3ec4 0ADC4400 		st.w r0,68[r10]
+ 15126 3ec8 40BD0000 		movhi hi(_cam),r0,r10
+ 15127 3ecc 4AA10000 		movea lo(_cam),r10,r10
+ 15128 3ed0 0ADC6400 		st.w r0,100[r10]
+ 15129 3ed4 40BD0000 		movhi hi(_cam),r0,r10
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 283
 
 
- 15130 3ed8 00AC0400 		jal .+4
- 15131 3edc E447     		add 4,r31
- 15132 3ede 0A18     		jmp r10
- 15133 3ee0 40BD0000 		movhi hi(_vbSetColTable),r0,r10
- 15134 3ee4 4AA10000 		movea lo(_vbSetColTable),r10,r10
- 15135 3ee8 00AC0400 		jal .+4
- 15136 3eec E447     		add 4,r31
- 15137 3eee 0A18     		jmp r10
- 15138 3ef0 40BD0000 		movhi hi(_VIP_REGS),r0,r10
- 15139 3ef4 4AA10000 		movea lo(_VIP_REGS),r10,r10
- 15140 3ef8 4ACD0000 		ld.w 0[r10],r10
- 15141 3efc 4AA52400 		addi 36,r10,r10
- 15142 3f00 60A12000 		movea lo(32),r0,r11
- 15143 3f04 6AD50000 		st.h r11,0[r10]
- 15144 3f08 40BD0000 		movhi hi(_VIP_REGS),r0,r10
- 15145 3f0c 4AA10000 		movea lo(_VIP_REGS),r10,r10
- 15146 3f10 4ACD0000 		ld.w 0[r10],r10
- 15147 3f14 4AA52600 		addi 38,r10,r10
- 15148 3f18 60A14000 		movea lo(64),r0,r11
- 15149 3f1c 6AD50000 		st.h r11,0[r10]
- 15150 3f20 40BD0000 		movhi hi(_VIP_REGS),r0,r10
- 15151 3f24 4AA10000 		movea lo(_VIP_REGS),r10,r10
- 15152 3f28 4ACD0000 		ld.w 0[r10],r10
- 15153 3f2c 4AA52800 		addi 40,r10,r10
- 15154 3f30 60A12000 		movea lo(32),r0,r11
- 15155 3f34 6AD50000 		st.h r11,0[r10]
- 15156 3f38 40BD0000 		movhi hi(_HW_REGS),r0,r10
- 15157 3f3c 4AA10000 		movea lo(_HW_REGS),r10,r10
- 15158 3f40 4ACD0000 		ld.w 0[r10],r10
- 15159 3f44 4AA52400 		addi 36,r10,r10
- 15160 3f48 6141     		mov 1,r11
- 15161 3f4a 6AD10000 		st.b r11,0[r10]
- 15162 3f4e 40BD0000 		movhi hi(_VIP_REGS),r0,r10
- 15163 3f52 4AA10000 		movea lo(_VIP_REGS),r10,r10
- 15164 3f56 4ACD0000 		ld.w 0[r10],r10
- 15165 3f5a 4AA52E00 		addi 46,r10,r10
- 15166 3f5e 0AD40000 		st.h r0,0[r10]
- 15167 3f62 40BD0000 		movhi hi(_timeHnd),r0,r10
- 15168 3f66 6AA10000 		movea lo(_timeHnd),r10,r11
- 15169 3f6a 40BD0000 		movhi hi(_tim_vector),r0,r10
- 15170 3f6e 4AA10000 		movea lo(_tim_vector),r10,r10
- 15171 3f72 6ADD0000 		st.w r11,0[r10]
- 15172 3f76 C140     		mov 1,r6
- 15173 3f78 40BD0000 		movhi hi(_timer_freq),r0,r10
- 15174 3f7c 4AA10000 		movea lo(_timer_freq),r10,r10
- 15175 3f80 00AC0400 		jal .+4
- 15176 3f84 E447     		add 4,r31
- 15177 3f86 0A18     		jmp r10
- 15178 3f88 C640     		mov 6,r6
- 15179 3f8a 40BD0000 		movhi hi(_timer_set),r0,r10
- 15180 3f8e 4AA10000 		movea lo(_timer_set),r10,r10
- 15181 3f92 00AC0400 		jal .+4
- 15182 3f96 E447     		add 4,r31
- 15183 3f98 0A18     		jmp r10
- 15184 3f9a C140     		mov 1,r6
- 15185 3f9c 40BD0000 		movhi hi(_timer_enable),r0,r10
- 15186 3fa0 4AA10000 		movea lo(_timer_enable),r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 284
+ 15130 3ed8 4AA10000 		movea lo(_cam),r10,r10
+ 15131 3edc 0ADC6800 		st.w r0,104[r10]
+ 15132 3ee0 40BD0000 		movhi hi(_cam),r0,r10
+ 15133 3ee4 4AA10000 		movea lo(_cam),r10,r10
+ 15134 3ee8 0ADC6C00 		st.w r0,108[r10]
+ 15135 3eec 40BD0000 		movhi hi(_cam),r0,r10
+ 15136 3ef0 4AA10000 		movea lo(_cam),r10,r10
+ 15137 3ef4 60A12003 		movea lo(800),r0,r11
+ 15138 3ef8 6ADD1400 		st.w r11,20[r10]
+ 15139 3efc 40BD0000 		movhi hi(_cam),r0,r10
+ 15140 3f00 4AA10000 		movea lo(_cam),r10,r10
+ 15141 3f04 60A19001 		movea lo(400),r0,r11
+ 15142 3f08 6ADD1800 		st.w r11,24[r10]
+ 15143 3f0c 40BD0000 		movhi hi(_cam),r0,r10
+ 15144 3f10 4AA10000 		movea lo(_cam),r10,r10
+ 15145 3f14 60A12003 		movea lo(800),r0,r11
+ 15146 3f18 6ADD1C00 		st.w r11,28[r10]
+ 15147 3f1c 40BD0000 		movhi hi(_cam),r0,r10
+ 15148 3f20 4AA10000 		movea lo(_cam),r10,r10
+ 15149 3f24 60A10008 		movea lo(2048),r0,r11
+ 15150 3f28 6ADD8C00 		st.w r11,140[r10]
+ 15151 3f2c 1F18     		jmp [r31]
+ 15152              		.size	_initObjects, .-_initObjects
+ 15153 3f2e 0000     		.align 2
+ 15154              		.global _vbInit
+ 15155              		.type	_vbInit, @function
+ 15156              	_vbInit:
+ 15157 3f30 63A4ECFF 		addi -20,sp,sp
+ 15158 3f34 E3DF1000 		st.w r31,16[sp]
+ 15159 3f38 40BD0000 		movhi hi(_vbDisplayOn),r0,r10
+ 15160 3f3c 4AA10000 		movea lo(_vbDisplayOn),r10,r10
+ 15161 3f40 00AC0400 		jal .+4
+ 15162 3f44 E447     		add 4,r31
+ 15163 3f46 0A18     		jmp r10
+ 15164 3f48 40BD0000 		movhi hi(_vbSetColTable),r0,r10
+ 15165 3f4c 4AA10000 		movea lo(_vbSetColTable),r10,r10
+ 15166 3f50 00AC0400 		jal .+4
+ 15167 3f54 E447     		add 4,r31
+ 15168 3f56 0A18     		jmp r10
+ 15169 3f58 40BD0000 		movhi hi(_VIP_REGS),r0,r10
+ 15170 3f5c 4AA10000 		movea lo(_VIP_REGS),r10,r10
+ 15171 3f60 4ACD0000 		ld.w 0[r10],r10
+ 15172 3f64 4AA52400 		addi 36,r10,r10
+ 15173 3f68 60A12000 		movea lo(32),r0,r11
+ 15174 3f6c 6AD50000 		st.h r11,0[r10]
+ 15175 3f70 40BD0000 		movhi hi(_VIP_REGS),r0,r10
+ 15176 3f74 4AA10000 		movea lo(_VIP_REGS),r10,r10
+ 15177 3f78 4ACD0000 		ld.w 0[r10],r10
+ 15178 3f7c 4AA52600 		addi 38,r10,r10
+ 15179 3f80 60A14000 		movea lo(64),r0,r11
+ 15180 3f84 6AD50000 		st.h r11,0[r10]
+ 15181 3f88 40BD0000 		movhi hi(_VIP_REGS),r0,r10
+ 15182 3f8c 4AA10000 		movea lo(_VIP_REGS),r10,r10
+ 15183 3f90 4ACD0000 		ld.w 0[r10],r10
+ 15184 3f94 4AA52800 		addi 40,r10,r10
+ 15185 3f98 60A12000 		movea lo(32),r0,r11
+ 15186 3f9c 6AD50000 		st.h r11,0[r10]
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 284
 
 
- 15187 3fa4 00AC0400 		jal .+4
- 15188 3fa8 E447     		add 4,r31
- 15189 3faa 0A18     		jmp r10
- 15190 3fac C140     		mov 1,r6
- 15191 3fae 40BD0000 		movhi hi(_timer_int),r0,r10
- 15192 3fb2 4AA10000 		movea lo(_timer_int),r10,r10
- 15193 3fb6 00AC0400 		jal .+4
- 15194 3fba E447     		add 4,r31
- 15195 3fbc 0A18     		jmp r10
- 15196 3fbe 40BD0200 		movhi hi(122880),r0,r10
- 15197 3fc2 CAA000E0 		movea lo(122880),r10,r6
- 15198 3fc6 40BD0000 		movhi hi(_PVB_FONT),r0,r10
- 15199 3fca EAA00000 		movea lo(_PVB_FONT),r10,r7
- 15200 3fce 00A10020 		movea lo(8192),r0,r8
- 15201 3fd2 40BD0000 		movhi hi(_copymem),r0,r10
- 15202 3fd6 4AA10000 		movea lo(_copymem),r10,r10
- 15203 3fda 00AC0400 		jal .+4
- 15204 3fde E447     		add 4,r31
- 15205 3fe0 0A18     		jmp r10
- 15206 3fe2 40BD0000 		movhi hi(_WA),r0,r10
- 15207 3fe6 4AA10000 		movea lo(_WA),r10,r10
- 15208 3fea 4ACD0000 		ld.w 0[r10],r10
- 15209 3fee 4AA5E003 		addi 992,r10,r10
- 15210 3ff2 60A100C0 		movea lo(-16384),r0,r11
- 15211 3ff6 6AD50000 		st.h r11,0[r10]
- 15212 3ffa 40BD0000 		movhi hi(_WA),r0,r10
- 15213 3ffe 4AA10000 		movea lo(_WA),r10,r10
- 15214 4002 4ACD0000 		ld.w 0[r10],r10
- 15215 4006 4AA5E003 		addi 992,r10,r10
- 15216 400a 60A1C800 		movea lo(200),r0,r11
- 15217 400e 6AD50E00 		st.h r11,14[r10]
- 15218 4012 40BD0000 		movhi hi(_WA),r0,r10
- 15219 4016 4AA10000 		movea lo(_WA),r10,r10
- 15220 401a 4ACD0000 		ld.w 0[r10],r10
- 15221 401e 4AA5E003 		addi 992,r10,r10
- 15222 4022 60A1C800 		movea lo(200),r0,r11
- 15223 4026 6AD51000 		st.h r11,16[r10]
- 15224 402a 40BD0000 		movhi hi(_WA),r0,r10
- 15225 402e 4AA10000 		movea lo(_WA),r10,r10
- 15226 4032 4ACD0000 		ld.w 0[r10],r10
- 15227 4036 4AA5C003 		addi 960,r10,r10
- 15228 403a 60A14000 		movea lo(64),r0,r11
- 15229 403e 6AD50000 		st.h r11,0[r10]
- 15230 4042 E3CF1000 		ld.w 16[sp],r31
- 15231 4046 63A41400 		addi 20,sp,sp
- 15232 404a 1F18     		jmp [r31]
- 15233              		.size	_vbInit, .-_vbInit
- 15234              		.align 2
- 15235              		.global _screenControl
- 15236              		.type	_screenControl, @function
- 15237              	_screenControl:
- 15238 404c 7C44     		add -4,sp
- 15239 404e 40BD0000 		movhi hi(_pgflip___3193),r0,r10
- 15240 4052 4AA10000 		movea lo(_pgflip___3193),r10,r10
- 15241 4056 4AC50000 		ld.h 0[r10],r10
- 15242 405a 4AB5FFFF 		andi 65535,r10,r10
- 15243 405e 4A3D     		not r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 285
+ 15187 3fa0 40BD0000 		movhi hi(_HW_REGS),r0,r10
+ 15188 3fa4 4AA10000 		movea lo(_HW_REGS),r10,r10
+ 15189 3fa8 4ACD0000 		ld.w 0[r10],r10
+ 15190 3fac 4AA52400 		addi 36,r10,r10
+ 15191 3fb0 6141     		mov 1,r11
+ 15192 3fb2 6AD10000 		st.b r11,0[r10]
+ 15193 3fb6 40BD0000 		movhi hi(_VIP_REGS),r0,r10
+ 15194 3fba 4AA10000 		movea lo(_VIP_REGS),r10,r10
+ 15195 3fbe 4ACD0000 		ld.w 0[r10],r10
+ 15196 3fc2 4AA52E00 		addi 46,r10,r10
+ 15197 3fc6 0AD40000 		st.h r0,0[r10]
+ 15198 3fca 40BD0000 		movhi hi(_timeHnd),r0,r10
+ 15199 3fce 6AA10000 		movea lo(_timeHnd),r10,r11
+ 15200 3fd2 40BD0000 		movhi hi(_tim_vector),r0,r10
+ 15201 3fd6 4AA10000 		movea lo(_tim_vector),r10,r10
+ 15202 3fda 6ADD0000 		st.w r11,0[r10]
+ 15203 3fde C140     		mov 1,r6
+ 15204 3fe0 40BD0000 		movhi hi(_timer_freq),r0,r10
+ 15205 3fe4 4AA10000 		movea lo(_timer_freq),r10,r10
+ 15206 3fe8 00AC0400 		jal .+4
+ 15207 3fec E447     		add 4,r31
+ 15208 3fee 0A18     		jmp r10
+ 15209 3ff0 C640     		mov 6,r6
+ 15210 3ff2 40BD0000 		movhi hi(_timer_set),r0,r10
+ 15211 3ff6 4AA10000 		movea lo(_timer_set),r10,r10
+ 15212 3ffa 00AC0400 		jal .+4
+ 15213 3ffe E447     		add 4,r31
+ 15214 4000 0A18     		jmp r10
+ 15215 4002 C140     		mov 1,r6
+ 15216 4004 40BD0000 		movhi hi(_timer_enable),r0,r10
+ 15217 4008 4AA10000 		movea lo(_timer_enable),r10,r10
+ 15218 400c 00AC0400 		jal .+4
+ 15219 4010 E447     		add 4,r31
+ 15220 4012 0A18     		jmp r10
+ 15221 4014 C140     		mov 1,r6
+ 15222 4016 40BD0000 		movhi hi(_timer_int),r0,r10
+ 15223 401a 4AA10000 		movea lo(_timer_int),r10,r10
+ 15224 401e 00AC0400 		jal .+4
+ 15225 4022 E447     		add 4,r31
+ 15226 4024 0A18     		jmp r10
+ 15227 4026 40BD0200 		movhi hi(122880),r0,r10
+ 15228 402a CAA000E0 		movea lo(122880),r10,r6
+ 15229 402e 40BD0000 		movhi hi(_PVB_FONT),r0,r10
+ 15230 4032 EAA00000 		movea lo(_PVB_FONT),r10,r7
+ 15231 4036 00A10020 		movea lo(8192),r0,r8
+ 15232 403a 40BD0000 		movhi hi(_copymem),r0,r10
+ 15233 403e 4AA10000 		movea lo(_copymem),r10,r10
+ 15234 4042 00AC0400 		jal .+4
+ 15235 4046 E447     		add 4,r31
+ 15236 4048 0A18     		jmp r10
+ 15237 404a 40BD0000 		movhi hi(_WA),r0,r10
+ 15238 404e 4AA10000 		movea lo(_WA),r10,r10
+ 15239 4052 4ACD0000 		ld.w 0[r10],r10
+ 15240 4056 4AA5E003 		addi 992,r10,r10
+ 15241 405a 60A100C0 		movea lo(-16384),r0,r11
+ 15242 405e 6AD50000 		st.h r11,0[r10]
+ 15243 4062 40BD0000 		movhi hi(_WA),r0,r10
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 285
 
 
- 15244 4060 4AB5FFFF 		andi 65535,r10,r10
- 15245 4064 4AB50C00 		andi 12,r10,r10
- 15246 4068 60BD0000 		movhi hi(_pgflip___3193),r0,r11
- 15247 406c 6BA10000 		movea lo(_pgflip___3193),r11,r11
- 15248 4070 4BD50000 		st.h r10,0[r11]
- 15249 4074 40BD0000 		movhi hi(_VIP_REGS),r0,r10
- 15250 4078 4AA10000 		movea lo(_VIP_REGS),r10,r10
- 15251 407c 4ACD0000 		ld.w 0[r10],r10
- 15252 4080 4AA54200 		addi 66,r10,r10
- 15253 4084 60BD0000 		movhi hi(_VIP_REGS),r0,r11
- 15254 4088 6BA10000 		movea lo(_VIP_REGS),r11,r11
- 15255 408c 6BCD0000 		ld.w 0[r11],r11
- 15256 4090 6BA54000 		addi 64,r11,r11
- 15257 4094 6BC50000 		ld.h 0[r11],r11
- 15258 4098 6BB5FFFF 		andi 65535,r11,r11
- 15259 409c 6BB10200 		ori 2,r11,r11
- 15260 40a0 6BB5FFFF 		andi 65535,r11,r11
- 15261 40a4 6AD50000 		st.h r11,0[r10]
- 15262              	.L345:
- 15263 40a8 40BD0000 		movhi hi(_VIP_REGS),r0,r10
- 15264 40ac 4AA10000 		movea lo(_VIP_REGS),r10,r10
- 15265 40b0 4ACD0000 		ld.w 0[r10],r10
- 15266 40b4 4AA54000 		addi 64,r10,r10
- 15267 40b8 4AC50000 		ld.h 0[r10],r10
- 15268 40bc 6AB5FFFF 		andi 65535,r10,r11
- 15269 40c0 40BD0000 		movhi hi(_pgflip___3193),r0,r10
- 15270 40c4 4AA10000 		movea lo(_pgflip___3193),r10,r10
- 15271 40c8 4AC50000 		ld.h 0[r10],r10
- 15272 40cc 4AB5FFFF 		andi 65535,r10,r10
- 15273 40d0 4B35     		and r11,r10
- 15274 40d2 4AB5FFFF 		andi 65535,r10,r10
- 15275 40d6 400D     		cmp r0,r10
- 15276 40d8 D085     		be .L345
- 15277 40da 40BD0000 		movhi hi(_VIP_REGS),r0,r10
- 15278 40de 4AA10000 		movea lo(_VIP_REGS),r10,r10
- 15279 40e2 4ACD0000 		ld.w 0[r10],r10
- 15280 40e6 6AA54200 		addi 66,r10,r11
- 15281 40ea 40BD0000 		movhi hi(_VIP_REGS),r0,r10
- 15282 40ee 4AA10000 		movea lo(_VIP_REGS),r10,r10
- 15283 40f2 4ACD0000 		ld.w 0[r10],r10
- 15284 40f6 4AA54000 		addi 64,r10,r10
- 15285 40fa 4AC50000 		ld.h 0[r10],r10
- 15286 40fe 4AB5FFFF 		andi 65535,r10,r10
- 15287 4102 4AB5FDFF 		andi 65533,r10,r10
- 15288 4106 4BD50000 		st.h r10,0[r11]
- 15289 410a 40BD0000 		movhi hi(_currentFrameBuffer),r0,r10
- 15290 410e 4AA10000 		movea lo(_currentFrameBuffer),r10,r10
- 15291 4112 4ACD0000 		ld.w 0[r10],r10
- 15292 4116 43DD0000 		st.w r10,0[sp]
- 15293 411a 40BD0000 		movhi hi(_nextFrameBuffer),r0,r10
- 15294 411e 4AA10000 		movea lo(_nextFrameBuffer),r10,r10
- 15295 4122 6ACD0000 		ld.w 0[r10],r11
- 15296 4126 40BD0000 		movhi hi(_currentFrameBuffer),r0,r10
- 15297 412a 4AA10000 		movea lo(_currentFrameBuffer),r10,r10
- 15298 412e 6ADD0000 		st.w r11,0[r10]
- 15299 4132 40BD0000 		movhi hi(_nextFrameBuffer),r0,r10
- 15300 4136 4AA10000 		movea lo(_nextFrameBuffer),r10,r10
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 286
+ 15244 4066 4AA10000 		movea lo(_WA),r10,r10
+ 15245 406a 4ACD0000 		ld.w 0[r10],r10
+ 15246 406e 4AA5E003 		addi 992,r10,r10
+ 15247 4072 60A1C800 		movea lo(200),r0,r11
+ 15248 4076 6AD50E00 		st.h r11,14[r10]
+ 15249 407a 40BD0000 		movhi hi(_WA),r0,r10
+ 15250 407e 4AA10000 		movea lo(_WA),r10,r10
+ 15251 4082 4ACD0000 		ld.w 0[r10],r10
+ 15252 4086 4AA5E003 		addi 992,r10,r10
+ 15253 408a 60A1C800 		movea lo(200),r0,r11
+ 15254 408e 6AD51000 		st.h r11,16[r10]
+ 15255 4092 40BD0000 		movhi hi(_WA),r0,r10
+ 15256 4096 4AA10000 		movea lo(_WA),r10,r10
+ 15257 409a 4ACD0000 		ld.w 0[r10],r10
+ 15258 409e 4AA5C003 		addi 960,r10,r10
+ 15259 40a2 60A14000 		movea lo(64),r0,r11
+ 15260 40a6 6AD50000 		st.h r11,0[r10]
+ 15261 40aa E3CF1000 		ld.w 16[sp],r31
+ 15262 40ae 63A41400 		addi 20,sp,sp
+ 15263 40b2 1F18     		jmp [r31]
+ 15264              		.size	_vbInit, .-_vbInit
+ 15265              		.align 2
+ 15266              		.global _screenControl
+ 15267              		.type	_screenControl, @function
+ 15268              	_screenControl:
+ 15269 40b4 7C44     		add -4,sp
+ 15270 40b6 40BD0000 		movhi hi(_pgflip___3197),r0,r10
+ 15271 40ba 4AA10000 		movea lo(_pgflip___3197),r10,r10
+ 15272 40be 4AC50000 		ld.h 0[r10],r10
+ 15273 40c2 4AB5FFFF 		andi 65535,r10,r10
+ 15274 40c6 4A3D     		not r10,r10
+ 15275 40c8 4AB5FFFF 		andi 65535,r10,r10
+ 15276 40cc 4AB50C00 		andi 12,r10,r10
+ 15277 40d0 60BD0000 		movhi hi(_pgflip___3197),r0,r11
+ 15278 40d4 6BA10000 		movea lo(_pgflip___3197),r11,r11
+ 15279 40d8 4BD50000 		st.h r10,0[r11]
+ 15280 40dc 40BD0000 		movhi hi(_VIP_REGS),r0,r10
+ 15281 40e0 4AA10000 		movea lo(_VIP_REGS),r10,r10
+ 15282 40e4 4ACD0000 		ld.w 0[r10],r10
+ 15283 40e8 4AA54200 		addi 66,r10,r10
+ 15284 40ec 60BD0000 		movhi hi(_VIP_REGS),r0,r11
+ 15285 40f0 6BA10000 		movea lo(_VIP_REGS),r11,r11
+ 15286 40f4 6BCD0000 		ld.w 0[r11],r11
+ 15287 40f8 6BA54000 		addi 64,r11,r11
+ 15288 40fc 6BC50000 		ld.h 0[r11],r11
+ 15289 4100 6BB5FFFF 		andi 65535,r11,r11
+ 15290 4104 6BB10200 		ori 2,r11,r11
+ 15291 4108 6BB5FFFF 		andi 65535,r11,r11
+ 15292 410c 6AD50000 		st.h r11,0[r10]
+ 15293              	.L347:
+ 15294 4110 40BD0000 		movhi hi(_VIP_REGS),r0,r10
+ 15295 4114 4AA10000 		movea lo(_VIP_REGS),r10,r10
+ 15296 4118 4ACD0000 		ld.w 0[r10],r10
+ 15297 411c 4AA54000 		addi 64,r10,r10
+ 15298 4120 4AC50000 		ld.h 0[r10],r10
+ 15299 4124 6AB5FFFF 		andi 65535,r10,r11
+ 15300 4128 40BD0000 		movhi hi(_pgflip___3197),r0,r10
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 286
 
 
- 15301 413a 63CD0000 		ld.w 0[sp],r11
- 15302 413e 6ADD0000 		st.w r11,0[r10]
- 15303 4142 6444     		add 4,sp
- 15304 4144 1F18     		jmp [r31]
- 15305              		.size	_screenControl, .-_screenControl
- 15306 4146 0000     		.section .data
- 15307              		.align 1
- 15308              		.type	_pgflip___3193, @object
- 15309              		.size	_pgflip___3193, 2
- 15310              	_pgflip___3193:
- 15311 0044 0800     		.hword	8
- 15312              		.local	_rev___1659
- 15313              		.comm	_rev___1659,11,1
- 15314 0046 0000     		.ident	"GCC: (GNU) 4.4.2"
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 287
+ 15301 412c 4AA10000 		movea lo(_pgflip___3197),r10,r10
+ 15302 4130 4AC50000 		ld.h 0[r10],r10
+ 15303 4134 4AB5FFFF 		andi 65535,r10,r10
+ 15304 4138 4B35     		and r11,r10
+ 15305 413a 4AB5FFFF 		andi 65535,r10,r10
+ 15306 413e 400D     		cmp r0,r10
+ 15307 4140 D085     		be .L347
+ 15308 4142 40BD0000 		movhi hi(_VIP_REGS),r0,r10
+ 15309 4146 4AA10000 		movea lo(_VIP_REGS),r10,r10
+ 15310 414a 4ACD0000 		ld.w 0[r10],r10
+ 15311 414e 6AA54200 		addi 66,r10,r11
+ 15312 4152 40BD0000 		movhi hi(_VIP_REGS),r0,r10
+ 15313 4156 4AA10000 		movea lo(_VIP_REGS),r10,r10
+ 15314 415a 4ACD0000 		ld.w 0[r10],r10
+ 15315 415e 4AA54000 		addi 64,r10,r10
+ 15316 4162 4AC50000 		ld.h 0[r10],r10
+ 15317 4166 4AB5FFFF 		andi 65535,r10,r10
+ 15318 416a 4AB5FDFF 		andi 65533,r10,r10
+ 15319 416e 4BD50000 		st.h r10,0[r11]
+ 15320 4172 40BD0000 		movhi hi(_currentFrameBuffer),r0,r10
+ 15321 4176 4AA10000 		movea lo(_currentFrameBuffer),r10,r10
+ 15322 417a 4ACD0000 		ld.w 0[r10],r10
+ 15323 417e 43DD0000 		st.w r10,0[sp]
+ 15324 4182 40BD0000 		movhi hi(_nextFrameBuffer),r0,r10
+ 15325 4186 4AA10000 		movea lo(_nextFrameBuffer),r10,r10
+ 15326 418a 6ACD0000 		ld.w 0[r10],r11
+ 15327 418e 40BD0000 		movhi hi(_currentFrameBuffer),r0,r10
+ 15328 4192 4AA10000 		movea lo(_currentFrameBuffer),r10,r10
+ 15329 4196 6ADD0000 		st.w r11,0[r10]
+ 15330 419a 40BD0000 		movhi hi(_nextFrameBuffer),r0,r10
+ 15331 419e 4AA10000 		movea lo(_nextFrameBuffer),r10,r10
+ 15332 41a2 63CD0000 		ld.w 0[sp],r11
+ 15333 41a6 6ADD0000 		st.w r11,0[r10]
+ 15334 41aa 6444     		add 4,sp
+ 15335 41ac 1F18     		jmp [r31]
+ 15336              		.size	_screenControl, .-_screenControl
+ 15337 41ae 0000     		.section .data
+ 15338              		.align 1
+ 15339              		.type	_pgflip___3197, @object
+ 15340              		.size	_pgflip___3197, 2
+ 15341              	_pgflip___3197:
+ 15342 0044 0800     		.hword	8
+ 15343              		.local	_rev___1659
+ 15344              		.comm	_rev___1659,11,1
+ 15345 0046 0000     		.ident	"GCC: (GNU) 4.4.2"
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 287
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 Combat.c
-C:\users\greg\Temp\ccGlsqIM.s:7      .data:00000000 _VIP_REGS
-C:\users\greg\Temp\ccGlsqIM.s:14     .rodata:00000000 _L_FRAME0
-C:\users\greg\Temp\ccGlsqIM.s:20     .rodata:00000004 _L_FRAME1
-C:\users\greg\Temp\ccGlsqIM.s:26     .rodata:00000008 _R_FRAME0
-C:\users\greg\Temp\ccGlsqIM.s:32     .rodata:0000000c _R_FRAME1
-C:\users\greg\Temp\ccGlsqIM.s:38     .rodata:00000010 _BGMM
-C:\users\greg\Temp\ccGlsqIM.s:44     .rodata:00000014 _WAM
-C:\users\greg\Temp\ccGlsqIM.s:50     .rodata:00000018 _CLMN_TBL
-C:\users\greg\Temp\ccGlsqIM.s:56     .rodata:0000001c _OAM
-C:\users\greg\Temp\ccGlsqIM.s:62     .text:00000000 _vbWaitFrame
-C:\users\greg\Temp\ccGlsqIM.s:104    .text:00000070 _vbDisplayOn
-C:\users\greg\Temp\ccGlsqIM.s:224    .text:00000238 _vbDisplayOff
-C:\users\greg\Temp\ccGlsqIM.s:260    .text:000002b0 _vbDisplayShow
-C:\users\greg\Temp\ccGlsqIM.s:284    .text:000002fc _vbDisplayHide
-C:\users\greg\Temp\ccGlsqIM.s:305    .text:0000033c _vbFXFadeIn
-C:\users\greg\Temp\ccGlsqIM.s:360    .text:000003e8 _vbFXFadeOut
-C:\users\greg\Temp\ccGlsqIM.s:422    .rodata:00000020 _colTable
-C:\users\greg\Temp\ccGlsqIM.s:555    .text:0000049c _vbSetColTable
-C:\users\greg\Temp\ccGlsqIM.s:647    .text:000005bc _affine_clr_param
-C:\users\greg\Temp\ccGlsqIM.s:699    .text:00000648 _affine_scale
-C:\users\greg\Temp\ccGlsqIM.s:855    .text:00000834 _affine_fast_scale
-C:\users\greg\Temp\ccGlsqIM.s:955    .rodata:000000a0 _WAVEDATA1
-C:\users\greg\Temp\ccGlsqIM.s:961    .rodata:000000a4 _WAVEDATA2
-C:\users\greg\Temp\ccGlsqIM.s:967    .rodata:000000a8 _WAVEDATA3
-C:\users\greg\Temp\ccGlsqIM.s:973    .rodata:000000ac _WAVEDATA4
-C:\users\greg\Temp\ccGlsqIM.s:979    .rodata:000000b0 _WAVEDATA5
-C:\users\greg\Temp\ccGlsqIM.s:985    .rodata:000000b4 _MODDATA
-C:\users\greg\Temp\ccGlsqIM.s:991    .rodata:000000b8 _SND_REGS
-C:\users\greg\Temp\ccGlsqIM.s:995    .rodata:000000bc _jump_addr
-C:\users\greg\Temp\ccGlsqIM.s:1002   .rodata:000000ce __dojump
-C:\users\greg\Temp\ccGlsqIM.s:1009   .text:0000095c _set_intlevel
-C:\users\greg\Temp\ccGlsqIM.s:1023   .text:00000980 _get_intlevel
-C:\users\greg\Temp\ccGlsqIM.s:1040   .rodata:000000d0 _HW_REGS
-C:\users\greg\Temp\ccGlsqIM.s:1047   .bss:00000000 _oldkeydown
-C:\users\greg\Temp\ccGlsqIM.s:1053   .bss:00000002 _oldkeyup
-C:\users\greg\Temp\ccGlsqIM.s:1059   .text:00000998 _vbReadPad
-C:\users\greg\Temp\ccGlsqIM.s:1095   .text:00000a04 _vbPadKeyDown
-C:\users\greg\Temp\ccGlsqIM.s:1129   .text:00000a68 _vbPadKeyUp
-C:\users\greg\Temp\ccGlsqIM.s:1164   .rodata:000000d4 _EXPANSION
-C:\users\greg\Temp\ccGlsqIM.s:1170   .rodata:000000d8 _WORKRAM
-C:\users\greg\Temp\ccGlsqIM.s:1176   .rodata:000000dc _SAVERAM
-C:\users\greg\Temp\ccGlsqIM.s:1182   .text:00000acc _copymem
-C:\users\greg\Temp\ccGlsqIM.s:1218   .text:00000b2c _setmem
-C:\users\greg\Temp\ccGlsqIM.s:1250   .text:00000b7c _addmem
-C:\users\greg\Temp\ccGlsqIM.s:1292   .rodata:000000e0 _nums
-C:\users\greg\Temp\ccGlsqIM.s:1297   .text:00000bec _itoa
+C:\users\greg\Temp\cc4z08Lu.s:7      .data:00000000 _VIP_REGS
+C:\users\greg\Temp\cc4z08Lu.s:14     .rodata:00000000 _L_FRAME0
+C:\users\greg\Temp\cc4z08Lu.s:20     .rodata:00000004 _L_FRAME1
+C:\users\greg\Temp\cc4z08Lu.s:26     .rodata:00000008 _R_FRAME0
+C:\users\greg\Temp\cc4z08Lu.s:32     .rodata:0000000c _R_FRAME1
+C:\users\greg\Temp\cc4z08Lu.s:38     .rodata:00000010 _BGMM
+C:\users\greg\Temp\cc4z08Lu.s:44     .rodata:00000014 _WAM
+C:\users\greg\Temp\cc4z08Lu.s:50     .rodata:00000018 _CLMN_TBL
+C:\users\greg\Temp\cc4z08Lu.s:56     .rodata:0000001c _OAM
+C:\users\greg\Temp\cc4z08Lu.s:62     .text:00000000 _vbWaitFrame
+C:\users\greg\Temp\cc4z08Lu.s:104    .text:00000070 _vbDisplayOn
+C:\users\greg\Temp\cc4z08Lu.s:224    .text:00000238 _vbDisplayOff
+C:\users\greg\Temp\cc4z08Lu.s:260    .text:000002b0 _vbDisplayShow
+C:\users\greg\Temp\cc4z08Lu.s:284    .text:000002fc _vbDisplayHide
+C:\users\greg\Temp\cc4z08Lu.s:305    .text:0000033c _vbFXFadeIn
+C:\users\greg\Temp\cc4z08Lu.s:360    .text:000003e8 _vbFXFadeOut
+C:\users\greg\Temp\cc4z08Lu.s:422    .rodata:00000020 _colTable
+C:\users\greg\Temp\cc4z08Lu.s:555    .text:0000049c _vbSetColTable
+C:\users\greg\Temp\cc4z08Lu.s:647    .text:000005bc _affine_clr_param
+C:\users\greg\Temp\cc4z08Lu.s:699    .text:00000648 _affine_scale
+C:\users\greg\Temp\cc4z08Lu.s:855    .text:00000834 _affine_fast_scale
+C:\users\greg\Temp\cc4z08Lu.s:955    .rodata:000000a0 _WAVEDATA1
+C:\users\greg\Temp\cc4z08Lu.s:961    .rodata:000000a4 _WAVEDATA2
+C:\users\greg\Temp\cc4z08Lu.s:967    .rodata:000000a8 _WAVEDATA3
+C:\users\greg\Temp\cc4z08Lu.s:973    .rodata:000000ac _WAVEDATA4
+C:\users\greg\Temp\cc4z08Lu.s:979    .rodata:000000b0 _WAVEDATA5
+C:\users\greg\Temp\cc4z08Lu.s:985    .rodata:000000b4 _MODDATA
+C:\users\greg\Temp\cc4z08Lu.s:991    .rodata:000000b8 _SND_REGS
+C:\users\greg\Temp\cc4z08Lu.s:995    .rodata:000000bc _jump_addr
+C:\users\greg\Temp\cc4z08Lu.s:1002   .rodata:000000ce __dojump
+C:\users\greg\Temp\cc4z08Lu.s:1009   .text:0000095c _set_intlevel
+C:\users\greg\Temp\cc4z08Lu.s:1023   .text:00000980 _get_intlevel
+C:\users\greg\Temp\cc4z08Lu.s:1040   .rodata:000000d0 _HW_REGS
+C:\users\greg\Temp\cc4z08Lu.s:1047   .bss:00000000 _oldkeydown
+C:\users\greg\Temp\cc4z08Lu.s:1053   .bss:00000002 _oldkeyup
+C:\users\greg\Temp\cc4z08Lu.s:1059   .text:00000998 _vbReadPad
+C:\users\greg\Temp\cc4z08Lu.s:1095   .text:00000a04 _vbPadKeyDown
+C:\users\greg\Temp\cc4z08Lu.s:1129   .text:00000a68 _vbPadKeyUp
+C:\users\greg\Temp\cc4z08Lu.s:1164   .rodata:000000d4 _EXPANSION
+C:\users\greg\Temp\cc4z08Lu.s:1170   .rodata:000000d8 _WORKRAM
+C:\users\greg\Temp\cc4z08Lu.s:1176   .rodata:000000dc _SAVERAM
+C:\users\greg\Temp\cc4z08Lu.s:1182   .text:00000acc _copymem
+C:\users\greg\Temp\cc4z08Lu.s:1218   .text:00000b2c _setmem
+C:\users\greg\Temp\cc4z08Lu.s:1250   .text:00000b7c _addmem
+C:\users\greg\Temp\cc4z08Lu.s:1292   .rodata:000000e0 _nums
+C:\users\greg\Temp\cc4z08Lu.s:1297   .text:00000bec _itoa
                              .bss:0000002e _rev___1659
-C:\users\greg\Temp\ccGlsqIM.s:1387   .text:00000ce0 _cls
-C:\users\greg\Temp\ccGlsqIM.s:1405   .text:00000d0c _vbTextOut
-C:\users\greg\Temp\ccGlsqIM.s:1466   .text:00000db4 _vbPrint
-C:\users\greg\Temp\ccGlsqIM.s:1606   .text:00000f2c _vbSetObject
-C:\users\greg\Temp\ccGlsqIM.s:1684   .text:00001020 _randseed
-C:\users\greg\Temp\ccGlsqIM.s:1742   .text:000010bc _randnum
-C:\users\greg\Temp\ccGlsqIM.s:1756   .rodata:000000f0 _WA
-C:\users\greg\Temp\ccGlsqIM.s:1762   .text:000010d4 _vbSetWorld
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 288
+C:\users\greg\Temp\cc4z08Lu.s:1387   .text:00000ce0 _cls
+C:\users\greg\Temp\cc4z08Lu.s:1405   .text:00000d0c _vbTextOut
+C:\users\greg\Temp\cc4z08Lu.s:1466   .text:00000db4 _vbPrint
+C:\users\greg\Temp\cc4z08Lu.s:1606   .text:00000f2c _vbSetObject
+C:\users\greg\Temp\cc4z08Lu.s:1684   .text:00001020 _randseed
+C:\users\greg\Temp\cc4z08Lu.s:1742   .text:000010bc _randnum
+C:\users\greg\Temp\cc4z08Lu.s:1756   .rodata:000000f0 _WA
+C:\users\greg\Temp\cc4z08Lu.s:1762   .text:000010d4 _vbSetWorld
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 288
 
 
-C:\users\greg\Temp\ccGlsqIM.s:1901   .bss:00000004 _tcr_val
-C:\users\greg\Temp\ccGlsqIM.s:1907   .text:000012a8 _timer_enable
-C:\users\greg\Temp\ccGlsqIM.s:1946   .text:00001320 _timer_get
-C:\users\greg\Temp\ccGlsqIM.s:1965   .text:00001354 _timer_set
-C:\users\greg\Temp\ccGlsqIM.s:1989   .text:0000139c _timer_freq
-C:\users\greg\Temp\ccGlsqIM.s:2028   .text:00001414 _timer_int
-C:\users\greg\Temp\ccGlsqIM.s:2067   .text:0000148c _timer_getstat
-C:\users\greg\Temp\ccGlsqIM.s:2081   .text:000014ac _timer_clearstat
+C:\users\greg\Temp\cc4z08Lu.s:1901   .bss:00000004 _tcr_val
+C:\users\greg\Temp\cc4z08Lu.s:1907   .text:000012a8 _timer_enable
+C:\users\greg\Temp\cc4z08Lu.s:1946   .text:00001320 _timer_get
+C:\users\greg\Temp\cc4z08Lu.s:1965   .text:00001354 _timer_set
+C:\users\greg\Temp\cc4z08Lu.s:1989   .text:0000139c _timer_freq
+C:\users\greg\Temp\cc4z08Lu.s:2028   .text:00001414 _timer_int
+C:\users\greg\Temp\cc4z08Lu.s:2067   .text:0000148c _timer_getstat
+C:\users\greg\Temp\cc4z08Lu.s:2081   .text:000014ac _timer_clearstat
                             *COM*:00004e20 _vertexBuffer
-C:\users\greg\Temp\ccGlsqIM.s:2101   .bss:00000008 _numVertices
-C:\users\greg\Temp\ccGlsqIM.s:2108   .data:00000004 _currentFrameBuffer
-C:\users\greg\Temp\ccGlsqIM.s:2115   .bss:0000000c _nextFrameBuffer
-C:\users\greg\Temp\ccGlsqIM.s:2122   .rodata:000000f4 _cosine
-C:\users\greg\Temp\ccGlsqIM.s:2487   .rodata:00000694 _sine
-C:\users\greg\Temp\ccGlsqIM.s:2852   .rodata:00000c34 _Fighter
-C:\users\greg\Temp\ccGlsqIM.s:2954   .rodata:00000db8 _Tree
-C:\users\greg\Temp\ccGlsqIM.s:3033   .rodata:00000ee0 _Phantron
-C:\users\greg\Temp\ccGlsqIM.s:3185   .rodata:0000112c _GroundEffect
-C:\users\greg\Temp\ccGlsqIM.s:3201   .rodata:00001158 _Building
+C:\users\greg\Temp\cc4z08Lu.s:2101   .bss:00000008 _numVertices
+C:\users\greg\Temp\cc4z08Lu.s:2108   .data:00000004 _currentFrameBuffer
+C:\users\greg\Temp\cc4z08Lu.s:2115   .bss:0000000c _nextFrameBuffer
+C:\users\greg\Temp\cc4z08Lu.s:2122   .rodata:000000f4 _cosine
+C:\users\greg\Temp\cc4z08Lu.s:2487   .rodata:00000694 _sine
+C:\users\greg\Temp\cc4z08Lu.s:2852   .rodata:00000c34 _Fighter
+C:\users\greg\Temp\cc4z08Lu.s:2954   .rodata:00000db8 _Tree
+C:\users\greg\Temp\cc4z08Lu.s:3033   .rodata:00000ee0 _Phantron
+C:\users\greg\Temp\cc4z08Lu.s:3185   .rodata:0000112c _GroundEffect
+C:\users\greg\Temp\cc4z08Lu.s:3201   .rodata:00001158 _Building
                             *COM*:00000090 _cam
                             *COM*:00000002 _buttons
-C:\users\greg\Temp\ccGlsqIM.s:3298   .rodata:000012c4 _PVB_FONT
-C:\users\greg\Temp\ccGlsqIM.s:11495  .bss:00000010 _FPS
-C:\users\greg\Temp\ccGlsqIM.s:11500  .bss:00000011 _frameSkip
-C:\users\greg\Temp\ccGlsqIM.s:11505  .bss:00000012 _frameSkipCount
-C:\users\greg\Temp\ccGlsqIM.s:11511  .bss:00000014 _tick
-C:\users\greg\Temp\ccGlsqIM.s:11517  .bss:00000018 _tickStart
-C:\users\greg\Temp\ccGlsqIM.s:11523  .bss:0000001c _tickEnd
-C:\users\greg\Temp\ccGlsqIM.s:11529  .bss:00000020 _tickDraw
-C:\users\greg\Temp\ccGlsqIM.s:11535  .bss:00000024 _tickRender
-C:\users\greg\Temp\ccGlsqIM.s:11541  .bss:00000028 _tickProject
-C:\users\greg\Temp\ccGlsqIM.s:11548  .data:00000008 _movePath
-C:\users\greg\Temp\ccGlsqIM.s:11568  .bss:0000002c _movePathIdx
+C:\users\greg\Temp\cc4z08Lu.s:3298   .rodata:000012c4 _PVB_FONT
+C:\users\greg\Temp\cc4z08Lu.s:11495  .bss:00000010 _FPS
+C:\users\greg\Temp\cc4z08Lu.s:11500  .bss:00000011 _frameSkip
+C:\users\greg\Temp\cc4z08Lu.s:11505  .bss:00000012 _frameSkipCount
+C:\users\greg\Temp\cc4z08Lu.s:11511  .bss:00000014 _tick
+C:\users\greg\Temp\cc4z08Lu.s:11517  .bss:00000018 _tickStart
+C:\users\greg\Temp\cc4z08Lu.s:11523  .bss:0000001c _tickEnd
+C:\users\greg\Temp\cc4z08Lu.s:11529  .bss:00000020 _tickDraw
+C:\users\greg\Temp\cc4z08Lu.s:11535  .bss:00000024 _tickRender
+C:\users\greg\Temp\cc4z08Lu.s:11541  .bss:00000028 _tickProject
+C:\users\greg\Temp\cc4z08Lu.s:11548  .data:00000008 _movePath
+C:\users\greg\Temp\cc4z08Lu.s:11568  .bss:0000002c _movePathIdx
                             *COM*:00000028 _enemyTable
-C:\users\greg\Temp\ccGlsqIM.s:11574  .bss:0000002d _enemyTableCount
-C:\users\greg\Temp\ccGlsqIM.s:11580  .text:000014dc _g3d_copyVector3d
-C:\users\greg\Temp\ccGlsqIM.s:11605  .text:00001518 _g3d_scale
-C:\users\greg\Temp\ccGlsqIM.s:11677  .text:000015d4 _g3d_rotateXAxis
-C:\users\greg\Temp\ccGlsqIM.s:11732  .text:0000165c _g3d_rotateYAxis
-C:\users\greg\Temp\ccGlsqIM.s:11787  .text:000016e4 _g3d_rotateZAxis
-C:\users\greg\Temp\ccGlsqIM.s:11842  .text:0000176c _g3d_rotateAllAxis
-C:\users\greg\Temp\ccGlsqIM.s:11975  .text:000018f4 _g3d_translate
-C:\users\greg\Temp\ccGlsqIM.s:12004  .text:00001938 _g3d_cameraRotateAllAxis
-C:\users\greg\Temp\ccGlsqIM.s:12049  .text:000019b4 _g3d_cameraTranslate
-C:\users\greg\Temp\ccGlsqIM.s:12078  .text:000019f8 _g3d_renderVector3d
-C:\users\greg\Temp\ccGlsqIM.s:12334  .text:00001d3c _g3d_calculateProjection
-C:\users\greg\Temp\ccGlsqIM.s:12392  .text:00001dcc _g3d_drawObject
-C:\users\greg\Temp\ccGlsqIM.s:12630  .text:0000208c _g3d_clipObject
-C:\users\greg\Temp\ccGlsqIM.s:12775  .text:00002244 _g3d_clipZAxis
-C:\users\greg\Temp\ccGlsqIM.s:13071  .text:00002588 _g3d_drawLine
-C:\users\greg\Temp\ccGlsqIM.s:12924  .text:00002400 _drawPoint
+C:\users\greg\Temp\cc4z08Lu.s:11574  .bss:0000002d _enemyTableCount
+C:\users\greg\Temp\cc4z08Lu.s:11580  .text:000014dc _g3d_copyVector3d
+C:\users\greg\Temp\cc4z08Lu.s:11605  .text:00001518 _g3d_scale
+C:\users\greg\Temp\cc4z08Lu.s:11677  .text:000015d4 _g3d_rotateXAxis
+C:\users\greg\Temp\cc4z08Lu.s:11732  .text:0000165c _g3d_rotateYAxis
+C:\users\greg\Temp\cc4z08Lu.s:11787  .text:000016e4 _g3d_rotateZAxis
+C:\users\greg\Temp\cc4z08Lu.s:11842  .text:0000176c _g3d_rotateAllAxis
+C:\users\greg\Temp\cc4z08Lu.s:11975  .text:000018f4 _g3d_translate
+C:\users\greg\Temp\cc4z08Lu.s:12004  .text:00001938 _g3d_cameraRotateAllAxis
+C:\users\greg\Temp\cc4z08Lu.s:12049  .text:000019b4 _g3d_cameraTranslate
+C:\users\greg\Temp\cc4z08Lu.s:12078  .text:000019f8 _g3d_renderVector3d
+C:\users\greg\Temp\cc4z08Lu.s:12334  .text:00001d3c _g3d_calculateProjection
+C:\users\greg\Temp\cc4z08Lu.s:12392  .text:00001dcc _g3d_drawObject
+C:\users\greg\Temp\cc4z08Lu.s:12630  .text:0000208c _g3d_clipObject
+C:\users\greg\Temp\cc4z08Lu.s:12775  .text:00002244 _g3d_clipZAxis
+C:\users\greg\Temp\cc4z08Lu.s:13071  .text:00002588 _g3d_drawLine
+C:\users\greg\Temp\cc4z08Lu.s:12924  .text:00002400 _drawPoint
                G3d.c:780    .text:000027e6 _dxltdy
                G3d.c:709    .text:00002750 _nextLine1
                G3d.c:714    .text:00002758 _lineLoop1Top
                G3d.c:779    .text:000027e6 _lineLoop1End
                G3d.c:769    .text:000027d4 _endDrawPoint1
                G3d.c:733    .text:00002780 _nextPoint1
-GAS LISTING C:\users\greg\Temp\ccGlsqIM.s 			page 289
+GAS LISTING C:\users\greg\Temp\cc4z08Lu.s 			page 289
 
 
                G3d.c:775    .text:000027de _nextLine2
@@ -17246,18 +17277,18 @@ C:\users\greg\Temp\ccGlsqIM.s:12924  .text:00002400 _drawPoint
                G3d.c:811    .text:00002822 _nextPoint2
                G3d.c:854    .text:00002884 _nextLine4
                G3d.c:859    .text:0000288c _end
-C:\users\greg\Temp\ccGlsqIM.s:13405  .text:000028bc _g3d_initObject
-C:\users\greg\Temp\ccGlsqIM.s:13477  .text:000029bc _g3d_moveObject
-C:\users\greg\Temp\ccGlsqIM.s:13828  .text:00002e00 _g3d_moveCamera
-C:\users\greg\Temp\ccGlsqIM.s:14143  .text:000031d0 _main
-C:\users\greg\Temp\ccGlsqIM.s:15125  .text:00003ec8 _vbInit
-C:\users\greg\Temp\ccGlsqIM.s:15076  .text:00003e18 _initObjects
-C:\users\greg\Temp\ccGlsqIM.s:14838  .text:00003af0 _handleInput
-C:\users\greg\Temp\ccGlsqIM.s:14606  .text:00003818 _doMoveEnemy
-C:\users\greg\Temp\ccGlsqIM.s:14686  .text:00003918 _doGroundEffects
-C:\users\greg\Temp\ccGlsqIM.s:15237  .text:0000404c _screenControl
-C:\users\greg\Temp\ccGlsqIM.s:14789  .text:00003a5c _timeHnd
-C:\users\greg\Temp\ccGlsqIM.s:15310  .data:00000044 _pgflip___3193
+C:\users\greg\Temp\cc4z08Lu.s:13405  .text:000028bc _g3d_initObject
+C:\users\greg\Temp\cc4z08Lu.s:13477  .text:000029bc _g3d_moveObject
+C:\users\greg\Temp\cc4z08Lu.s:13828  .text:00002e00 _g3d_moveCamera
+C:\users\greg\Temp\cc4z08Lu.s:14143  .text:000031d0 _main
+C:\users\greg\Temp\cc4z08Lu.s:15156  .text:00003f30 _vbInit
+C:\users\greg\Temp\cc4z08Lu.s:15107  .text:00003e80 _initObjects
+C:\users\greg\Temp\cc4z08Lu.s:14838  .text:00003af0 _handleInput
+C:\users\greg\Temp\cc4z08Lu.s:14606  .text:00003818 _doMoveEnemy
+C:\users\greg\Temp\cc4z08Lu.s:14686  .text:00003918 _doGroundEffects
+C:\users\greg\Temp\cc4z08Lu.s:15268  .text:000040b4 _screenControl
+C:\users\greg\Temp\cc4z08Lu.s:14789  .text:00003a5c _timeHnd
+C:\users\greg\Temp\cc4z08Lu.s:15341  .data:00000044 _pgflip___3197
 
 UNDEFINED SYMBOLS
 _tim_vector

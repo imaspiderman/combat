@@ -246,10 +246,10 @@ void handleInput(object* o){
 	}
 	
 	if(K_RU & buttons){
-		//if(cam.worldPosition.z == cam.moveTo.z) cam.moveTo.z += cam.worldSpeed.z;
+		cam.worldRotation.x -= 8;
 	}
 	if(K_RD & buttons){
-		//if(cam.worldPosition.z == cam.moveTo.z) cam.moveTo.z -= cam.worldSpeed.z;
+		cam.worldRotation.x += 8;
 	}
 	if(K_RL & buttons){
 		cam.worldRotation.y -= 8;

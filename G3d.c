@@ -231,12 +231,12 @@ void inline g3d_rotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o){
 	if(rz<0) rz=359+rz;
 	
 	g3d_copyVector3d(v,&t);
-	if(rx != 0){
-		g3d_rotateXAxis(rx,&t,o);
-		g3d_copyVector3d(o,&t);
-	}
 	if(ry != 0){
 		g3d_rotateYAxis(ry,&t,o);
+		g3d_copyVector3d(o,&t);
+	}
+	if(rx != 0){
+		g3d_rotateXAxis(rx,&t,o);
 		g3d_copyVector3d(o,&t);
 	}
 	if(rz != 0){
@@ -346,15 +346,15 @@ void g3d_renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube){
 	g3d_copyVector3d(&t,o);
 	
 	g3d_translate(obj->worldPosition.x,obj->worldPosition.y,obj->worldPosition.z,o,&t);
-	g3d_copyVector3d(&t,o);
-	
-	g3d_cameraTranslate(cam.worldPosition.x,cam.worldPosition.y,cam.worldPosition.z,o,&t);
-	g3d_copyVector3d(&t,o);
+	g3d_copyVector3d(&t,o);		
 	
 	if(cam.worldRotation.x != 0 || cam.worldRotation.y != 0 || cam.worldRotation.z != 0){			
 		g3d_cameraRotateAllAxis(cam.worldRotation.x,cam.worldRotation.y,cam.worldRotation.z,o,&t);
 		g3d_copyVector3d(&t,o);
 	}
+	
+	g3d_cameraTranslate(cam.worldPosition.x,cam.worldPosition.y,cam.worldPosition.z,o,&t);
+	g3d_copyVector3d(&t,o);
 	
 	//Collision cube	
 	if(initHitCube == 0){
