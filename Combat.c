@@ -4,16 +4,13 @@
 #include "GameData.h"
 #include "Font.h"
 //Timer for FPS
-volatile u8 FPS = 0;
 volatile u8 frameSkip = 0;
-#define FRAME_SKIP_MAX 4
+volatile u8 fireLaser = 0;//1=straight 2=left 4=right 8=up 16=down
+#define FRAME_SKIP_MAX 5
 volatile u8 frameSkipCount = 0;
 volatile u32 tick = 0;
 volatile u32 tickStart = 0;
 volatile u32 tickEnd = 0;
-volatile u32 tickDraw = 0;
-volatile u32 tickRender = 0;
-volatile u32 tickProject = 0;
 
 s32 movePath[15] = {
 	F_NUM_UP(-1000),F_NUM_UP(1000),F_NUM_UP(8000),
@@ -27,19 +24,26 @@ u8 movePathIdx = 0;
 object* enemyTable[10];
 u8 enemyTableCount = 0;
 
+object* laserTable[5];
+u8 laserTableCount = 0;
+
 #define GROUND_SPEED F_NUM_UP(200)
 
 #include "G3d.c"
 
 int main(){
 	object objFighter;
-	object objGroundEffect;
 	object objPhantron1;
 	object objPhantron2;
 	object objPhantron3;
-	object objPhantron4;
+	object objGroundEffect;
 	object objTree;
 	object objBuilding;
+	object objLaser1;
+	object objLaser2;
+	object objLaser3;
+	object objLaser4;
+	object objLaser5;
 	u8 i;
 	
 	vbInit();
@@ -49,10 +53,14 @@ int main(){
 	g3d_initObject(&objPhantron1, (objectData*)Phantron);
 	g3d_initObject(&objPhantron2, (objectData*)Phantron);
 	g3d_initObject(&objPhantron3, (objectData*)Phantron);
-	g3d_initObject(&objPhantron4, (objectData*)Phantron);
 	g3d_initObject(&objGroundEffect, (objectData*)GroundEffect);
 	g3d_initObject(&objTree, (objectData*)Tree);
 	g3d_initObject(&objBuilding, (objectData*)Building);
+	g3d_initObject(&objLaser1, (objectData*)Laser);
+	g3d_initObject(&objLaser2, (objectData*)Laser);
+	g3d_initObject(&objLaser3, (objectData*)Laser);
+	g3d_initObject(&objLaser4, (objectData*)Laser);
+	g3d_initObject(&objLaser5, (objectData*)Laser);
 	
 	objGroundEffect.worldPosition.x = F_NUM_UP(-5000);
 	objGroundEffect.worldSpeed.z = GROUND_SPEED;
@@ -70,7 +78,6 @@ int main(){
 	objPhantron1.moveTo.x = objPhantron1.worldPosition.x = 0;
 
 	objPhantron1.worldRotation.y = 180;
-	objPhantron1.rotation.x = 10;
 	objPhantron1.worldSpeed.x = F_NUM_UP(80);
 	objPhantron1.worldSpeed.y = F_NUM_UP(80);
 	objPhantron1.worldSpeed.z = F_NUM_UP(80);
@@ -80,7 +87,6 @@ int main(){
 	objPhantron2.moveTo.x = objPhantron2.worldPosition.x = 0;
 
 	objPhantron2.worldRotation.y = 180;
-	objPhantron2.rotation.x = 10;
 	objPhantron2.worldSpeed.x = F_NUM_UP(80);
 	objPhantron2.worldSpeed.y = F_NUM_UP(80);
 	objPhantron2.worldSpeed.z = F_NUM_UP(80);
@@ -90,20 +96,9 @@ int main(){
 	objPhantron3.moveTo.x = objPhantron3.worldPosition.x = 0;
 
 	objPhantron3.worldRotation.y = 180;
-	objPhantron3.rotation.x = 10;
 	objPhantron3.worldSpeed.x = F_NUM_UP(80);
 	objPhantron3.worldSpeed.y = F_NUM_UP(80);
 	objPhantron3.worldSpeed.z = F_NUM_UP(80);
-	
-	objPhantron4.moveTo.z = objPhantron4.worldPosition.z = FAR_Z;
-	objPhantron4.moveTo.y = objPhantron4.worldPosition.y = F_NUM_UP(1000);
-	objPhantron4.moveTo.x = objPhantron4.worldPosition.x = 0;
-
-	objPhantron4.worldRotation.y = 180;
-	objPhantron4.rotation.x = 10;
-	objPhantron4.worldSpeed.x = F_NUM_UP(80);
-	objPhantron4.worldSpeed.y = F_NUM_UP(80);
-	objPhantron4.worldSpeed.z = F_NUM_UP(80);
 	
 	objFighter.worldPosition.z = F_NUM_UP(5000);
 	objFighter.worldPosition.y = F_NUM_UP(3000);
@@ -114,6 +109,22 @@ int main(){
 	objFighter.worldScale.y = 4;
 	objFighter.worldScale.z = 4;
 	
+	objLaser1.properties.visible = 0;
+	objLaser1.properties.detectCollision = 1;
+	objLaser1.properties.lineColor = 2;
+	objLaser2.properties.visible = 0;
+	objLaser2.properties.detectCollision = 1;
+	objLaser2.properties.lineColor = 2;
+	objLaser3.properties.visible = 0;
+	objLaser3.properties.detectCollision = 1;
+	objLaser3.properties.lineColor = 2;
+	objLaser4.properties.visible = 0;
+	objLaser4.properties.detectCollision = 1;
+	objLaser4.properties.lineColor = 2;
+	objLaser5.properties.visible = 0;
+	objLaser5.properties.detectCollision = 1;
+	objLaser5.properties.lineColor = 2;
+	
 	cam.worldPosition.y = F_NUM_UP(1000);
 	cam.moveTo.z = cam.worldPosition.z;
 	cam.moveTo.y = cam.worldPosition.y;
@@ -122,8 +133,14 @@ int main(){
 	enemyTable[0] = &objPhantron1;
 	enemyTable[1] = &objPhantron2;
 	enemyTable[2] = &objPhantron3;
-	enemyTable[3] = &objPhantron4;
-	enemyTableCount = 4;
+	enemyTableCount = 3;
+	
+	laserTable[0] = &objLaser1;
+	laserTable[1] = &objLaser2;
+	laserTable[2] = &objLaser3;
+	laserTable[3] = &objLaser4;
+	laserTable[4] = &objLaser5;
+	laserTableCount = 5;
 	
 	while(1){
 		handleInput(&objFighter);
@@ -138,6 +155,10 @@ int main(){
 			g3d_moveObject(enemyTable[i]);
 		}
 		g3d_moveObject(&objFighter);
+		
+		for(i=0; i<laserTableCount; i++){
+			doLaserFire(&objFighter, laserTable[i]);
+		}
 		
 		/********************************
 		Perform some simple frame skipping
@@ -161,17 +182,54 @@ int main(){
 		Check for frame skip and draw the
 		objects
 		**********************************/
+		if(frameSkipCount > 0){
+			vbTextOut(0,5,5, "Frameskip ");
+			vbTextOut(0,16,5,itoa(frameSkipCount,10,2));
+		}
 		if(!frameSkip){ //Simple frame skipping
 			for(i=0; i<enemyTableCount; i++){
 				g3d_drawObject(enemyTable[i]);
 			}
 			g3d_drawObject(&objFighter);
+			for(i=0; i<laserTableCount; i++){
+				g3d_drawObject(laserTable[i]);
+			}
 			screenControl();
 		}		
 		
 		while(tick < 266);//about 30 fps
 		if(tick <= 266)tick = 0;
 		else tick -= 266;
+	}
+}
+
+void doLaserFire(object* o, object* laser){
+	if(laser->moveTo.z == laser->worldPosition.z && laser->moveTo.x == laser->worldPosition.x){
+		if(fireLaser > 0){
+			g3d_copyVector3d(&o->worldPosition, &laser->worldPosition);
+			g3d_copyVector3d(&o->worldRotation, &laser->worldRotation);
+			g3d_copyVector3d(&laser->worldPosition, &laser->moveTo);
+			
+			laser->worldSpeed.z = F_NUM_UP(400);			
+			if((fireLaser & 0x02) == 2){
+				laser->worldSpeed.x = laser->worldSpeed.z >> 1;
+				laser->worldSpeed.z = laser->worldSpeed.z >> 1;
+				laser->moveTo.x = laser->worldPosition.x - FAR_Z;
+			}
+			if((fireLaser & 0x04) == 4){
+				laser->worldSpeed.x = laser->worldSpeed.z >> 1;
+				laser->worldSpeed.z = laser->worldSpeed.z >> 1;
+				laser->moveTo.x = laser->worldPosition.x + FAR_Z;
+			}
+			laser->moveTo.z = FAR_Z;
+			laser->properties.visible = 1;
+			fireLaser = 0;
+		}else{
+			laser->properties.visible = 0;
+		}
+	}else{
+		g3d_moveObject(laser);
+		laser->properties.lineColor = (laser->properties.lineColor & 0x03) + 1;
 	}
 }
 
@@ -209,8 +267,7 @@ void timeHnd(void){
 	timer_int(0);
 	timer_enable(0);
 	timer_clearstat();
-	
-	FPS = 0;
+
 	tick++;
 	
 	timer_int(1);
@@ -245,17 +302,27 @@ void handleInput(object* o){
 		if(cam.moveTo.y < 0) cam.moveTo.y = 0;
 	}
 	
+	if(K_A & buttons){
+		if(fireLaser == 0){
+			fireLaser |= 1;
+			if(K_LL & buttons) fireLaser |= 2;
+			if(K_LR & buttons) fireLaser |= 4;
+			if(K_LU & buttons) fireLaser |= 8;
+			if(K_LD & buttons) fireLaser |= 16;
+		}
+	}
+	
 	if(K_RU & buttons){
-		cam.worldRotation.x -= 8;
+		//cam.worldRotation.x -= 8;
 	}
 	if(K_RD & buttons){
-		cam.worldRotation.x += 8;
+		//cam.worldRotation.x += 8;
 	}
 	if(K_RL & buttons){
-		cam.worldRotation.y -= 8;
+		//cam.worldRotation.y -= 8;
 	}
 	if(K_RR & buttons){
-		cam.worldRotation.y += 8;
+		//cam.worldRotation.y += 8;
 	}
 	
 	if(K_RT & buttons){

@@ -66,4 +66,14 @@ const s32 Building[] = {48, //total number of vertices
 	,0,1,1,2,2,3,3,0,4,5,5,6,6,7,7,4
 	,0,4,1,5,2,6,3,7,8,9,9,10,10,11,11,8
 	,12,13,13,14,14,15,15,12};
+	
+const s32 Laser[] = {12, //total number of vertices
+	8, //total number of line end points
+	2,
+	//Distinct vertices
+	0,0,4000,-800,0,8000,0,0,8800,800,0,8000
+	
+	//Vertex indexes
+	,0,1,1,2,2,3,3,0};
+
 #endif

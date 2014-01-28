@@ -31,6 +31,7 @@ void setObjectRelative(object* o, object* parent);
 void setObjectRelativeCamera(object* o);
 void doMoveEnemy(object* o);
 void doGroundEffects();
+void doLaserFire(object* o, object* laser);
 /********************************************************/
 
 

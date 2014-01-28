@@ -18,7 +18,7 @@ Fixed point math defines
 #define F_PRECISION_DIV(X,Y) (F_PRECISION_UP(X)/(Y))
 
 //Definitions
-#define SCREEN_HEIGHT 224
+#define SCREEN_HEIGHT 128
 #define SCREEN_WIDTH 384
 #define FAR_Z F_NUM_UP(10000)
 #define _CacheEnable asm("mov 2,r15 \n ldsr r15,sr24":::"r15");
@@ -58,6 +58,7 @@ typedef struct{
 
 typedef struct{
 	u8 visible; //Is this object visible
+	u8 clip;//This is whether the object is clipped or not
 	u8 detectCollision; //Do we perform collision detection
 	u8 lineColor;
 	collisionCube hitCube; //Cube data for collision detection

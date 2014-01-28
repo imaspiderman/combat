@@ -453,7 +453,7 @@ void g3d_drawObject(object* o){
 	//Clip objects if needed
 	g3d_clipObject(o);
 	
-	if(o->properties.visible == 0) return;
+	if(o->properties.visible == 0 || o->properties.clip == 1) return;
 	
 	vertices=o->objData->vertexSize;//total elements in array
 	lines=o->objData->lineSize;//Total line endpoints
@@ -522,10 +522,10 @@ void inline g3d_clipObject(object* o){
 	}
 	
 	g3d_calculateProjection(&worldOrig);
-	o->properties.visible = 1;
-	if(worldOrig.sx < 0 || worldOrig.sx > SCREEN_WIDTH) o->properties.visible = 0;
-	if(worldOrig.sy < 0 || worldOrig.sy > SCREEN_HEIGHT) o->properties.visible = 0;
-	if(worldOrig.z < (cam.d>>1) || worldOrig.z > FAR_Z) o->properties.visible = 0;
+	o->properties.clip = 0;
+	if(worldOrig.sx < 0 || worldOrig.sx > SCREEN_WIDTH) o->properties.clip = 1;
+	if(worldOrig.sy < 0 || worldOrig.sy > SCREEN_HEIGHT) o->properties.clip = 1;
+	if(worldOrig.z < (cam.d>>1) || worldOrig.z > FAR_Z) o->properties.clip = 1;
 }
 
 /*************************************
