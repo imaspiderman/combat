@@ -973,6 +973,7 @@ void inline g3d_initObject(object* o, objectData* objData){
 	o->properties.visible         = 1;
 	o->properties.detectCollision = 0;
 	o->properties.lineColor       = 3;
+	o->properties.state           = 0;
 }
 
 void inline g3d_moveObject(object* o){

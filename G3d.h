@@ -61,6 +61,7 @@ typedef struct{
 	u8 clip;//This is whether the object is clipped or not
 	u8 detectCollision; //Do we perform collision detection
 	u8 lineColor;
+	u8 state;//State byte to be used for anything
 	collisionCube hitCube; //Cube data for collision detection
 } objectProperties;
 

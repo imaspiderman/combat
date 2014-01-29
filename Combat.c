@@ -209,35 +209,45 @@ int main(){
 Handles the players laser fire
 ************************************/
 void doLaserFire(object* o, object* laser){
-	if(laser->moveTo.z == laser->worldPosition.z){
-		if(fireLaser > 0 && laserFrame == 0){
-			g3d_copyVector3d(&o->worldPosition, &laser->worldPosition);
-			g3d_copyVector3d(&o->worldRotation, &laser->worldRotation);
-			g3d_copyVector3d(&laser->worldPosition, &laser->moveTo);
-			
-			laser->worldSpeed.z = F_NUM_UP(400);			
-			if((fireLaser & 0x02) == 2){
-				laser->worldSpeed.x = laser->worldSpeed.z >> 2;
-				laser->worldSpeed.z = laser->worldSpeed.z - (laser->worldSpeed.z >> 2);
-				laser->moveTo.x = laser->worldPosition.x - (FAR_Z >> 2);
-			}
-			if((fireLaser & 0x04) == 4){
-				laser->worldSpeed.x = laser->worldSpeed.z >> 2;
-				laser->worldSpeed.z = laser->worldSpeed.z - (laser->worldSpeed.z >> 2);
-				laser->moveTo.x = laser->worldPosition.x + (FAR_Z >> 2);
-			}
-			laser->moveTo.z = FAR_Z;
-			laser->properties.visible = 1;
-			fireLaser = 0;
-			laserFrame = LASER_FRAME_DELAY;
-		}else{
-			laser->properties.visible = 0;
+	//Laser states: 0=Ready, 1=Moving, 2=End
+	if(laser->properties.state == 0 && laserFrame == 0 && fireLaser > 0){
+		g3d_copyVector3d(&o->worldPosition, &laser->worldPosition);
+		g3d_copyVector3d(&o->worldRotation, &laser->worldRotation);
+		g3d_copyVector3d(&laser->worldPosition, &laser->moveTo);
+		laser->properties.visible = 1;
+		laserFrame = LASER_FRAME_DELAY;
+		laser->worldSpeed.z = F_NUM_UP(400);
+		laser->worldSpeed.x = 0;
+		laser->worldSpeed.y = 0;
+		
+		if((fireLaser & 0x02) == 2){
+			laser->worldSpeed.x = -(laser->worldSpeed.z >> 2);
+			laser->worldSpeed.z = laser->worldSpeed.z - (laser->worldSpeed.z >> 2);
 		}
-	}else{
-		g3d_moveObject(laser);
-		if(laserFrame > 0)laserFrame--;
-		laser->properties.lineColor = (laser->properties.lineColor & 0x03) + 1;
+		if((fireLaser & 0x04) == 4){
+			laser->worldSpeed.x = laser->worldSpeed.z >> 2;
+			laser->worldSpeed.z = laser->worldSpeed.z - (laser->worldSpeed.z >> 2);
+		}
+		
+		laser->properties.state = 1;
+		fireLaser = 0;
 	}
+	if(laser->properties.state == 1){
+		laser->worldPosition.x += laser->worldSpeed.x;
+		laser->worldPosition.z += laser->worldSpeed.z;
+		laser->properties.lineColor = (laser->properties.lineColor & 0x03) + 1;
+		laser->worldRotation.z += 8;
+		if(laser->worldRotation.z > 360) laser->worldRotation.z -= 360;
+		if(laser->worldPosition.z >= FAR_Z){
+			laser->properties.state = 2;
+		}
+	}
+	if(laser->properties.state == 2){
+		laser->properties.visible = 0;
+		laser->properties.state = 0;
+	}
+	if(laserFrame > 0)laserFrame--;	
+
 }
 
 void doMoveEnemy(object* o){
