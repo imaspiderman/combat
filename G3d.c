@@ -11,15 +11,15 @@ void inline g3d_copyVector3d(vector3d* from, vector3d* to){
 #else
 	asm(
 	"ld.w 0x0[%[from]],  r6\n"
-	"st.w r6,          0x0[%[to]]\n"
+	"st.w r6,            0x0[%[to]]\n"
 	"ld.w 0x4[%[from]],  r6\n"
-	"st.w r6,          0x4[%[to]]\n"
+	"st.w r6,            0x4[%[to]]\n"
 	"ld.w 0x8[%[from]],  r6\n"
-	"st.w r6,          0x8[%[to]]\n"
-	"ld.w 0xc[%[from]], r6\n"
-	"st.w r6,          0xc[%[to]]\n"
+	"st.w r6,            0x8[%[to]]\n"
+	"ld.w 0xc[%[from]],  r6\n"
+	"st.w r6,            0xc[%[to]]\n"
 	"ld.w 0x10[%[from]], r6\n"
-	"st.w r6,          0x10[%[to]]\n"
+	"st.w r6,            0x10[%[to]]\n"
 	:
 	:[from] "r" ((vector3d*)from), [to] "r" ((vector3d*)to)
 	:"r6"
@@ -41,36 +41,36 @@ void inline g3d_scale(vector3d* factor, vector3d* v, vector3d* o){
 	o->z = F_MUL(v->z,factor->z);
 #else
 	asm(
-	"ld.w 0[%[factor]], r5\n"
-	"ld.w 0[%[v]], r6\n"
-	"mul r5, r6\n"
-	"mov r6, r7\n"
-	"sar %[fshiftm1], r7\n"
-	"andi 0x01, r7, r7\n"
-	"sar %[fshift], r6\n"
-	"add r6, r7\n"
-	"st.w r7, 0[%[o]]\n"
-	"ld.w 4[%[factor]], r5\n"
-	"ld.w 4[%[v]], r6\n"
-	"mul r5, r6\n"
-	"mov r6, r7\n"
-	"sar %[fshiftm1], r7\n"
-	"andi 0x01, r7, r7\n"
-	"sar %[fshift], r6\n"
-	"add r6, r7\n"
-	"st.w r7, 4[%[o]]\n"
-	"ld.w 8[%[factor]], r5\n"
-	"ld.w 8[%[v]], r6\n"
-	"mul r5, r6\n"
-	"mov r6, r7\n"
-	"sar %[fshiftm1], r7\n"
-	"andi 0x01, r7, r7\n"
-	"sar %[fshift], r6\n"
-	"add r6, r7\n"
-	"st.w r7, 8[%[o]]\n"
+	"ld.w 0[%[factor]],    r5\n"
+	"ld.w 0[%[v]],         r6\n"
+	"mul r5,               r6\n"
+	"mov r6,               r7\n"
+	"sar %[fshiftm1],      r7\n"
+	"andi 0x01,            r7,   r7\n"
+	"sar %[fshift],        r6\n"
+	"add r6,               r7\n"
+	"st.w r7,              0[%[o]]\n"
+	"ld.w 4[%[factor]],    r5\n"
+	"ld.w 4[%[v]],         r6\n"
+	"mul r5,               r6\n"
+	"mov r6,               r7\n"
+	"sar %[fshiftm1],      r7\n"
+	"andi 0x01,            r7,   r7\n"
+	"sar %[fshift],        r6\n"
+	"add r6,               r7\n"
+	"st.w r7,              4[%[o]]\n"
+	"ld.w 8[%[factor]],    r5\n"
+	"ld.w 8[%[v]],         r6\n"
+	"mul r5,               r6\n"
+	"mov r6,               r7\n"
+	"sar %[fshiftm1],      r7\n"
+	"andi 0x01,            r7,  r7\n"
+	"sar %[fshift],        r6\n"
+	"add r6,               r7\n"
+	"st.w r7,              8[%[o]]\n"
 	:
-	:[factor] "r" ((vector3d*)factor), [v] "r" ((vector3d*)v), [o] "r" ((vector3d*)o),
-	 [fshift] "r" (FIXED_SHIFT), [fshiftm1] "r" (FIXED_SHIFT-1)
+	:[factor] "r" ((vector3d*)factor), [v]        "r" ((vector3d*)v)    , [o] "r" ((vector3d*)o),
+	 [fshift] "r" (FIXED_SHIFT)      , [fshiftm1] "r" (FIXED_SHIFT-1)
 	:"r5","r6","r7"
 	);
 #endif
@@ -86,36 +86,35 @@ void inline g3d_rotateXAxis(s32 degrees, vector3d* v, vector3d* o){
 	o->y = (F_MUL(v->z, -sine[degrees])) + (F_MUL(cosine[degrees], v->y));
 #else
 	asm(
-	"ld.w %[vy],r7\n"
-	"ld.w %[vz],r8\n"
-	"ld.w %[cos],r10\n"
-	"ld.w %[sin],r11\n"
+	"ld.w %[vy],           r7\n"
+	"ld.w %[vz],           r8\n"
+	"ld.w %[cos],          r10\n"
+	"ld.w %[sin],          r11\n"
 	//F_MUL(v->z, cosine[degrees])
-	"mov r8,r12\n"
-	"mul r10,r12\n"
-	"sar %[fixShift],r12\n"
+	"mov r8,               r12\n"
+	"mul r10,              r12\n"
+	"sar %[fixShift],      r12\n"
 	//+ (F_MUL(sine[degrees],v->y))
-	"mov r7,r13\n"
-	"mul r11,r13\n"
-	"sar %[fixShift],r13\n"
-	"add r12,r13\n"
-	"st.w r13, 0x08[%[o]]\n"
+	"mov r7,               r13\n"
+	"mul r11,              r13\n"
+	"sar %[fixShift],      r13\n"
+	"add r12,              r13\n"
+	"st.w r13,             0x08[%[o]]\n"
 	//F_MUL(v->z, -sine[degrees])
-	"not r11,r11\n"
-	"addi 1,r11,r11\n"
-	"mov r8,r12\n"
-	"mul r11,r12\n"
-	"sar %[fixShift],r12\n"
+	"not r11,              r11\n"
+	"addi 1,r11,           r11\n"
+	"mov r8,               r12\n"
+	"mul r11,              r12\n"
+	"sar %[fixShift],      r12\n"
 	//+ F_MUL(cosine[degrees], v->y)
-	"mov r10,r13\n"
-	"mul r7,r13\n"
-	"sar %[fixShift],r13\n"
-	"add r12,r13\n"
-	"st.w r13,0x04[%[o]]\n"
+	"mov r10,              r13\n"
+	"mul r7,               r13\n"
+	"sar %[fixShift],      r13\n"
+	"add r12,              r13\n"
+	"st.w r13,             0x04[%[o]]\n"
 	:/*output*/
-	:[vy] "m" (v->y),[vz] "m" (v->z),
-	 [o] "r" ((vector3d*)o),[cos] "m" (cosine[degrees]),[sin] "m" (sine[degrees]),
-	 [fixShift] "i" (FIXED_SHIFT)
+	:  [vy]  "m" (v->y)           , [vz]  "m" (v->z)         , [o]        "r" ((vector3d*)o)
+	 , [cos] "m" (cosine[degrees]), [sin] "m" (sine[degrees]), [fixShift] "i" (FIXED_SHIFT)	 
 	:"r7","r8","r10","r11","r12","r13"
 	);
 #endif
@@ -131,36 +130,35 @@ void inline g3d_rotateYAxis(s32 degrees, vector3d* v, vector3d* o){
 	o->z = (F_MUL(v->x, -sine[degrees])) + (F_MUL(cosine[degrees], v->z));
 #else
 	asm(
-	"ld.w %[vz],r7\n"
-	"ld.w %[vx],r8\n"
-	"ld.w %[cos],r10\n"
-	"ld.w %[sin],r11\n"
+	"ld.w %[vz],                r7\n"
+	"ld.w %[vx],                r8\n"
+	"ld.w %[cos],               r10\n"
+	"ld.w %[sin],               r11\n"
 	//F_MUL(v->x, cosine[degrees])
-	"mov r8,r12\n"
-	"mul r10,r12\n"
-	"sar %[fixShift],r12\n"
+	"mov r8,                    r12\n"
+	"mul r10,                   r12\n"
+	"sar %[fixShift],           r12\n"
 	//+ (F_MUL(sine[degrees],v->z))
-	"mov r7,r13\n"
-	"mul r11,r13\n"
-	"sar %[fixShift],r13\n"
-	"add r12,r13\n"
-	"st.w r13, 0x00[%[o]]\n"
+	"mov r7,                    r13\n"
+	"mul r11,                   r13\n"
+	"sar %[fixShift],           r13\n"
+	"add r12,                   r13\n"
+	"st.w r13,                  0x00[%[o]]\n"
 	//F_MUL(v->x, -sine[degrees])
-	"not r11,r11\n"
-	"addi 1,r11,r11\n"
-	"mov r8,r12\n"
-	"mul r11,r12\n"
-	"sar %[fixShift],r12\n"
+	"not r11,                   r11\n"
+	"addi 1,                    r11,       r11\n"
+	"mov r8,                    r12\n"
+	"mul r11,                   r12\n"
+	"sar %[fixShift],           r12\n"
 	//+ F_MUL(cosine[degrees], v->z)
-	"mov r10,r13\n"
-	"mul r7,r13\n"
-	"sar %[fixShift],r13\n"
-	"add r12,r13\n"
-	"st.w r13,0x08[%[o]]\n"
+	"mov r10,                   r13\n"
+	"mul r7,                    r13\n"
+	"sar %[fixShift],           r13\n"
+	"add r12,                   r13\n"
+	"st.w r13,                  0x08[%[o]]\n"
 	:/*output*/
-	:[vz] "m" (v->z),[vx] "m" (v->x),
-	 [o] "r" ((vector3d*)o),[cos] "m" (cosine[degrees]),[sin] "m" (sine[degrees]),
-	 [fixShift] "i" (FIXED_SHIFT)
+	: [vz]  "m" (v->z)            , [vx] "m" (v->x)          , [o]        "r" ((vector3d*)o)
+	 ,[cos] "m" (cosine[degrees]), [sin] "m" (sine[degrees]) , [fixShift] "i" (FIXED_SHIFT)
 	:"r7","r8","r10","r11","r12","r13"
 	);
 #endif
@@ -203,9 +201,8 @@ void inline g3d_rotateZAxis(s32 degrees, vector3d* v, vector3d* o){
 	"add r12,r13\n"
 	"st.w r13,0x04[%[o]]\n"
 	:/*output*/
-	:[vy] "m" (v->y),[vx] "m" (v->x),
-	 [o] "r" ((vector3d*)o),[cos] "m" (cosine[degrees]),[sin] "m" (sine[degrees]),
-	 [fixShift] "i" (FIXED_SHIFT)
+	: [vy]  "m" (v->y)           ,[vx]  "m" (v->x)         , [o]        "r" ((vector3d*)o)
+	 ,[cos] "m" (cosine[degrees]),[sin] "m" (sine[degrees]), [fixShift] "i" (FIXED_SHIFT)	 
 	:"r7","r8","r10","r11","r12","r13"
 	);
 #endif
@@ -284,18 +281,18 @@ void inline g3d_cameraRotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3
 	rz = (~rz)+1;
 #else
 	asm(
-	"ld.w %[rx], r5\n"
-	"not r5, r5\n"
-	"addi 0x01, r5, r5\n"
-	"st.w r5, %[rx]\n"
-	"ld.w %[ry], r5\n"
-	"not r5, r5\n"
-	"addi 0x01, r5, r5\n"
-	"st.w r5, %[ry]\n"
-	"ld.w %[rz], r5\n"
-	"not r5, r5\n"
-	"addi 0x01, r5, r5\n"
-	"st.w r5, %[rz]\n"
+	"ld.w %[rx],           r5\n"
+	"not r5,               r5\n"
+	"addi 0x01,            r5,      r5\n"
+	"st.w r5,              %[rx]\n"
+	"ld.w %[ry],           r5\n"
+	"not r5,               r5\n"
+	"addi 0x01,            r5,      r5\n"
+	"st.w r5,              %[ry]\n"
+	"ld.w %[rz],           r5\n"
+	"not r5,               r5\n"
+	"addi 0x01,            r5,      r5\n"
+	"st.w r5,              %[rz]\n"
 	:
 	:[rx] "m" (rx), [ry] "m" (ry), [rz] "m" (rz)
 	:"r5"
@@ -378,59 +375,59 @@ void g3d_calculateProjection(vector3d* o){
 	o->sy = SCREEN_HEIGHT - o->sy;//flip y axis
 #else
 	asm volatile(
-	"ld.w %[ox], r6\n"
-	"ld.w %[oy], r7\n"
-	"ld.w %[oz], r8\n"
-	"ld.w %[camd], r9\n"
-	"movea %[scrHalfW], r0, r10\n"
-	"movea %[scrHalfH], r0, r11\n"
-	"movea %[scrH], r0, r12\n"
+	"ld.w %[ox],              r6\n"
+	"ld.w %[oy],              r7\n"
+	"ld.w %[oz],              r8\n"
+	"ld.w %[camd],            r9\n"
+	"movea %[scrHalfW],       r0,      r10\n"
+	"movea %[scrHalfH],       r0,      r11\n"
+	"movea %[scrH],           r0,      r12\n"
 	//F_NUM_UP(SCREEN_WIDTH>>1)
-	"shl %[fixShift], r10\n"
+	"shl %[fixShift],         r10\n"
 	//F_NUM_UP(SCREEN_HEIGHT>>1)
-	"shl %[fixShift], r11\n"
+	"shl %[fixShift],         r11\n"
 	//F_MUL(o->x,cam.d)
-	"mul r9, r6\n"
-	"sar %[fixShiftm1], r6\n"
-	"andi 0x01, r6, r13\n"
-	"sar 0x01, r6\n"
-	"add r13, r6\n"
+	"mul r9,                  r6\n"
+	"sar %[fixShiftm1],       r6\n"
+	"andi 0x01,               r6,      r13\n"
+	"sar 0x01,                r6\n"
+	"add r13,                 r6\n"
 	//F_MUL(o->y,cam.d)
-	"mul r9, r7\n"
-	"sar %[fixShiftm1], r7\n"
-	"andi 0x01, r7, r13\n"
-	"sar 0x01, r7\n"
-	"add r13, r7\n"
+	"mul r9,                  r7\n"
+	"sar %[fixShiftm1],       r7\n"
+	"andi 0x01,               r7,      r13\n"
+	"sar 0x01,                r7\n"
+	"add r13,                 r7\n"
 	//F_ADD(cam.d, o->z)
-	"add r9, r8\n"
+	"add r9,                  r8\n"
 	//F_DIV : sx
-	"shl %[fixShift], r6\n"
-	"div r8, r6\n"
+	"shl %[fixShift],         r6\n"
+	"div r8,                  r6\n"
 	//F_DIV : sy
-	"shl %[fixShift], r7\n"
-	"div r8, r7\n"
+	"shl %[fixShift],         r7\n"
+	"div r8,                  r7\n"
 	//F_ADD : sx
-	"add r10, r6\n"
+	"add r10,                 r6\n"
 	//F_ADD : sy
-	"add r11, r7\n"
+	"add r11,                 r7\n"
 	//F_NUM_DN : sx
-	"sar %[fixShiftm1], r6\n"
-	"andi 0x01, r6, r13\n"
-	"sar 0x01, r6\n"
-	"add r13, r6\n"
-	"st.w r6, 0x0[%[sx]]\n"
+	"sar %[fixShiftm1],       r6\n"
+	"andi 0x01,               r6,      r13\n"
+	"sar 0x01,                r6\n"
+	"add r13,                 r6\n"
+	"st.w r6,                 0x0[%[sx]]\n"
 	//F_NUM_DN : sy
-	"sar %[fixShiftm1], r7\n"
-	"andi 0x01, r7, r13\n"
-	"sar 0x01, r7\n"
-	"add r13, r7\n"
-	"sub r7, r12\n"
-	"st.w r12, 0x0[%[sy]]\n"
+	"sar %[fixShiftm1],       r7\n"
+	"andi 0x01,               r7,      r13\n"
+	"sar 0x01,                r7\n"
+	"add r13,                 r7\n"
+	"sub r7,                  r12\n"
+	"st.w r12,                0x0[%[sy]]\n"
 	://output
-	:[ox] "m" (o->x), [oy] "m" (o->y), [oz] "m" (o->z),
-	 [scrHalfW] "i" (SCREEN_WIDTH >> 1), [scrHalfH] "i" (SCREEN_HEIGHT>>1), [scrH] "i" (SCREEN_HEIGHT),
-	 [camd] "m" (cam.d), [sx] "r" (&o->sx), [sy] "r" (&o->sy),
-	 [fixShiftm1] "i" (FIXED_SHIFT-1), [fixShift] "i" (FIXED_SHIFT)
+	: [ox]         "m" (o->x)             , [oy]       "m" (o->y)            , [oz]   "m" (o->z)
+	 ,[scrHalfW]   "i" (SCREEN_WIDTH >> 1), [scrHalfH] "i" (SCREEN_HEIGHT>>1), [scrH] "i" (SCREEN_HEIGHT)
+	 ,[camd]       "m" (cam.d)            , [sx]       "r" (&o->sx)          , [sy]   "r" (&o->sy)
+	 ,[fixShiftm1] "i" (FIXED_SHIFT-1)    , [fixShift] "i" (FIXED_SHIFT)
 	:"r6","r7","r8","r9","r10","r11","r12","r13"
 	);
 #endif
@@ -681,258 +678,258 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 	asm volatile(
 	//Setup all the registers with initial values
 	//r28,r29 are scratch for our purposes
-	"ld.w %[dy],r6\n"
-	"ld.w %[dx],r7\n"
-	"ld.w %[err],r8\n"
-	"ld.w %[sz],r9\n"
-	"ld.w %[dz],r10\n"
-	"ld.w %[pixels],r11\n"
-	"ld.w %[vy],r12\n"
-	"ld.w %[sy],r13\n"
-	"ld.w %[vz],r14\n"
-	"ld.w %[vx],r15\n"
-	"ld.w %[sx],r16\n"
-	"ld.w %[loffset],r17\n"
-	"ld.w %[roffset],r18\n"
-	"ld.b %[yleft],r19\n"
-	"movea %[screenH],r0,r21\n"
-	"movea %[screenW],r0,r22\n"
-	"movea %[parallaxM],r0,r23\n"
-	"ld.w %[fbLeft],r24\n"
-	"movea %[fbRightOff],r0,r25\n"
-	"shl 0x02,r25\n"
+	"ld.w %[dy],                r6\n"
+	"ld.w %[dx],                r7\n"
+	"ld.w %[err],               r8\n"
+	"ld.w %[sz],                r9\n"
+	"ld.w %[dz],                r10\n"
+	"ld.w %[pixels],            r11\n"
+	"ld.w %[vy],                r12\n"
+	"ld.w %[sy],                r13\n"
+	"ld.w %[vz],                r14\n"
+	"ld.w %[vx],                r15\n"
+	"ld.w %[sx],                r16\n"
+	"ld.w %[loffset],           r17\n"
+	"ld.w %[roffset],           r18\n"
+	"ld.b %[yleft],             r19\n"
+	"movea %[screenH],          r0,         r21\n"
+	"movea %[screenW],          r0,         r22\n"
+	"movea %[parallaxM],        r0,         r23\n"
+	"ld.w %[fbLeft],            r24\n"
+	"movea %[fbRightOff],       r0,         r25\n"
+	"shl 0x02,                  r25\n"
 	//if(dy<dx){
-		"cmp r6,r7\n"
-		"ble _dxltdy\n"
+	"cmp r6,                    r7\n"
+	"ble _dxltdy\n"
 	//err=(dx>>1);
-		"mov r7,r8\n"
-		"sar 0x01,r8\n"
+	"mov r7,                    r8\n"
+	"sar 0x01,                  r8\n"
 	//sz=(sz)*(F_NUM_UP(dz)/((dx==0)?(1):(dx)));
-		"mov r7,r28\n"
-		"cmp r0,r7\n"
-		"bne _nextLine1\n"
-		"mov 0x01,r28\n"
-		"_nextLine1:\n"
-		"mov r10,r29\n"
-		"shl %[fixedShift],r29\n"
-		"div r28,r29\n"
-		"mul r29,r9\n"
+	"mov r7,                    r28\n"
+	"cmp r0,                    r7\n"
+	"bne _nextLine1\n"
+	"mov 0x01,                  r28\n"
+	"_nextLine1:\n"
+	"mov r10,                   r29\n"
+	"shl %[fixedShift],         r29\n"
+	"div r28,                   r29\n"
+	"mul r29,                   r9\n"
 	//for(p=0;p<pixels;p++){
-		"_lineLoop1Top:\n"
-		"cmp r0,r11\n"
-		"ble _lineLoop1End\n"
-		"addi -1,r11,r11\n"
+	"_lineLoop1Top:\n"
+	"cmp r0,                    r11\n"
+	"ble _lineLoop1End\n"
+	"addi -1,                   r11,        r11\n"
 	//drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
 	//******************************************************
-		"ld.b %[color],r27\n"
-		"mov r14,r26\n"
-		"sar %[fixedShift],r26\n"
-		"sar %[parallaxShift],r26\n"
+	"ld.b %[color],             r27\n"
+	"mov r14,                   r26\n"
+	"sar %[fixedShift],         r26\n"
+	"sar %[parallaxShift],      r26\n"
 	//if(y<0 || y>SCREEN_HEIGHT) return;
-		"cmp r0,r12\n"
-		"blt _endDrawPoint1\n"
-		"cmp r12,r21\n"
-		"blt _endDrawPoint1\n"
+	"cmp r0,                    r12\n"
+	"blt _endDrawPoint1\n"
+	"cmp r12,                   r21\n"
+	"blt _endDrawPoint1\n"
 	//if(x<0 || x>SCREEN_WIDTH) return;
-		"cmp r0,r15\n"
-		"blt _endDrawPoint1\n"
-		"cmp r15,r22\n"
-		"blt _endDrawPoint1\n"
+	"cmp r0,                    r15\n"
+	"blt _endDrawPoint1\n"
+	"cmp r15,                   r22\n"
+	"blt _endDrawPoint1\n"
 	//if(p>PARALLAX_MAX) p=PARALLAX_MAX;
 		//"and r23,r26\n"
-		"cmp r26,r23\n"
-		"bgt _nextPoint1\n"
-		"mov r23,r26\n"
-		"_nextPoint1:\n"
+	"cmp r26,                   r23\n"
+	"bgt _nextPoint1\n"
+	"mov r23,                   r26\n"
+	"_nextPoint1:\n"
 	//loffset = (((x-p)<<4) + (y>>4));
-		"mov r12,r17\n"
-		"sar 0x04,r17\n"
-		"mov r15,r28\n"
-		"sub r26,r28\n"
-		"shl 0x04,r28\n"
-		"add r28,r17\n"
+	"mov r12,                   r17\n"
+	"sar 0x04,                  r17\n"
+	"mov r15,                   r28\n"
+	"sub r26,                   r28\n"
+	"shl 0x04,                  r28\n"
+	"add r28,                   r17\n"
 	//roffset = (loffset + (p<<5));	
-		"mov r26,r18\n"
-		"shl 0x05,r18\n"
-		"add r17,r18\n"
+	"mov r26,                   r18\n"
+	"shl 0x05,                  r18\n"
+	"add r17,                   r18\n"
 	//if(loffset>0x1800 || loffset<0) return;		
-		"movea 0x17FF,r0,r28\n"
-		"cmp r28,r17\n"
-		"bge _endDrawPoint1\n"
-		"cmp r0,r17\n"
-		"blt _endDrawPoint1\n"
+	"movea 0x17FF,              r0,        r28\n"
+	"cmp r28,                   r17\n"
+	"bge _endDrawPoint1\n"
+	"cmp r0,                    r17\n"
+	"blt _endDrawPoint1\n"
 	//if(roffset>0x1800 || roffset<0) return;
 		//"movea 0x17FF,r0,r28\n"
-		"cmp r28,r18\n"
-		"bge _endDrawPoint1\n"
-		"cmp r0,r18\n"
-		"blt _endDrawPoint1\n"
+	"cmp r28,                   r18\n"
+	"bge _endDrawPoint1\n"
+	"cmp r0,                    r18\n"
+	"blt _endDrawPoint1\n"
 	//color &= 0x03;
-		"andi 0x03,r27,r27\n"
+	"andi 0x03,                 r27,       r27\n"
 	//yleft = (y&0x0F)<<1;
-		"andi 0x0F,r12,r19\n"
-		"shl 0x01,r19\n"
+	"andi 0x0F,                 r12,       r19\n"
+	"shl 0x01,                  r19\n"
 	//currentFrameBuffer[loffset] |= (color<<yleft);
-		"mov r17,r28\n"
-		"shl 0x02,r28\n"
-		"add r24,r28\n"
-		"ld.w 0x0[r28],r29\n"
-		"shl r19,r27\n"
-		"or r27,r29\n"
-		"st.w r29,0x0[r28]\n"
+	"mov r17,                   r28\n"
+	"shl 0x02,                  r28\n"
+	"add r24,                   r28\n"
+	"ld.w 0x0[r28],             r29\n"
+	"shl r19,                   r27\n"
+	"or r27,                    r29\n"
+	"st.w r29,                  0x0[r28]\n"
 	//((u32*)(currentFrameBuffer+0x4000))[roffset] |= (color<<yleft);
 		//"movhi 0x01,r28,r28\n"
 		//"add r18,r28\n"
 		//"st.w r29,0x0[r28]\n"
 
-		"mov r18,r28\n"
-		"shl 0x02,r28\n"
-		"add r25,r28\n"
-		"add r24,r28\n"
-		"ld.w 0x0[r28],r29\n"
-		"or r27,r29\n"
-		"st.w r29,0x0[r28]\n"
+	"mov r18,                   r28\n"
+	"shl 0x02,                  r28\n"
+	"add r25,                   r28\n"
+	"add r24,                   r28\n"
+	"ld.w 0x0[r28],             r29\n"
+	"or r27,                    r29\n"
+	"st.w r29,                  0x0[r28]\n"
 
-		"_endDrawPoint1:\n"
+	"_endDrawPoint1:\n"
 	//******************************************************
 	//err+=dy;
-		"add r6,r8\n"
+	"add r6,                    r8\n"
 	//if(err>dx){
-		"cmp r8,r7\n"
-		"bgt _nextLine2\n"
+	"cmp r8,                    r7\n"
+	"bgt _nextLine2\n"
 	//vy+=sy;
-		"add r13,r12\n"
+	"add r13,                   r12\n"
 	//err-=dx;
-		"sub r7,r8\n"
+	"sub r7,                    r8\n"
 	//}
-		"_nextLine2:\n"		
+	"_nextLine2:\n"		
 	//vz+=sz;
-		"add r9,r14\n"
+	"add r9,                    r14\n"
 	//vx+=sx;
-		"add r16,r15\n"
+	"add r16,                   r15\n"
 	//}
-		"jr _lineLoop1Top\n"
-		"_lineLoop1End:\n"
+	"jr _lineLoop1Top\n"
+	"_lineLoop1End:\n"
 	//else{
 	"_dxltdy:\n"
 	//err=(dy>>1);
-		"mov r6,r8\n"
-		"sar 0x01,r8\n"
+	"mov r6,                    r8\n"
+	"sar 0x01,                  r8\n"
 	//sz=(sz)*(F_NUM_UP(dz)/((dy==0)?(1):(dy)));
-		"mov r6,r28\n"
-		"cmp r0,r6\n"
-		"bne _nextLine3\n"
-		"mov 0x01,r28\n"
-		"_nextLine3:\n"
-		"mov r10,r29\n"
-		"shl %[fixedShift],r29\n"
-		"div r28,r29\n"
-		"mul r29,r9\n"
+	"mov r6,                    r28\n"
+	"cmp r0,                    r6\n"
+	"bne _nextLine3\n"
+	"mov 0x01,                  r28\n"
+	"_nextLine3:\n"
+	"mov r10,                   r29\n"
+	"shl %[fixedShift],         r29\n"
+	"div r28,                   r29\n"
+	"mul r29,                   r9\n"
 	//for(p=0;p<pixels;p++){
-		"_lineLoop2Top:\n"
-		"cmp r0,r11\n"
-		"ble _lineLoop2End\n"
-		"addi -1,r11,r11\n"
+	"_lineLoop2Top:\n"
+	"cmp r0,                    r11\n"
+	"ble _lineLoop2End\n"
+	"addi -1,                   r11,      r11\n"
 	//drawPoint(vx,vy,color,(F_NUM_DN(vz)>>PARALLAX_SHIFT));
 	//******************************************************
-		"ld.b %[color],r27\n"
-		"mov r14,r26\n"
-		"sar %[fixedShift],r26\n"
-		"sar %[parallaxShift],r26\n"
+	"ld.b %[color],             r27\n"
+	"mov r14,                   r26\n"
+	"sar %[fixedShift],         r26\n"
+	"sar %[parallaxShift],      r26\n"
 	//if(y<0 || y>SCREEN_HEIGHT) return;
-		"cmp r0,r12\n"
-		"blt _endDrawPoint2\n"
-		"cmp r12,r21\n"
-		"blt _endDrawPoint2\n"
+	"cmp r0,                    r12\n"
+	"blt _endDrawPoint2\n"
+	"cmp r12,                   r21\n"
+	"blt _endDrawPoint2\n"
 	//if(x<0 || x>SCREEN_WIDTH) return;
-		"cmp r0,r15\n"
-		"blt _endDrawPoint2\n"
-		"cmp r15,r22\n"
-		"blt _endDrawPoint2\n"
+	"cmp r0,                    r15\n"
+	"blt _endDrawPoint2\n"
+	"cmp r15,                   r22\n"
+	"blt _endDrawPoint2\n"
 	//if(p>PARALLAX_MAX) p=PARALLAX_MAX;
 		//"and r23,r26\n"
-		"cmp r26,r23\n"
-		"bgt _nextPoint2\n"
-		"mov r23,r26\n"
-		"_nextPoint2:\n"
+	"cmp r26,                   r23\n"
+	"bgt _nextPoint2\n"
+	"mov r23,                   r26\n"
+	"_nextPoint2:\n"
 	//loffset = (((x-p)<<4) + (y>>4));
-		"mov r12,r17\n"
-		"sar 0x04,r17\n"
-		"mov r15,r28\n"
-		"sub r26,r28\n"
-		"shl 0x04,r28\n"
-		"add r28,r17\n"
+	"mov r12,                   r17\n"
+	"sar 0x04,                  r17\n"
+	"mov r15,                   r28\n"
+	"sub r26,                   r28\n"
+	"shl 0x04,                  r28\n"
+	"add r28,                   r17\n"
 	//roffset = (loffset + (p<<5));	
-		"mov r26,r18\n"
-		"shl 0x05,r18\n"
-		"add r17,r18\n"
+	"mov r26,                   r18\n"
+	"shl 0x05,                  r18\n"
+	"add r17,                   r18\n"
 	//if(loffset>0x1800 || loffset<0) return;
-		"movea 0x1800,r0,r28\n"
-		"cmp r28,r17\n"
-		"bge _endDrawPoint2\n"
-		"cmp r0,r17\n"
-		"blt _endDrawPoint2\n"
+	"movea 0x1800,              r0,       r28\n"
+	"cmp r28,                   r17\n"
+	"bge _endDrawPoint2\n"
+	"cmp r0,                    r17\n"
+	"blt _endDrawPoint2\n"
 	//if(roffset>0x1800 || roffset<0) return;
-		"movea 0x1800,r0,r28\n"
-		"cmp r28,r18\n"
-		"bge _endDrawPoint2\n"
-		"cmp r0,r18\n"
-		"blt _endDrawPoint2\n"
+	"movea 0x1800,              r0,       r28\n"
+	"cmp r28,                   r18\n"
+	"bge _endDrawPoint2\n"
+	"cmp r0,                    r18\n"
+	"blt _endDrawPoint2\n"
 	//color &= 0x03;
-		"andi 0x03,r27,r27\n"
+	"andi 0x03,                 r27,      r27\n"
 	//yleft = (y&0x0F)<<1;
-		"andi 0x0F,r12,r19\n"
-		"shl 0x01,r19\n"
+	"andi 0x0F,                 r12,      r19\n"
+	"shl 0x01,                  r19\n"
 	//currentFrameBuffer[loffset] |= (color<<yleft);
-		"mov r17,r28\n"
-		"shl 0x02,r28\n"
-		"add r24,r28\n"
-		"ld.w 0x0[r28],r29\n"
-		"shl r19,r27\n"
-		"or r27,r29\n"
-		"st.w r29,0x0[r28]\n"
+	"mov r17,                   r28\n"
+	"shl 0x02,                  r28\n"
+	"add r24,                   r28\n"
+	"ld.w 0x0[r28],             r29\n"
+	"shl r19,                   r27\n"
+	"or r27,                    r29\n"
+	"st.w r29,                  0x0[r28]\n"
 	//((u32*)(currentFrameBuffer+0x4000))[roffset] |= (color<<yleft);
 		//"movhi 0x01,r28,r28\n"
 		//"add r18,r28\n"
 		//"st.w r29,0x0[r28]\n"
 
-		"mov r18,r28\n"
-		"shl 0x02,r28\n"
-		"add r25,r28\n"
-		"add r24,r28\n"
-		"ld.w 0x0[r28],r29\n"
-		"or r27,r29\n"
-		"st.w r29,0x0[r28]\n"
+	"mov r18,                   r28\n"
+	"shl 0x02,                  r28\n"
+	"add r25,                   r28\n"
+	"add r24,                   r28\n"
+	"ld.w 0x0[r28],             r29\n"
+	"or r27,                    r29\n"
+	"st.w r29,                  0x0[r28]\n"
 
-		"_endDrawPoint2:\n"
+	"_endDrawPoint2:\n"
 	//******************************************************
 	//err+=dx;
-		"add r7,r8\n"
+	"add r7,                    r8\n"
 	//if(err>dy){
-		"cmp r8,r6\n"
-		"bgt _nextLine4\n"
+	"cmp r8,                    r6\n"
+	"bgt _nextLine4\n"
 	//vx+=sx;
-		"add r16,r15\n"
+	"add r16,                   r15\n"
 	//err-=dy;
-		"sub r6,r8\n"
+	"sub r6,                    r8\n"
 	//}
-		"_nextLine4:\n"
+	"_nextLine4:\n"
 	//vz+=sz;
-		"add r9,r14\n"
+	"add r9,                    r14\n"
 	//vy+=sy;
-		"add r13,r12\n"
+	"add r13,                   r12\n"
 	//}
-		"jr _lineLoop2Top\n"
-		"_lineLoop2End:\n"
+	"jr _lineLoop2Top\n"
+	"_lineLoop2End:\n"
 	"_end:\n"
 	:/*no output*/
-	:[dy] "m" (dy), [dx] "m" (dx), [err] "m" (err),
-	 [sz] "m" (sz), [dz] "m" (dz), [pixels] "m" (pixels),
-	 [vy] "m" (vy), [sy] "m" (sy), [vz] "m" (vz),
-	 [vx] "m" (vx), [sx] "m" (sx), [fixedShift] "i" (FIXED_SHIFT),
-	 [loffset] "m" (loffset), [roffset] "m" (roffset), [yleft] "m" (yleft),
-	 [screenH] "i" (SCREEN_HEIGHT), [screenW] "i" (SCREEN_WIDTH), [parallaxM] "i" (PARALLAX_MAX),
-	 [fbLeft] "m" (currentFrameBuffer), [fbRightOff] "i" (0x4000), [color] "m" (color),
+	:[dy]            "m" (dy)                , [dx]         "m" (dx)          , [err]        "m" (err),
+	 [sz]            "m" (sz)                , [dz]         "m" (dz)          , [pixels]     "m" (pixels),
+	 [vy]            "m" (vy)                , [sy]         "m" (sy)          , [vz]         "m" (vz),
+	 [vx]            "m" (vx)                , [sx]         "m" (sx)          , [fixedShift] "i" (FIXED_SHIFT),
+	 [loffset]       "m" (loffset)           , [roffset]    "m" (roffset)     , [yleft]      "m" (yleft),
+	 [screenH]       "i" (SCREEN_HEIGHT)     , [screenW]    "i" (SCREEN_WIDTH), [parallaxM]  "i" (PARALLAX_MAX),
+	 [fbLeft]        "m" (currentFrameBuffer), [fbRightOff] "i" (0x4000)      , [color]      "m" (color),
 	 [parallaxShift] "i" (PARALLAX_SHIFT)
 	 :"r6","r7","r8","r9","r10","r11","r12","r13","r14","r15","r16","r17","r18","r19","r21","r22","r23","r24","r25","r26","r27","r28","r29"
 	);
@@ -949,53 +946,53 @@ void inline g3d_initObject(object* o, objectData* objData){
 	o->worldPosition.x = 0;
 	o->worldPosition.y = 0;
 	o->worldPosition.z = 0;
-	o->moveTo.x = 0;
-	o->moveTo.y = 0;
-	o->moveTo.z = 0;
+	o->moveTo.x        = 0;
+	o->moveTo.y        = 0;
+	o->moveTo.z        = 0;
 	o->worldRotation.x = 0;
 	o->worldRotation.y = 0;
 	o->worldRotation.z = 0;
-	o->rotation.x = 0;
-	o->rotation.y = 0;
-	o->rotation.z = 0;
-	o->worldSpeed.x = 0;
-	o->worldSpeed.y = 0;
-	o->worldSpeed.z = 0;
-	o->speed.x = 0;
-	o->speed.y = 0;
-	o->speed.z = 0;
-	o->worldScale.x = F_NUM_UP(1);
-	o->worldScale.y = F_NUM_UP(1);
-	o->worldScale.z = F_NUM_UP(1);
-	o->scale.x = 0;
-	o->scale.y = 0;
-	o->scale.z = 0;
-	o->parent = (object*)0x00;
-	o->objData = (objectData*)objData;
+	o->rotation.x      = 0;
+	o->rotation.y      = 0;
+	o->rotation.z      = 0;
+	o->worldSpeed.x    = 0;
+	o->worldSpeed.y    = 0;
+	o->worldSpeed.z    = 0;
+	o->speed.x         = 0;
+	o->speed.y         = 0;
+	o->speed.z         = 0;
+	o->worldScale.x    = F_NUM_UP(1);
+	o->worldScale.y    = F_NUM_UP(1);
+	o->worldScale.z    = F_NUM_UP(1);
+	o->scale.x         = 0;
+	o->scale.y         = 0;
+	o->scale.z         = 0;
+	o->parent          = (object*)0x00;
+	o->objData         = (objectData*)objData;
 	
-	o->properties.visible = 1;
+	o->properties.visible         = 1;
 	o->properties.detectCollision = 0;
-	o->properties.lineColor = 3;
+	o->properties.lineColor       = 3;
 }
 
 void inline g3d_moveObject(object* o){
 	//Increment attributes	
-	if(o->rotation.x != 0) o->worldRotation.x += o->rotation.x;
-	if(o->rotation.y != 0) o->worldRotation.y += o->rotation.y;
-	if(o->rotation.z != 0) o->worldRotation.z += o->rotation.z;
+	if(o->rotation.x != 0)           o->worldRotation.x += o->rotation.x;
+	if(o->rotation.y != 0)           o->worldRotation.y += o->rotation.y;
+	if(o->rotation.z != 0)           o->worldRotation.z += o->rotation.z;
 	
-	if(o->speed.x != 0) o->worldSpeed.x += o->speed.x;
-	if(o->speed.y != 0) o->worldSpeed.y += o->speed.y;
-	if(o->speed.z != 0) o->worldSpeed.z += o->speed.z;
+	if(o->speed.x != 0)              o->worldSpeed.x += o->speed.x;
+	if(o->speed.y != 0)              o->worldSpeed.y += o->speed.y;
+	if(o->speed.z != 0)              o->worldSpeed.z += o->speed.z;
 	
-	if(o->scale.x != 0) o->worldScale.x += o->scale.x;
-	if(o->scale.y != 0) o->worldScale.y += o->scale.y;
-	if(o->scale.z != 0) o->worldScale.z += o->scale.z;
+	if(o->scale.x != 0)              o->worldScale.x += o->scale.x;
+	if(o->scale.y != 0)              o->worldScale.y += o->scale.y;
+	if(o->scale.z != 0)              o->worldScale.z += o->scale.z;
 		
 	//Check rotation angles
-	while(o->worldRotation.x > 359) o->worldRotation.x -= 360;
-	while(o->worldRotation.y > 359) o->worldRotation.y -= 360;
-	while(o->worldRotation.z > 359) o->worldRotation.z -= 360;
+	while(o->worldRotation.x > 359)  o->worldRotation.x -= 360;
+	while(o->worldRotation.y > 359)  o->worldRotation.y -= 360;
+	while(o->worldRotation.z > 359)  o->worldRotation.z -= 360;
 	while(o->worldRotation.x < -359) o->worldRotation.x += 360;
 	while(o->worldRotation.y < -359) o->worldRotation.y += 360;
 	while(o->worldRotation.z < -359) o->worldRotation.z += 360;
@@ -1032,18 +1029,18 @@ void inline g3d_moveObject(object* o){
 
 void inline g3d_moveCamera(camera* c){
 	//Do increments
-	if(c->rotation.x != 0) c->worldRotation.x += c->rotation.x;
-	if(c->rotation.y != 0) c->worldRotation.y += c->rotation.y;
-	if(c->rotation.z != 0) c->worldRotation.z += c->rotation.z;
+	if(c->rotation.x != 0)           c->worldRotation.x += c->rotation.x;
+	if(c->rotation.y != 0)           c->worldRotation.y += c->rotation.y;
+	if(c->rotation.z != 0)           c->worldRotation.z += c->rotation.z;
 	
-	if(c->speed.x != 0) c->worldSpeed.x += c->speed.x;
-	if(c->speed.y != 0) c->worldSpeed.y += c->speed.y;
-	if(c->speed.z != 0) c->worldSpeed.z += c->speed.z;
+	if(c->speed.x != 0)              c->worldSpeed.x += c->speed.x;
+	if(c->speed.y != 0)              c->worldSpeed.y += c->speed.y;
+	if(c->speed.z != 0)              c->worldSpeed.z += c->speed.z;
 	
 	//Check rotation angles
-	while(c->worldRotation.x > 359) c->worldRotation.x -= 360;
-	while(c->worldRotation.y > 359) c->worldRotation.y -= 360;
-	while(c->worldRotation.z > 359) c->worldRotation.z -= 360;
+	while(c->worldRotation.x > 359)  c->worldRotation.x -= 360;
+	while(c->worldRotation.y > 359)  c->worldRotation.y -= 360;
+	while(c->worldRotation.z > 359)  c->worldRotation.z -= 360;
 	while(c->worldRotation.x < -359) c->worldRotation.x += 360;
 	while(c->worldRotation.y < -359) c->worldRotation.y += 360;
 	while(c->worldRotation.z < -359) c->worldRotation.z += 360;
