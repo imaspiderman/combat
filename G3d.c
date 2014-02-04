@@ -354,17 +354,19 @@ void g3d_renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube){
 	g3d_copyVector3d(&t,o);
 	
 	//Collision cube	
-	if(initHitCube == 0){
-		if(o->x < obj->properties.hitCube.minX) obj->properties.hitCube.minX = o->x;
-		if(o->x > obj->properties.hitCube.maxX) obj->properties.hitCube.maxX = o->x;
-		if(o->y < obj->properties.hitCube.minY) obj->properties.hitCube.minY = o->y;
-		if(o->y > obj->properties.hitCube.maxY) obj->properties.hitCube.maxY = o->y;
-		if(o->z < obj->properties.hitCube.minZ) obj->properties.hitCube.minZ = o->z;
-		if(o->z > obj->properties.hitCube.maxZ) obj->properties.hitCube.maxZ = o->z;
-	}else{
-		obj->properties.hitCube.minX = obj->properties.hitCube.maxX = o->x;
-		obj->properties.hitCube.minY = obj->properties.hitCube.maxY = o->y;
-		obj->properties.hitCube.minZ = obj->properties.hitCube.maxZ = o->z;
+	if(obj->properties.detectCollision == 1){
+		if(initHitCube == 0){
+			if(o->x < obj->properties.hitCube.minX) obj->properties.hitCube.minX = o->x;
+			if(o->x > obj->properties.hitCube.maxX) obj->properties.hitCube.maxX = o->x;
+			if(o->y < obj->properties.hitCube.minY) obj->properties.hitCube.minY = o->y;
+			if(o->y > obj->properties.hitCube.maxY) obj->properties.hitCube.maxY = o->y;
+			if(o->z < obj->properties.hitCube.minZ) obj->properties.hitCube.minZ = o->z;
+			if(o->z > obj->properties.hitCube.maxZ) obj->properties.hitCube.maxZ = o->z;
+		}else{
+			obj->properties.hitCube.minX = obj->properties.hitCube.maxX = o->x;
+			obj->properties.hitCube.minY = obj->properties.hitCube.maxY = o->y;
+			obj->properties.hitCube.minZ = obj->properties.hitCube.maxZ = o->z;
+		}
 	}
 }
 
@@ -521,7 +523,7 @@ void inline g3d_clipObject(object* o){
 	g3d_calculateProjection(&worldOrig);
 	o->properties.clip = 0;
 	if(worldOrig.sx < 0 || worldOrig.sx > SCREEN_WIDTH) o->properties.clip = 1;
-	if(worldOrig.sy < 0 || worldOrig.sy > SCREEN_HEIGHT) o->properties.clip = 1;
+	if(worldOrig.sy < -SCREEN_HEIGHT || worldOrig.sy > (SCREEN_HEIGHT<<1)) o->properties.clip = 1;
 	if(worldOrig.z < (cam.d>>1) || worldOrig.z > FAR_Z) o->properties.clip = 1;
 }
 

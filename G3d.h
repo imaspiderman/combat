@@ -20,7 +20,7 @@ Fixed point math defines
 //Definitions
 #define SCREEN_HEIGHT 128
 #define SCREEN_WIDTH 384
-#define FAR_Z F_NUM_UP(10000)
+#define FAR_Z F_NUM_UP(8000)
 #define _CacheEnable asm("mov 2,r15 \n ldsr r15,sr24":::"r15");
 #define _CacheDisable asm("ldsr r0,sr24");
 #define PARALLAX_MAX 20
