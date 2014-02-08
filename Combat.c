@@ -60,7 +60,7 @@ int main(){
 	
 	intro1();
 	while((buttons = vbReadPad()) & K_A);//Wait for A button to be released
-	intro2();
+	intro3();
 	while((buttons = vbReadPad()) & K_A);//Wait for A button to be released
 	
 	level1.mapData = (u8*)Level1;
@@ -203,6 +203,30 @@ void intro1(){
 	vbTextOut(0,1,8,"                                          ");
 	vbTextOut(0,1,9,"                                          ");
 	vbTextOut(0,1,12,"                                         ");
+}
+void intro3(){
+	u16 i;
+	
+	//load CHARS
+	for (i=0; i<(213 << 4); i++){
+		((u8*)CharSeg0)[i] = ((u8*)ArwingPicture)[i];
+	}
+	//load BGMAP
+	for(i=0; i<(400<<2); i++){
+		((u16*)BGMap(0))[i] = ((u16*)ArwingPictureBGM)[i];
+	}
+	
+	while(!(K_A & buttons)){
+		buttons = vbReadPad();
+		tick = 0;
+		screenControl();
+	}
+	
+	//clear mem
+	//load BGMAP
+	for(i=0; i<(400<<2); i++){
+		((u16*)BGMap(0))[i] = 0x0000;
+	}
 }
 
 void intro2(){

@@ -66,5 +66,6 @@ void doReadMapRow(map* m, u32 row);
 /********************************************************/
 void intro1();
 void intro2();
+void intro3();
 
 #endif

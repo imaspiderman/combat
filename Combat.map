@@ -2,13 +2,13 @@
 Allocating common symbols
 Common symbol       size              file
 
-buttons             0x2               C:\users\greg\Temp\ccOumapr.o
-level1              0x4               C:\users\greg\Temp\ccOumapr.o
-enemyTable          0xcc0             C:\users\greg\Temp\ccOumapr.o
-vertexBuffer        0x4e20            C:\users\greg\Temp\ccOumapr.o
-objectTable         0xcc0             C:\users\greg\Temp\ccOumapr.o
-laserTable          0x330             C:\users\greg\Temp\ccOumapr.o
-cam                 0x90              C:\users\greg\Temp\ccOumapr.o
+buttons             0x2               C:\users\greg\Temp\cc2YIQOg.o
+level1              0x4               C:\users\greg\Temp\cc2YIQOg.o
+enemyTable          0xcc0             C:\users\greg\Temp\cc2YIQOg.o
+vertexBuffer        0x4e20            C:\users\greg\Temp\cc2YIQOg.o
+objectTable         0xcc0             C:\users\greg\Temp\cc2YIQOg.o
+laserTable          0x330             C:\users\greg\Temp\cc2YIQOg.o
+cam                 0x90              C:\users\greg\Temp\cc2YIQOg.o
 
 Memory Configuration
 
@@ -20,20 +20,20 @@ rom              0x07000000         0x01000000         xr
 Linker script and memory map
 
 LOAD c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
-LOAD C:\users\greg\Temp\ccOumapr.o
+LOAD C:\users\greg\Temp\cc2YIQOg.o
 TARGET(elf32-v810)
                 0x07000000                __text_start = 0x7000000
                 0x05000000                __data_start = 0x5000000
                 0x05008000                __gp = (__data_start + 0x8000)
                 0x07000000                . = __text_start
 
-.text           0x07000000     0x5ad8
+.text           0x07000000     0x5c10
  *(.text)
  .text          0x07000000      0x28e c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
                 0x07000000                start
                 0x07000180                _inthnd
  *fill*         0x0700028e        0x2 ff
- .text          0x07000290     0x5848 C:\users\greg\Temp\ccOumapr.o
+ .text          0x07000290     0x5980 C:\users\greg\Temp\cc2YIQOg.o
                 0x07000290                vbWaitFrame
                 0x07000300                vbDisplayOn
                 0x070004c8                vbDisplayOff
@@ -88,78 +88,81 @@ TARGET(elf32-v810)
                 0x070030cc                g3d_moveCamera
                 0x0700349c                main
                 0x07003c60                intro1
-                0x07003f3c                intro2
-                0x0700471c                initEnemyTable
-                0x07004760                initObjectTable
-                0x070047a4                doReadMapRow
-                0x07004d18                doLaserFire
-                0x07004fd0                doMoveEnemy
-                0x070051f4                doGroundEffects
-                0x07005328                timeHnd
-                0x070053b0                handleInput
-                0x070057a8                initObjects
-                0x07005858                vbInit
-                0x070059dc                screenControl
+                0x07003f3c                intro3
+                0x07004074                intro2
+                0x07004854                initEnemyTable
+                0x07004898                initObjectTable
+                0x070048dc                doReadMapRow
+                0x07004e50                doLaserFire
+                0x07005108                doMoveEnemy
+                0x0700532c                doGroundEffects
+                0x07005460                timeHnd
+                0x070054e8                handleInput
+                0x070058e0                initObjects
+                0x07005990                vbInit
+                0x07005b14                screenControl
  *(.text.*)
  *(.gnu.warning)
  *(.gnu.linkonce.t*)
-                0x07005ad8                __text_end = .
+                0x07005c10                __text_end = .
 
-.rodata         0x07005ad8     0x3a60
+.rodata         0x07005c10     0x5430
  *(.rodata)
- .rodata        0x07005ad8     0x3a60 C:\users\greg\Temp\ccOumapr.o
-                0x07005ad8                L_FRAME0
-                0x07005adc                L_FRAME1
-                0x07005ae0                R_FRAME0
-                0x07005ae4                R_FRAME1
-                0x07005ae8                BGMM
-                0x07005aec                WAM
-                0x07005af0                CLMN_TBL
-                0x07005af4                OAM
-                0x07005af8                colTable
-                0x07005b78                WAVEDATA1
-                0x07005b7c                WAVEDATA2
-                0x07005b80                WAVEDATA3
-                0x07005b84                WAVEDATA4
-                0x07005b88                WAVEDATA5
-                0x07005b8c                MODDATA
-                0x07005b90                SND_REGS
-                0x07005b94                jump_addr
-                0x07005ba8                HW_REGS
-                0x07005bac                EXPANSION
-                0x07005bb0                WORKRAM
-                0x07005bb4                SAVERAM
-                0x07005bb8                nums
-                0x07005bc8                WA
-                0x07005bcc                cosine
-                0x0700616c                sine
-                0x0700670c                Letter_S
-                0x07006788                Letter_T
-                0x070067d4                Letter_A
-                0x07006834                Letter_R
-                0x070068bc                Letter_F
-                0x0700691c                Letter_O
-                0x07006978                Letter_X
-                0x070069c4                Level1
-                0x07006a24                Fighter
-                0x07006ba8                Tree
-                0x07006cd0                Phantron
-                0x07006f1c                Dart
-                0x070070b0                GroundEffect
-                0x070070dc                Building
-                0x070071a8                Laser
-                0x07007214                HealthRing
-                0x07007310                PVB_FONT
+ .rodata        0x07005c10     0x5430 C:\users\greg\Temp\cc2YIQOg.o
+                0x07005c10                L_FRAME0
+                0x07005c14                L_FRAME1
+                0x07005c18                R_FRAME0
+                0x07005c1c                R_FRAME1
+                0x07005c20                BGMM
+                0x07005c24                WAM
+                0x07005c28                CLMN_TBL
+                0x07005c2c                OAM
+                0x07005c30                colTable
+                0x07005cb0                WAVEDATA1
+                0x07005cb4                WAVEDATA2
+                0x07005cb8                WAVEDATA3
+                0x07005cbc                WAVEDATA4
+                0x07005cc0                WAVEDATA5
+                0x07005cc4                MODDATA
+                0x07005cc8                SND_REGS
+                0x07005ccc                jump_addr
+                0x07005ce0                HW_REGS
+                0x07005ce4                EXPANSION
+                0x07005ce8                WORKRAM
+                0x07005cec                SAVERAM
+                0x07005cf0                nums
+                0x07005d00                WA
+                0x07005d04                cosine
+                0x070062a4                sine
+                0x07006844                Letter_S
+                0x070068c0                Letter_T
+                0x0700690c                Letter_A
+                0x0700696c                Letter_R
+                0x070069f4                Letter_F
+                0x07006a54                Letter_O
+                0x07006ab0                Letter_X
+                0x07006afc                Level1
+                0x07006b5c                Fighter
+                0x07006ce0                Tree
+                0x07006e08                Phantron
+                0x07007054                Dart
+                0x070071e8                GroundEffect
+                0x07007214                Building
+                0x070072e0                Laser
+                0x0700734c                HealthRing
+                0x07007448                ArwingPicture
+                0x07008198                ArwingPictureBGM
+                0x07008e18                PVB_FONT
  *all.rodata*(*)
  *(.roda)
  *(.rodata.*)
  *(.gnu.linkonce.r*)
-                0x07009538                __data_lma = .
+                0x0700b040                __data_lma = .
 
-.data           0x05000000       0x58 load address 0x07009538
+.data           0x05000000       0x58 load address 0x0700b040
  *(.data)
  .data          0x05000000        0x0 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
- .data          0x05000000       0x58 C:\users\greg\Temp\ccOumapr.o
+ .data          0x05000000       0x58 C:\users\greg\Temp\cc2YIQOg.o
                 0x05000000                VIP_REGS
                 0x05000004                currentFrameBuffer
                 0x05000008                EnemyObjectDataTable
@@ -177,11 +180,11 @@ TARGET(elf32-v810)
  *(.sbss)
  *(.scommon)
 
-.bss            0x05000058     0x6b98 load address 0x07009590
+.bss            0x05000058     0x6b98 load address 0x0700b098
  *(.dynbss)
  *(.bss)
  .bss           0x05000058        0x0 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
- .bss           0x05000058       0x30 C:\users\greg\Temp\ccOumapr.o
+ .bss           0x05000058       0x30 C:\users\greg\Temp\cc2YIQOg.o
                 0x05000058                oldkeydown
                 0x0500005a                oldkeyup
                 0x0500005c                tcr_val
@@ -197,7 +200,7 @@ TARGET(elf32-v810)
                 0x05000078                movePathIdx
                 0x05000079                mapEnd
  *(COMMON)
- COMMON         0x05000088     0x6b68 C:\users\greg\Temp\ccOumapr.o
+ COMMON         0x05000088     0x6b68 C:\users\greg\Temp\cc2YIQOg.o
                 0x05000088                buttons
                 0x0500008c                level1
                 0x05000090                enemyTable
@@ -205,7 +208,7 @@ TARGET(elf32-v810)
                 0x05005b70                objectTable
                 0x05006830                laserTable
                 0x05006b60                cam
-                0x07009590                v = (__data_lma + (__data_end - __data_start))
+                0x0700b098                v = (__data_lma + (__data_end - __data_start))
                 [0x0000ffff]                v = (v + 0x21f)
                 [0x0000ffff]                v = (v & 0xffffff)
                 [0x0000ffff]                v = (v | (v >> 0x1))
@@ -223,5 +226,5 @@ TARGET(elf32-v810)
 OUTPUT(Combat.o elf32-v810)
 
 .comment        0x00000000       0x11
- .comment       0x00000000       0x11 C:\users\greg\Temp\ccOumapr.o
+ .comment       0x00000000       0x11 C:\users\greg\Temp\cc2YIQOg.o
                                  0x12 (size before relaxing)
