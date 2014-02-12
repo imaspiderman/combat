@@ -9,8 +9,20 @@ volatile u8 fireLaser = 0;//1=straight 2=left 4=right 8=up 16=down
 volatile u8 laserFrame = 0;
 volatile u8 frameSkipCount = 0;
 volatile u32 tick = 0;
+volatile u32 tickMax = 0;
 volatile u32 tickStart = 0;
 volatile u32 tickEnd = 0;
+
+//Sound variables
+u16 volatile Channel1Pos = 0;
+u16 volatile Channel1Max = 0;
+u8  volatile Channel1Play = 0;
+u8  volatile Channel1Nibble = 0;
+
+u16 volatile Channel2Pos = 0;
+u16 volatile Channel2Max = 0;
+u8  volatile Channel2Play = 0;
+u8  volatile Channel2Nibble = 0;
 
 s32 movePath[15] = {
 	F_NUM_UP(-1000), F_NUM_UP(1000), F_NUM_UP(8000),
@@ -58,6 +70,7 @@ int main(){
 	cam.moveTo.y                    = cam.worldPosition.y;
 	cam.moveTo.x                    = cam.worldPosition.x;
 	
+	intro2();
 	intro1();
 	while((buttons = vbReadPad()) & K_A);//Wait for A button to be released
 	intro3();
@@ -145,6 +158,7 @@ int main(){
 			vbTextOut(0,16,5,itoa(frameSkipCount,10,2));
 		}else vbTextOut(0,5,5, "             ");
 		if(!frameSkip){ //Simple frame skipping
+			tickStart = tick;
 			for(i=0; i<ENEMY_TABLE_MAX; i++){
 				if(enemyTable[i].objData != (objectData*)0x00) g3d_drawObject(&enemyTable[i]);
 			}
@@ -155,6 +169,9 @@ int main(){
 			for(i=0; i<LASER_TABLE_MAX; i++){
 				g3d_drawObject(&laserTable[i]);
 			}
+			tickEnd = tick;
+			if((tickEnd - tickStart) > tickMax) tickMax = tickEnd - tickStart;
+			vbTextOut(0,5,0,itoa(tickMax,10,10));
 			screenControl();
 		}		
 		
@@ -230,71 +247,21 @@ void intro3(){
 }
 
 void intro2(){
-	u8 i, flag, run;
+	u8 run;
 	run = 1;
-	initEnemyTable();
-	g3d_initObject(&enemyTable[0], (objectData*)Letter_S);
-	g3d_initObject(&enemyTable[1], (objectData*)Letter_T);
-	g3d_initObject(&enemyTable[2], (objectData*)Letter_A);
-	g3d_initObject(&enemyTable[3], (objectData*)Letter_R);
-	g3d_initObject(&enemyTable[4], (objectData*)Letter_F);
-	g3d_initObject(&enemyTable[5], (objectData*)Letter_O);
-	g3d_initObject(&enemyTable[6], (objectData*)Letter_X);
-	g3d_initObject(&enemyTable[7], (objectData*)Fighter);
-	flag = 0;
-	for(i=0; i<7; i++){
-		enemyTable[i].moveTo.x = enemyTable[i].worldPosition.x = (F_NUM_UP(300) * i) - F_NUM_UP(1500);
-		enemyTable[i].moveTo.y = enemyTable[i].worldPosition.y = F_NUM_UP(1000);
-		enemyTable[i].worldPosition.z = F_NUM_UP(10000);
-		enemyTable[i].moveTo.z = F_NUM_UP(2000);
-		enemyTable[i].worldSpeed.z = F_NUM_UP(20);
-		enemyTable[i].worldSpeed.y = enemyTable[i].worldSpeed.x = F_NUM_UP(20);
-		enemyTable[i].rotation.y = 8;
-	}
-	enemyTable[7].worldPosition.z = F_NUM_UP(10000);
-	while(run){		
-		vbTextOut(0,5,17,"Press A To Skip");
-		if(flag == 0 || flag == 1){
-			for(i=0; i<7; i++){
-				g3d_moveCamera(&cam);
-				g3d_moveObject(&enemyTable[i]);
-				g3d_drawObject(&enemyTable[i]);
-				if(enemyTable[i].moveTo.z == enemyTable[i].worldPosition.z &&
-				   enemyTable[i].moveTo.x == enemyTable[i].worldPosition.x &&
-				   enemyTable[i].moveTo.y == enemyTable[i].worldPosition.y){
-					enemyTable[i].rotation.y = 0;
-					enemyTable[i].worldRotation.y = 0;
-					if(i==0) enemyTable[i].moveTo.x = F_NUM_UP(-6000);
-					if(i==1) enemyTable[i].moveTo.y = F_NUM_UP(6000);
-					if(i==2) enemyTable[i].moveTo.z = F_NUM_UP(-10000);
-					if(i==3) enemyTable[i].moveTo.x = F_NUM_UP(6000);
-					if(i==4) enemyTable[i].moveTo.y = F_NUM_UP(-6000);
-					if(i==5) enemyTable[i].moveTo.z = F_NUM_UP(0);
-					if(i==6) enemyTable[i].moveTo.x = F_NUM_UP(-6000);
-					if(i==6 && flag == 1) flag = 2;
-					if(i==6 && flag == 0) flag = 1;					
-				}
-			}
-		}
-		if(flag == 2){
-			enemyTable[7].worldSpeed.z = F_NUM_UP(100);
-			enemyTable[7].moveTo.z = F_NUM_UP(1000);
-			enemyTable[7].worldPosition.x = cam.worldPosition.x;
-			enemyTable[7].worldPosition.y = cam.worldPosition.y;
-			enemyTable[7].rotation.y = 4;
-			enemyTable[7].rotation.x = 4;
-			flag = 3;
-		}
-		if(flag == 3){
-			g3d_moveObject(&enemyTable[7]);
-			g3d_drawObject(&enemyTable[7]);
-		}
+	object objBuilding;
+	g3d_initObject(&objBuilding, (objectData*)Building);
+	objBuilding.worldPosition.z = F_NUM_UP(4000);
+	objBuilding.worldScale.x = F_NUM_UP(1);
+	objBuilding.worldScale.y = F_NUM_UP(1);
+	objBuilding.worldScale.z = F_NUM_UP(1);
+	while(run){			
+		g3d_drawObject(&objBuilding);
 		buttons = vbReadPad();
 		tick = 0;
 		if(K_A & buttons) run = 0;
 		screenControl();
 	}
-	vbTextOut(0,5,17,"                  ");
 }
 
 void initEnemyTable(){
@@ -468,6 +435,46 @@ void timeHnd(void){
 
 	tick++;
 	
+	if(Channel1Play){
+		if(Channel1Nibble == 0){
+			SND_REGS[0].SxLRV = ((LaserSound[Channel1Pos] >> 4) & 0x0F);
+			Channel1Nibble = 1;
+		}
+		else{
+			SND_REGS[0].SxLRV = ((LaserSound[Channel1Pos]) & 0x0F);
+			Channel1Nibble = 0;
+			Channel1Pos++;
+		}
+		SND_REGS[0].SxINT = 0x80;
+		
+		if(Channel1Pos >= Channel1Max){
+			Channel1Play = 0;
+			Channel1Pos = 0;
+			Channel1Nibble = 0;
+			SND_REGS[0].SxINT = 0x00;
+		}
+	}
+	
+	if(Channel2Play){
+		if(Channel2Nibble == 0){
+			SND_REGS[1].SxLRV = ((HitSound[Channel2Pos] >> 4) & 0x0F);
+			Channel2Nibble = 1;
+		}
+		else{
+			SND_REGS[1].SxLRV = ((HitSound[Channel2Pos]) & 0x0F);
+			Channel2Nibble = 0;
+			Channel2Pos++;
+		}
+		SND_REGS[1].SxINT = 0x80;
+		
+		if(Channel2Pos >= Channel2Max){
+			Channel2Play = 0;
+			Channel2Pos = 0;
+			Channel2Nibble = 0;
+			SND_REGS[1].SxINT = 0x00;
+		}
+	}
+	
 	timer_int(1);
 	timer_enable(1);
 }
@@ -502,6 +509,10 @@ void handleInput(object* o){
 	
 	if(K_A & buttons){
 		if(fireLaser == 0){
+			Channel1Play = 1;
+			Channel1Max = LASER_SOUND_SIZE;
+			Channel1Pos = 0;
+			
 			fireLaser |= 1;
 			if(K_LL & buttons) fireLaser |= 2;
 			if(K_LR & buttons) fireLaser |= 4;
@@ -548,6 +559,8 @@ void initObjects(){
 }
 
 void vbInit(){
+	u8 i;
+
 	vbDisplayOn ();
 	vbSetColTable ();
 	
@@ -573,6 +586,36 @@ void vbInit(){
 	WA[31].w = 380;
 	WA[31].h = 224;
 	WA[30].head = WRLD_END;
+	
+	//init sound
+	for(i=0; i<32; i++)WAVEDATA1[i<<2] = 0x3F;
+	SSTOP = 1;
+	
+	SND_REGS[0].SxEV0 = 0xFC;         	// No fadeout; volume is constant.
+    SND_REGS[0].SxEV1 = 0x00;         	// Repeat it forever.
+	SND_REGS[0].SxRAM = 0x00;
+	SND_REGS[0].SxFQH = 0x00;
+	SND_REGS[0].SxFQL = 0x00;
+	SND_REGS[0].SxLRV = 0x00;
+	SND_REGS[0].SxINT = 0x00;//Start sound (That's how I usually start it)
+	
+	SND_REGS[1].SxEV0 = 0xFC;         	// No fadeout; volume is constant.
+    SND_REGS[1].SxEV1 = 0x00;         	// Repeat it forever.
+	SND_REGS[1].SxRAM = 0x00;
+	SND_REGS[1].SxFQH = 0x00;
+	SND_REGS[1].SxFQL = 0x00;
+	SND_REGS[1].SxLRV = 0x00;
+	SND_REGS[1].SxINT = 0x00;//Start sound (That's how I usually start it)
+	
+	SND_REGS[2].SxEV0 = 0xFC;         	// No fadeout; volume is constant.
+    SND_REGS[2].SxEV1 = 0x00;         	// Repeat it forever.
+	SND_REGS[2].SxRAM = 0x00;
+	SND_REGS[2].SxFQH = 0x00;
+	SND_REGS[2].SxFQL = 0x00;
+	SND_REGS[2].SxLRV = 0x00;
+	SND_REGS[2].SxINT = 0x00;//Start sound (That's how I usually start it)
+	
+	SSTOP = 0;
 	
 }
 

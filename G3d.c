@@ -226,7 +226,7 @@ void inline g3d_rotateAllAxis(s32 rx, s32 ry, s32 rz, vector3d* v, vector3d* o){
 	if(rx<0) rx=359+rx;
 	if(ry<0) ry=359+ry;
 	if(rz<0) rz=359+rz;
-	
+
 	g3d_copyVector3d(v,&t);
 	if(ry != 0){
 		g3d_rotateYAxis(ry,&t,o);
@@ -460,9 +460,18 @@ void g3d_drawObject(object* o){
 
 	v=0;
 	i=0;
+	
+	//Put object through the render pipeline
+	g3d_renderObject(o);
+	/*vertices=o->objData->vertexSize;//total elements in array
+	lines=o->objData->lineSize;//Total line endpoints
+	verts=o->objData->faceSize;//total vertices per section
+
+	v=0;
+	i=0;
 	//Load and render all distinct vertices into the vertex buffer;
 	//This will render all object vertices based on the objects position,rotation etc..
-	CACHE_ENABLE;
+	_CacheEnable
 	while(v < vertices){
 		v1.x = o->objData->data[v];
 		v1.y = o->objData->data[v+1];
@@ -474,10 +483,11 @@ void g3d_drawObject(object* o){
 		i++;
 		v+=3;
 	};
-	CACHE_DISABLE;
+	_CacheDisable*/
 
 	//This reads the "faces" section of the data and draws lines between points.
 	//We'll use the vertex buffer's already rendered vertices
+	v = vertices;
 	while(v < (lines+vertices)){
 		v1p = &vertexBuffer[o->objData->data[v]];		
 		
@@ -498,6 +508,515 @@ void g3d_drawObject(object* o){
 		}
 		v++;
 	}
+}
+
+void g3d_renderObject(object* o){
+#ifndef __ASM_CODE
+	s32 vertices, lines, verts, v, i;
+	vector3d v1;
+	vector3d v2;
+	
+	vertices=o->objData->vertexSize;//total elements in array
+	
+	v=0;
+	i=0;
+	//Load and render all distinct vertices into the vertex buffer;
+	//This will render all object vertices based on the objects position,rotation etc..
+	_CacheEnable
+	while(v < vertices){
+		v1.x = o->objData->data[v];
+		v1.y = o->objData->data[v+1];
+		v1.z = o->objData->data[v+2];
+		
+		g3d_renderVector3d(o, &v1, &v2, ((v==0)?(1):(0)));
+		
+		vertexBuffer[i] = v2;
+		i++;
+		v+=3;
+	};
+	_CacheDisable
+#else
+	/*
+	
+	Max and Min values for sine and cosine are based on a signed byte so -128 -> 127.
+	We'll store one value per byte within the registers
+	r6 = rotation indicator flag
+	r7 = cos[x],sine[x],cos[y],sine[y]
+	r8 = cos[z],sine[z],cos[camx],sine[camx]
+	r9 = cos[camy],sine[camy],cos[camz],sine[camz]
+	
+	r10 = worldposx
+	r11 = worldposy
+	r12 = worldposz
+	r13 = camposx
+	r14 = camposy
+	r15 = camposz
+	r16 = vertex count
+	
+	r17, r18 are scratch
+	r19,r20,r12 are x,y,z vertex values
+	*/
+	asm volatile(
+	//Now we'll store the cosine and sine values for the axis rotation angles
+	//Well multiply the degree number by 4 (shl 2) to get the number of bytes for the offset in the sine and cosine arrays
+	/*********************
+	Cosine and sine of x axis
+	**********************/
+	"mov r0, r6\n"
+	"objCosineSineX:\n"
+	"ld.w 40[%[obj]], r17\n"                             //X axis rotation
+	"or r17, r6\n"
+	"cmp r0, r17\n"
+	"bge _x_ge_0\n"
+	"addi 359, r17, r17\n"                               //if x < 0 x = 359 + x
+	"_x_ge_0:\n"
+	"shl 2, r17\n"
+	"mov r17, r18\n"
+	"add %[cosine], r18\n"                               //Adds start address of cosine plus number of bytes offset for degrees
+	"ld.w 0x00[r18], r18\n"                              //Get the cosine value
+	"andi 0xFF, r18, r18\n"
+	"shl 24, r18\n"                                      //Move cosine x to 1st byte of r18
+	"mov r18, r7\n"                                      //Store cosine x in 1st byte of r7
+	
+	"mov r17, r18\n"                                     //Begin to get the sine value
+	"add %[sine], r18\n"
+	"ld.w 0x00[r18], r18\n"                              //Get the sine value
+	"andi 0xFF, r18, r18\n"
+	"shl 16, r18\n"                                      //Move sine x to 2nd byte of r18
+	"or r18, r7\n"                                       //Store sine x in 2nd byte of r7
+	/*****************************
+	Cosine and sine of y axis
+	******************************/
+	"objCosineSineY:\n"
+	"ld.w 44[%[obj]], r17\n"                             //Y axis rotation
+	"or r17, r6\n"
+	"cmp r0, r17\n"
+	"bge _y_ge_0\n"
+	"addi 359, r17, r17\n"                               //if y < 0 y = 359 + y
+	"_y_ge_0:\n"
+	"shl 2, r17\n"
+	"mov r17, r18\n"
+	"add %[cosine], r18\n"
+	"ld.w 0x00[r18], r18\n"
+	"andi 0xFF, r18, r18\n"
+	"shl 8, r18\n"                                       //Move cosine of y to 3rd byte of r18
+	"or r18, r7\n"                                       //Store cosine of y to 3rd byte of r7
+	
+	"mov r17, r18\n"
+	"add %[sine], r18\n"
+	"ld.w 0x00[r18], r18\n"
+	"andi 0xFF, r18, r18\n"
+	"or r18, r7\n"                                       //Store sine of y to 4th byte of r7
+	/*****************************
+	Cosine and sine of z axis
+	******************************/
+	"objCosineSineZ:\n"
+	"ld.w 48[%[obj]], r17\n"                             //Z axis rotation
+	"or r17, r6\n"
+	"cmp r0, r17\n"
+	"bge _z_ge_0\n"
+	"addi 359, r17, r17\n"                               //if z < 0 z = 359 + z
+	"_z_ge_0:\n"
+	"shl 2, r17\n"
+	"mov r17, r18\n"
+	"add %[cosine], r18\n"
+	"ld.w 0x00[r18], r18\n"
+	"shl 24, r18\n"                                      //Move cosine z in 1st byte of r18
+	"mov r18, r8\n"                                      //Store cosine z in 1st byte of r8
+	
+	"mov r17, r18\n"
+	"add %[sine], r18\n"
+	"ld.w 0x00[r18], r18\n"
+	"andi 0xFF, r18, r18\n"
+	"shl 16, r18\n"                                      //Move sine z in 2nd byte of r18
+	"or r18, r8\n"                                       //Store sine z in 2nd byte of r8
+	/********************************
+	Camera cosine and sine of x axis
+	*********************************/
+	"camCosineSineX:\n"
+	"ld.w 100[%[cam]], r17\n"
+	"or r17, r6\n"
+	"not r17, r17\n"
+	"addi 0x01, r17, r17\n"                              //Twos complement
+	"cmp r0, r17\n"
+	"bge _cam_x_ge_0\n"
+	"addi 359, r17, r17\n"                               //if x < 0 x = 359 + x
+	"_cam_x_ge_0:\n"
+	"shl 2, r17\n"
+	"mov r17, r18\n"
+	"add %[cosine], r18\n"
+	"ld.w 0x00[r18], r18\n"
+	"andi 0xFF, r18, r18\n"
+	"shl 8, r18\n"                                       //Move cosine x to 3rd byte of r18
+	"or r18, r8\n"                                       //Store cosine x to 3rd byte of r8
+	
+	"mov r17, r18\n"
+	"add %[sine], r18\n"
+	"ld.w 0x00[r18], r18\n"
+	"andi 0xFF, r18, r18\n"
+	"or r18, r8\n"                                       //Store sine x to 4th byte of r8
+	/*****************************
+	Camera cosine and sine of y axis
+	******************************/
+	"camCosineSineY:\n"
+	"ld.w 104[%[cam]], r17\n"
+	"or r17, r6\n"
+	"not r17, r17\n"
+	"addi 0x01, r17, r17\n"                              //Twos complement
+	"cmp r0, r17\n"
+	"bge _cam_y_ge_0\n"
+	"addi 359, r17, r17\n"
+	"_cam_y_ge_0:\n"
+	"shl 2, r17\n"
+	"mov r17, r18\n"
+	"add %[cosine], r18\n"
+	"ld.w 0x00[r18], r18\n"
+	"andi 0xFF, r18, r18\n"
+	"shl 24, r18\n"                                      //Move cosine y to 1st byte of r18
+	"mov r18, r9\n"                                      //Store cosine y to 1st byte of r9
+	
+	"mov r17, r18\n"
+	"add %[sine], r18\n"
+	"ld.w 0x00[r18], r18\n"
+	"andi 0xFF, r18, r18\n"
+	"shl 16, r18\n"                                      //Move sine y to 2nd byte of r18
+	"or r18, r9\n"                                       //Store sine y to 2nd byte of r9
+	/******************************
+	Camera cosine and sine of z axis
+	*******************************/
+	"camCosineSineZ:\n"
+	"ld.w 108[%[cam]], r17\n"
+	"or r17, r6\n"
+	"not r17, r17\n"
+	"addi 0x01, r17, r17\n"                              //Twos complement
+	"cmp r0, r17\n"
+	"bge _cam_z_ge_0\n"
+	"addi 359, r17, r17\n"                               //if z < 0 z = 359 + z
+	"_cam_z_ge_0:\n"
+	"shl 2, r17\n"
+	"mov r17, r18\n"
+	"add %[cosine], r18\n"
+	"ld.w 0x00[r18], r18\n"
+	"andi 0xFF, r18, r18\n"
+	"shl 8, r18\n"                                       //Move cosine z to 3rd byte of r18
+	"or r18, r9\n"                                       //Store cosine z to 3rd byte of r9
+	
+	"mov r17, r18\n"
+	"add %[sine], r18\n"
+	"ld.w 0x00[r18], r18\n"
+	"andi 0xFF, r18, r18\n"
+	"or r18, r9\n"                                       //Store sine z to 4th byte of r9
+	/*******************************
+	Load the objects world position
+	********************************/
+	"objLoadPosition:\n"
+	"ld.w 0[%[obj]], r10\n"                              //X coordinate
+	"ld.w 4[%[obj]], r11\n"                              //Y coordinate
+	"ld.w 8[%[obj]], r12\n"                              //Z coordinate
+	/*******************************
+	Load the x, y, and z camera position values
+	and make them their twos complement
+	********************************/
+	"camLoadPosition:\n"
+	"ld.w 0x00[%[cam]], r13\n"                           //X coordinate
+	"not r13, r13\n"
+	"addi 0x01, r13, r13\n"                              //Twos complement
+	"ld.w 0x04[%[cam]], r14\n"                           //Y coordinate
+	"not r14, r14\n"
+	"addi 0x01, r14, r14\n"
+	"ld.w 0x08[%[cam]], r15\n"                           //Z coordinate
+	"not r15, r15\n"
+	"addi 0x01, r15, r15\n"
+	/**********************************
+	Loop through all the vertices and perform
+	all the operations
+	***********************************/
+	"mov 2, r17\n"
+	"ldsr r17, sr24\n"                                   //Enable Caching
+	"_renderObjectTop:\n"                                //Top of loop
+	"cmp r0, %[vertices]\n"
+	"ble _verts_le_0\n"                                  //if vertices <= 0 quit
+	/**********************************
+	Get vertex
+	***********************************/
+	"objLoadVertex:\n"
+	"ld.w 0x00[%[objData]], r19\n"                       //X value
+	"ld.w 0x04[%[objData]], r20\n"                       //Y value
+	"ld.w 0x08[%[objData]], r21\n"                       //Z value
+	
+	"addi -3, %[vertices], %[vertices]\n"                //Subtract 3 from vertices for loop
+	/*******************************
+	Perform scaling
+	********************************/
+	"objScaling:\n"
+	"ld.w 120[%[obj]], r17\n"                            //X scale factor
+	"mul r17, r19\n"                                     //Scale x by factor
+	"sar %[fixShift], r19\n"
+	
+	"ld.w 124[%[obj]], r17\n"                            //Y scale factor
+	"mul r17, r20\n"                                     //Scale y by factor
+	"sar %[fixShift], r20\n"
+	
+	"ld.w 128[%[obj]], r17\n"                            //Z scale factor
+	"mul r17, r21\n"                                     //Scale z by factor
+	"sar %[fixShift], r21\n"
+	/******************************
+	Check rotation flag and skip code
+	if not needed
+	*******************************/
+	"cmp r0, r6\n"
+	"be _skip_obj_rot_z\n"
+	/**********************************
+	Perform rotation for x axis
+	***********************************/
+	"objXAxisRot:\n"
+	"mov r7, r17\n"
+	"sar 24, r17\n"                                      //Get cosine x axis
+	"mul r21, r17\n"                                     //z * cosine[degrees]
+	"sar %[fixShift], r17\n"                             //F_NUM_DN
+	
+	"mov r7, r18\n"
+	"shl 8, r18\n"
+	"sar 24, r18\n"                                      //Get sine x axis
+	"mul r20, r18\n"                                     //y * sine[degrees]
+	"sar %[fixShift], r18\n"                             //F_NUM_DN
+	"add r18, r17\n"                                     //r17 now contains new z value
+	
+	"mov r7, r18\n"
+	"shl 8, r18\n"
+	"sar 24, r18\n"                                      //Get sine x
+	"not r18, r18\n"
+	"addi 0x01, r18, r18\n"                              //-sine[degrees]
+	"mul r21, r18\n"                                     //z * -sine[degrees]
+	"sar %[fixShift], r18\n"                             //F_NUM_DN
+	
+	"mov r7, r22\n"
+	"sar 24, r22\n"                                      //Get cosine x
+	"mul r20, r22\n"                                     //y * cosine[degrees]
+	"sar %[fixShift], r22\n"                             //F_NUM_DN
+	"add r22, r18\n"                                     //r18 now contains new y value
+	
+	"mov r17, r21\n"                                     //Update z value
+	"mov r18, r20\n"                                     //Update y value
+	"_skip_obj_rot_x:\n"
+	/****************************
+	Perform rotation for y axis
+	*****************************/
+	"objYAxisRot:\n"
+	"mov r7, r17\n"
+	"shl 16, r17\n"
+	"sar 24, r17\n"                                      //Get cosine of y axis rotation
+	"mul r19, r17\n"                                     //x * cosine[degrees]
+	"sar %[fixShift], r17\n"                             //F_NUM_DN
+	
+	"mov r7, r18\n"
+	"shl 24, r18\n"
+	"sar 24, r18\n"
+	"mul r21, r18\n"
+	"sar %[fixShift], r18\n"
+	"add r18, r17\n"                                     //r17 now contains new value for x
+	
+	"mov r7, r18\n"                                      //Get the sine of degrees
+	"shl 24, r18\n"
+	"sar 24, r18\n"                                      //Sign extend sine
+	"not r18, r18\n"
+	"addi 0x01, r18, r18\n"                              //Two's complement of sine value
+	"mul r19, r18\n"                                     //x * -sine[degrees]
+	"sar %[fixShift], r18\n"                             //F_NUM_DN
+	
+	"mov r7, r22\n"
+	"shl 16, r22\n"
+	"sar 24, r22\n"                                      //Get cosine of y axis
+	"mul r21, r22\n"                                     //z * cosine[degrees]
+	"sar %[fixShift], r22\n"                             //F_NUM_DN
+	"add r22, r18\n"                                     //r18 now contains new z value
+	
+	"mov r17, r19\n"                                     //Update new x value
+	"mov r18, r21\n"                                     //Update new z value
+	"_skip_obj_rot_y:\n"
+	/***************************
+	Perform rotation for z axis
+	****************************/
+	"objZAxisRot:\n"
+	"mov r8, r17\n"
+	"sar 24, r17\n"                                      //Get cosine z axis
+	"mul r19, r17\n"                                     //x * cosine[degrees]
+	"sar %[fixShift], r17\n"                             //F_NUM_DN
+	
+	"mov r8, r18\n"
+	"shl 8, r18\n"
+	"sar 24, r18\n"                                      //Get sine z axis
+	"mul r20, r18\n"                                     //y * sine[degrees]
+	"sar %[fixShift], r18\n"                             //F_NUM_DN
+	"add r18, r17\n"                                     //r17 now contains new x value
+	
+	"mov r8, r18\n"
+	"shl 8, r18\n"
+	"sar 24, r18\n"                                      //Get sine of z
+	"not r18, r18\n"
+	"addi 0x01, r18, r18\n"                              //Two's complement
+	"mul r19, r18\n"                                     //x * -sine[degrees]
+	"sar %[fixShift], r18\n"                             //F_NUM_DN
+	
+	"mov r8, r22\n"
+	"sar 24, r22\n"                                      //Get cosine z
+	"mul r20, r22\n"                                     //y * cosine[degrees]
+	"sar %[fixShift], r22\n"                             //F_NUM_DN
+	"add r22, r18\n"                                     //r18 now contains new y value
+	
+	"mov r17, r19\n"                                     //Update x value
+	"mov r18, r20\n"                                     //Update y value
+	"_skip_obj_rot_z:\n"
+	/***********************
+	Translate object
+	************************/
+	"objTranslate:\n"
+	"add r10, r19\n"                                     //Add x
+	"add r11, r20\n"                                     //Add y
+	"add r12, r21\n"                                     //Add z
+	
+	"cmp r0, r6\n"
+	"be _skip_cam_rot_z\n"
+	/***************************
+	Camera rotation x axis
+	****************************/
+	"camRotXAxis:\n"
+	"mov r8, r17\n"
+	"shl 16, r17\n"                                      
+	"sar 24, r17\n"                                      //Get cosine x axis
+	"mul r21, r17\n"                                     //z * cosine[degrees]
+	"sar %[fixShift], r17\n"                             //F_NUM_DN
+	
+	"mov r8, r18\n"
+	"shl 24, r18\n"
+	"sar 24, r18\n"                                      //Get sine x axis
+	"mul r20, r18\n"                                     //y * sine[degrees]
+	"sar %[fixShift], r18\n"                             //F_NUM_DN
+	"add r18, r17\n"                                     //r17 now contains new z value
+	
+	"mov r8, r18\n"
+	"shl 24, r18\n"
+	"sar 24, r18\n"                                      //Get sine x
+	"not r18, r18\n"
+	"addi 0x01, r18, r18\n"                              //-sine[degrees]
+	"mul r21, r18\n"                                     //z * -sine[degrees]
+	"sar %[fixShift], r18\n"                             //F_NUM_DN
+	
+	"mov r8, r22\n"
+	"shl 16, r22\n"
+	"sar 24, r22\n"                                      //Get cosine x
+	"mul r20, r22\n"                                     //y * cosine[degrees]
+	"sar %[fixShift], r22\n"                             //F_NUM_DN
+	"add r22, r18\n"                                     //r18 now contains new y value
+	
+	"mov r17, r21\n"                                     //Update z value
+	"mov r18, r20\n"                                     //Update y value
+	"_skip_cam_rot_x:\n"
+	/***************************
+	Camera rotation y axis
+	****************************/
+	"camRotYAxis:\n"
+	"mov r9, r17\n"
+	"sar 24, r17\n"                                      //Get cosine of y axis rotation
+	"mul r19, r17\n"                                     //x * cosine[degrees]
+	"sar %[fixShift], r17\n"                             //F_NUM_DN
+	
+	"mov r9, r18\n"
+	"shl 8, r18\n"
+	"sar 24, r18\n"
+	"mul r21, r18\n"
+	"sar %[fixShift], r18\n"
+	"add r18, r17\n"                                     //r17 now contains new value for x
+	
+	"mov r9, r18\n"                                      //Get the sine of degrees
+	"shl 8, r18\n"
+	"sar 24, r18\n"                                      //Sign extend sine
+	"not r18, r18\n"
+	"addi 0x01, r18, r18\n"                              //Two's complement of sine value
+	"mul r19, r18\n"                                     //x * -sine[degrees]
+	"sar %[fixShift], r18\n"                             //F_NUM_DN
+	
+	"mov r9, r22\n"
+	"sar 24, r22\n"                                      //Get cosine of y axis
+	"mul r21, r22\n"                                     //z * cosine[degrees]
+	"sar %[fixShift], r22\n"                             //F_NUM_DN
+	"add r22, r18\n"                                     //r18 now contains new z value
+	
+	"mov r17, r19\n"                                     //Update new x value
+	"mov r18, r21\n"                                     //Update new z value
+	"_skip_cam_rot_y:\n"
+	/***************************
+	Camera rotation z axis
+	****************************/
+	"camRotZAxis:\n"
+	"mov r9, r17\n"
+	"shl 16, r17\n"
+	"sar 24, r17\n"                                      //Get cosine z axis
+	"mul r19, r17\n"                                     //x * cosine[degrees]
+	"sar %[fixShift], r17\n"                             //F_NUM_DN
+	
+	"mov r9, r18\n"
+	"shl 24, r18\n"
+	"sar 24, r18\n"                                      //Get sine z axis
+	"mul r20, r18\n"                                     //y * sine[degrees]
+	"sar %[fixShift], r18\n"                             //F_NUM_DN
+	"add r18, r17\n"                                     //r17 now contains new x value
+	
+	"mov r9, r18\n"
+	"shl 24, r18\n"
+	"sar 24, r18\n"                                      //Get sine of z
+	"not r18, r18\n"
+	"addi 0x01, r18, r18\n"                              //Two's complement
+	"mul r19, r18\n"                                     //x * -sine[degrees]
+	"sar %[fixShift], r18\n"                             //F_NUM_DN
+	
+	"mov r9, r22\n"
+	"shl 16, r22\n"
+	"sar 24, r22\n"                                      //Get cosine z
+	"mul r20, r22\n"                                     //y * cosine[degrees]
+	"sar %[fixShift], r22\n"                             //F_NUM_DN
+	"add r22, r18\n"                                     //r18 now contains new y value
+	
+	"mov r17, r19\n"                                     //Update x value
+	"mov r18, r20\n"                                     //Update y value
+	"_skip_cam_rot_z:\n"
+	/***************************
+	Camera translation
+	****************************/
+	"camTranslate:\n"
+	"add r13, r19\n"
+	"add r14, r20\n"
+	"add r15, r21\n"
+	/***************************
+	Update vertex values in vertex buffer
+	****************************/
+	"objUpdateVertex:\n"
+	"st.w r19, 0x00%[vertexBuff]\n"
+	"st.w r20, 0x04%[vertexBuff]\n"
+	"st.w r21, 0x08%[vertexBuff]\n"
+	
+	"addi 12, %[objData], %[objData]\n"                  //Add 12 to objData to point to next vertex
+	"addi 20, %[vertexBuff], %[vertexBuff]\n"            //Add 20 to vertexBuffer to point to next open vector3d slot
+	/***************************
+	End of Loop
+	****************************/
+	"jr _renderObjectTop\n"                              //Continue looping	
+	"_verts_le_0:\n"                                     //End of loop
+	"ldsr r0, sr24\n"                                    //Disable Caching
+	:
+	:[obj]         "r" (o),
+	 [cam]         "r" (&cam),
+	 [cosine]      "r" ((s32*)cosine),
+	 [sine]        "r" ((s32*)sine),
+	 [vertices]    "r" (o->objData->vertexSize),
+	 [objData]     "r" (&o->objData->data),
+	 [idx]         "r" (0),
+	 [vertexBuff]  "r" (&vertexBuffer),
+	 [fixShift]    "i" (FIXED_SHIFT),
+	 [fixShiftM1]  "i" (FIXED_SHIFT-1)
+	:"r6","r7","r8","r9","r10","r11","r12","r13","r14","r15","r16","r17","r18","r19","r20","r21","r22","r23"
+	);
+#endif
 }
 
 /************************************
@@ -644,8 +1163,7 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 	
 	pixels=((dx>dy)?(dx):(dy))+1;
 	vz = v1->z;
-	
-	CACHE_ENABLE;
+	_CacheEnable
 	#ifndef __ASM_CODE
 	if(dy<dx){
 		err=(dx>>1);
@@ -936,8 +1454,7 @@ void /*__attribute__((section(".data")))*/ g3d_drawLine(vector3d* v1, vector3d* 
 	 :"r6","r7","r8","r9","r10","r11","r12","r13","r14","r15","r16","r17","r18","r19","r21","r22","r23","r24","r25","r26","r27","r28","r29"
 	);
 	#endif
-	CACHE_DISABLE;
-	
+	_CacheDisable
 }
 
 

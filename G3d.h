@@ -37,7 +37,7 @@ typedef struct{
 	s32 z; //fixed point
 	s32 sx; //screen x
 	s32 sy; //screen y
-} vector3d;//represents a vector or coordinate.
+} vector3d;//represents a vector or coordinate. 20 bytes size
 
 typedef struct{
 	s32 vertexSize;//Size of vertex array portion
@@ -54,7 +54,7 @@ typedef struct{
 	s32 maxX;
 	s32 maxY;
 	s32 maxZ;
-}collisionCube; //This can be used for collision detection
+}collisionCube; //This can be used for collision detection 25 bytes size
 
 typedef struct{
 	u8 visible; //Is this object visible
@@ -63,31 +63,31 @@ typedef struct{
 	u8 lineColor;
 	u8 state;//State byte to be used for anything
 	collisionCube hitCube; //Cube data for collision detection
-} objectProperties;
+} objectProperties;//30 bytes size
 
 typedef struct object{
-	objectProperties properties;
-	struct object* parent;//Used to chain objects together
-	vector3d worldPosition;//Actual position inside the world
-	vector3d moveTo;//worldPosition to move the object to
-	vector3d worldRotation;//Not Fixed Point (x,y,z) rotation in degrees
-	vector3d rotation;//Not Fixed Point (x,y,z) incremental rotation in degrees
-	vector3d worldSpeed;//Vector to move the object
-	vector3d speed;//Vector for increasing or decreasing velocity
-	vector3d worldScale;//Scale factor of object
-	vector3d scale;//Incremental Scale factor to apply each frame
-	objectData* objData;
+	vector3d worldPosition;//Actual position inside the world //20 bytes
+	vector3d moveTo;//worldPosition to move the object to //20 bytes
+	vector3d worldRotation;//Not Fixed Point (x,y,z) rotation in degrees //20 bytes
+	vector3d rotation;//Not Fixed Point (x,y,z) incremental rotation in degrees //20 bytes
+	vector3d worldSpeed;//Vector to move the object //20 bytes
+	vector3d speed;//Vector for increasing or decreasing velocity //20 bytes
+	vector3d worldScale;//Scale factor of object [Maximum value for each axis is 255] //20 bytes
+	vector3d scale;//Incremental Scale factor to apply each frame [Maximum value for each axis is 255] //20 bytes
+	objectProperties properties; //30 bytes
+	struct object* parent;//Used to chain objects together //4bytes
+	objectData* objData; //4 bytes
 } object;
 
 typedef struct{
-	vector3d worldPosition;
-	vector3d worldSpeed;
-	vector3d speed;
-	vector3d moveTo;
-	vector3d target;
-	vector3d worldRotation;//Not Fixed Point
-	vector3d rotation;//Not Fixed Point
-	s32 d;
+	vector3d worldPosition; //20 bytes
+	vector3d worldSpeed; //20 bytes
+	vector3d speed; //20 bytes
+	vector3d moveTo; //20 bytes
+	vector3d target; //20 bytes
+	vector3d worldRotation;//Not Fixed Point //20 bytes
+	vector3d rotation;//Not Fixed Point // 20 bytes
+	s32 d; // 4
 } camera;
 
 //Vector memory area
@@ -226,6 +226,7 @@ void inline g3d_drawPoint(s32 x, s32 y, u8 color, s32 p);
 void g3d_drawLine(vector3d* v1, vector3d* v2, u8 color);
 void g3d_drawObject(object* o);
 void g3d_renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube);
+void g3d_renderObject(object* o);
 /********************************************************/
 
 #endif
