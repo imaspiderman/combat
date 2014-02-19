@@ -365,7 +365,7 @@ void doReadMapRow(map* m, u32 mapRow){
 		
 		if(rowType == ROW_T_OBSTACLE){
 			objIdx = 0;
-			while(objectTable[objIdx].objData != (objectData*)0x00 && objIdx < ENEMY_TABLE_MAX) objIdx++;
+			while(objectTable[objIdx].objData != (objectData*)0x00 && objIdx < OBJECT_TABLE_MAX) objIdx++;
 			g3d_initObject(&objectTable[objIdx], StaticObjectDataTable[b2 & 0x0F]);
 			objectTable[objIdx].moveTo.x = objectTable[objIdx].worldPosition.x = CELL_POSX(b1);
 			objectTable[objIdx].moveTo.y = objectTable[objIdx].worldPosition.y = CELL_POSY(b1);

@@ -2,13 +2,13 @@
 Allocating common symbols
 Common symbol       size              file
 
-buttons             0x2               C:\users\greg\Temp\ccbzRUwE.o
-level1              0x4               C:\users\greg\Temp\ccbzRUwE.o
-enemyTable          0xc80             C:\users\greg\Temp\ccbzRUwE.o
-vertexBuffer        0x4e20            C:\users\greg\Temp\ccbzRUwE.o
-objectTable         0xc80             C:\users\greg\Temp\ccbzRUwE.o
-laserTable          0x320             C:\users\greg\Temp\ccbzRUwE.o
-cam                 0x90              C:\users\greg\Temp\ccbzRUwE.o
+buttons             0x2               C:\users\greg\Temp\cc3mc3WX.o
+level1              0x4               C:\users\greg\Temp\cc3mc3WX.o
+enemyTable          0xc80             C:\users\greg\Temp\cc3mc3WX.o
+vertexBuffer        0x4e20            C:\users\greg\Temp\cc3mc3WX.o
+objectTable         0xc80             C:\users\greg\Temp\cc3mc3WX.o
+laserTable          0x320             C:\users\greg\Temp\cc3mc3WX.o
+cam                 0x90              C:\users\greg\Temp\cc3mc3WX.o
 
 Memory Configuration
 
@@ -20,7 +20,7 @@ rom              0x07000000         0x01000000         xr
 Linker script and memory map
 
 LOAD c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
-LOAD C:\users\greg\Temp\ccbzRUwE.o
+LOAD C:\users\greg\Temp\cc3mc3WX.o
 TARGET(elf32-v810)
                 0x07000000                __text_start = 0x7000000
                 0x05000000                __data_start = 0x5000000
@@ -33,7 +33,7 @@ TARGET(elf32-v810)
                 0x07000000                start
                 0x07000180                _inthnd
  *fill*         0x0700028e        0x2 ff
- .text          0x07000290     0x6198 C:\users\greg\Temp\ccbzRUwE.o
+ .text          0x07000290     0x6198 C:\users\greg\Temp\cc3mc3WX.o
                 0x07000290                vbWaitFrame
                 0x07000300                vbDisplayOn
                 0x070004c8                vbDisplayOff
@@ -110,7 +110,7 @@ TARGET(elf32-v810)
 
 .rodata         0x07006428     0xb234
  *(.rodata)
- .rodata        0x07006428     0xb234 C:\users\greg\Temp\ccbzRUwE.o
+ .rodata        0x07006428     0xb234 C:\users\greg\Temp\cc3mc3WX.o
                 0x07006428                L_FRAME0
                 0x0700642c                L_FRAME1
                 0x07006430                R_FRAME0
@@ -168,7 +168,7 @@ TARGET(elf32-v810)
 .data           0x05000000       0x58 load address 0x0701165c
  *(.data)
  .data          0x05000000        0x0 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
- .data          0x05000000       0x58 C:\users\greg\Temp\ccbzRUwE.o
+ .data          0x05000000       0x58 C:\users\greg\Temp\cc3mc3WX.o
                 0x05000000                VIP_REGS
                 0x05000004                currentFrameBuffer
                 0x05000008                EnemyObjectDataTable
@@ -190,7 +190,7 @@ TARGET(elf32-v810)
  *(.dynbss)
  *(.bss)
  .bss           0x05000058        0x0 c:/vbde/gccvb/bin/../lib/gcc/v810/4.4.2/../../../../v810/lib/crt0.o
- .bss           0x05000058       0x58 C:\users\greg\Temp\ccbzRUwE.o
+ .bss           0x05000058       0x58 C:\users\greg\Temp\cc3mc3WX.o
                 0x05000058                oldkeydown
                 0x0500005a                oldkeyup
                 0x0500005c                tcr_val
@@ -222,7 +222,7 @@ TARGET(elf32-v810)
                 0x050000a0                movePathIdx
                 0x050000a1                mapEnd
  *(COMMON)
- COMMON         0x050000b0     0x6ad8 C:\users\greg\Temp\ccbzRUwE.o
+ COMMON         0x050000b0     0x6ad8 C:\users\greg\Temp\cc3mc3WX.o
                 0x050000b0                buttons
                 0x050000b4                level1
                 0x050000b8                enemyTable
@@ -248,5 +248,5 @@ TARGET(elf32-v810)
 OUTPUT(Combat.o elf32-v810)
 
 .comment        0x00000000       0x11
- .comment       0x00000000       0x11 C:\users\greg\Temp\ccbzRUwE.o
+ .comment       0x00000000       0x11 C:\users\greg\Temp\cc3mc3WX.o
                                  0x12 (size before relaxing)
