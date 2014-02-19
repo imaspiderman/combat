@@ -78,7 +78,6 @@ int main(){
 	cam.moveTo.y                    = cam.worldPosition.y;
 	cam.moveTo.x                    = cam.worldPosition.x;
 	
-	intro2();
 	intro1();
 	while((buttons = vbReadPad()) & K_A);//Wait for A button to be released
 	intro3();
@@ -273,6 +272,11 @@ void intro3(){
 	for(i=0; i<(400<<2); i++){
 		((u16*)BGMap(0))[i] = ((u16*)ArwingPictureBGM)[i];
 	}
+	//Play sound
+	Channel1Play = 1;
+	Channel1Max = ONLY_HOPE_SOUND_SIZE;
+	Channel1Pos = 0;
+	Channel1Data = (u8*)onlyHopeSound;
 	
 	while(!(K_A & buttons)){
 		buttons = vbReadPad();
@@ -655,7 +659,7 @@ void vbInit(){
 	
 	tim_vector = (u32)timeHnd;
 	timer_freq(1);
-	timer_set(6);//about 8000hz
+	timer_set(5);//about 8000hz
 	//timer_set(10);
 	timer_enable(1);
 	timer_int(1);
