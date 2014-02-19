@@ -16,13 +16,21 @@ volatile u32 tickEnd = 0;
 //Sound variables
 u16 volatile Channel1Pos = 0;
 u16 volatile Channel1Max = 0;
-u8  volatile Channel1Play = 0;
+u8  volatile Channel1Play = 0;// 1 = play once, 2 = repeat
 u8  volatile Channel1Nibble = 0;
+u8* volatile Channel1Data = (u8*)0;
 
 u16 volatile Channel2Pos = 0;
 u16 volatile Channel2Max = 0;
-u8  volatile Channel2Play = 0;
+u8  volatile Channel2Play = 0;// 1 = play once, 2 = repeat
 u8  volatile Channel2Nibble = 0;
+u8* volatile Channel2Data = (u8*)0;
+
+u16 volatile Channel3Pos = 0;
+u16 volatile Channel3Max = 0;
+u8  volatile Channel3Play = 0;// 1 = play once, 2 = repeat
+u8  volatile Channel3Nibble = 0;
+u8* volatile Channel3Data = (u8*)0;
 
 s32 movePath[15] = {
 	F_NUM_UP(-1000), F_NUM_UP(1000), F_NUM_UP(8000),
@@ -60,7 +68,7 @@ object objectTable[OBJECT_TABLE_MAX];
 int main(){
 	object objFighter;
 	object objGroundEffect;
-	u32 i;
+	u32 i, j, collision;
 	
 	vbInit();
 	initObjects();
@@ -89,23 +97,37 @@ int main(){
 		laserTable[i].properties.visible           = 0;
 		laserTable[i].properties.detectCollision   = 1;
 		laserTable[i].properties.lineColor         = 2;
+		laserTable[i].properties.hitCube.width     = 800;
+		laserTable[i].properties.hitCube.height    = 800;
+		laserTable[i].properties.hitCube.depth     = 800;
 	}
 	
 	objGroundEffect.worldPosition.x = 0 - (GAME_AREA_WIDTH>>1);
 	objGroundEffect.worldSpeed.z    = GROUND_SPEED;
 	
-	objFighter.worldPosition.z      = F_NUM_UP(2500);
-	objFighter.worldPosition.y      = (GAME_AREA_HEIGHT>>1);
-	objFighter.worldSpeed.x         = F_NUM_UP(100);
-	objFighter.worldSpeed.y         = F_NUM_UP(100);
-	objFighter.worldSpeed.z         = GROUND_SPEED;
-	objFighter.worldScale.x         = 4;
-	objFighter.worldScale.y         = 4;
-	objFighter.worldScale.z         = 4;
+	objFighter.worldPosition.z            = F_NUM_UP(2500);
+	objFighter.worldPosition.y            = (GAME_AREA_HEIGHT>>1);
+	objFighter.worldSpeed.x               = F_NUM_UP(100);
+	objFighter.worldSpeed.y               = F_NUM_UP(100);
+	objFighter.worldSpeed.z               = GROUND_SPEED;
+	objFighter.worldScale.x               = 4;
+	objFighter.worldScale.y               = 4;
+	objFighter.worldScale.z               = 4;
+	objFighter.properties.detectCollision = 1;
+	objFighter.properties.hitCube.width   = 3200;
+	objFighter.properties.hitCube.height  = 1000;
+	objFighter.properties.hitCube.depth   = 2200;
 	
 	initEnemyTable();
 	initObjectTable();
 	doReadMapRow(&level1, mapRowIdx);
+	//Start Engine Sound
+	SND_REGS[5].SxLRV = 0x11;
+	SND_REGS[5].SxFQL = 0xFF;
+	SND_REGS[5].SxFQH = 0x03;
+	SND_REGS[5].SxEV0 = 0xF8;
+	SND_REGS[5].SxEV1 = 0x01;
+	SND_REGS[5].SxINT = 0x80;
 	while(1){
 		handleInput(&objFighter);
 		g3d_moveCamera(&cam);
@@ -121,16 +143,39 @@ int main(){
 		}
 		//Move the fighter around
 		g3d_moveObject(&objFighter);		
-		//Move obstacles around
+		//Move obstacles
 		for(i=0; i<OBJECT_TABLE_MAX; i++){
 			if(objectTable[i].objData != (objectData*)0x00){
 				g3d_moveObject(&objectTable[i]);
+				//Check collision
+				collision = 0;
+				g3d_detectCollision(&objFighter.worldPosition, &objFighter.properties.hitCube, &objectTable[i].worldPosition, &objectTable[i].properties.hitCube, &collision);
+				if(collision == 1) {
+					Channel3Play = 1;
+					Channel3Max = HIT_SOUND_SIZE;
+					Channel3Pos = 0;
+					Channel3Data = (u8*)HitSound;
+				}
 				if(objectTable[i].worldPosition.z == 0) objectTable[i].objData = (objectData*)0x00;
 			}
 		}
 		//Handle laser fighters
 		for(i=0; i<LASER_TABLE_MAX; i++){
 			doLaserFire(&objFighter, &laserTable[i]);
+			if(laserTable[i].properties.state == 1){
+				for(j=0; j<ENEMY_TABLE_MAX; j++){
+					if(enemyTable[j].objData != (objectData*)0x00){
+						collision = 0;
+						g3d_detectCollision(&laserTable[i].worldPosition, &laserTable[i].properties.hitCube, &enemyTable[j].worldPosition, &enemyTable[j].properties.hitCube, &collision);
+						if(collision == 1) {
+							Channel3Play = 1;
+							Channel3Max = HIT_SOUND_SIZE;
+							Channel3Pos = 0;
+							Channel3Data = (u8*)HitSound;
+						}
+					}
+				}
+			}
 		}
 		
 		/********************************
@@ -153,10 +198,6 @@ int main(){
 		Check for frame skip and draw the
 		objects
 		**********************************/
-		if(frameSkipCount > 0){
-			vbTextOut(0,5,5, "Frameskip ");
-			vbTextOut(0,16,5,itoa(frameSkipCount,10,2));
-		}else vbTextOut(0,5,5, "             ");
 		if(!frameSkip){ //Simple frame skipping
 			tickStart = tick;
 			for(i=0; i<ENEMY_TABLE_MAX; i++){
@@ -312,6 +353,10 @@ void doReadMapRow(map* m, u32 mapRow){
 			enemyTable[objIdx].worldSpeed.x = F_NUM_UP(80);
 			enemyTable[objIdx].worldSpeed.y = F_NUM_UP(80);
 			enemyTable[objIdx].worldSpeed.z = F_NUM_UP(80);
+			enemyTable[objIdx].properties.hitCube.width = 2000;
+			enemyTable[objIdx].properties.hitCube.height = 3000;
+			enemyTable[objIdx].properties.hitCube.depth = 2000;
+			enemyTable[objIdx].properties.detectCollision = 1;
 		}
 		
 		if(rowType == ROW_T_OBSTACLE){
@@ -326,6 +371,10 @@ void doReadMapRow(map* m, u32 mapRow){
 			objectTable[objIdx].worldSpeed.z = GROUND_SPEED;
 			objectTable[objIdx].properties.detectCollision = 1;
 			objectTable[objIdx].worldScale.y = F_NUM_UP(4);
+			
+			objectTable[objIdx].properties.hitCube.width = 4000;
+			objectTable[objIdx].properties.hitCube.height = 4000*objectTable[objIdx].worldScale.y;
+			objectTable[objIdx].properties.hitCube.depth = 4000;
 		}
 		
 		idx += 3;
@@ -432,46 +481,77 @@ void timeHnd(void){
 	timer_int(0);
 	timer_enable(0);
 	timer_clearstat();
+	
+	u8 soundValue;
 
 	tick++;
 	
 	if(Channel1Play){
 		if(Channel1Nibble == 0){
-			SND_REGS[0].SxLRV = ((LaserSound[Channel1Pos] >> 4) & 0x0F);
+			soundValue = ((Channel1Data[Channel1Pos] >> 4) & 0x0F);
 			Channel1Nibble = 1;
 		}
 		else{
-			SND_REGS[0].SxLRV = ((LaserSound[Channel1Pos]) & 0x0F);
+			soundValue = ((Channel1Data[Channel1Pos]) & 0x0F);
 			Channel1Nibble = 0;
 			Channel1Pos++;
 		}
+		SND_REGS[0].SxLRV = soundValue | (soundValue << 4);
 		SND_REGS[0].SxINT = 0x80;
 		
 		if(Channel1Pos >= Channel1Max){
-			Channel1Play = 0;
 			Channel1Pos = 0;
 			Channel1Nibble = 0;
-			SND_REGS[0].SxINT = 0x00;
+			if(Channel1Play == 1){
+				SND_REGS[0].SxINT = 0x00;
+				Channel1Play = 0;
+			}
 		}
 	}
 	
 	if(Channel2Play){
 		if(Channel2Nibble == 0){
-			SND_REGS[1].SxLRV = ((HitSound[Channel2Pos] >> 4) & 0x0F);
+			soundValue = ((Channel2Data[Channel2Pos] >> 4) & 0x0F);
 			Channel2Nibble = 1;
 		}
 		else{
-			SND_REGS[1].SxLRV = ((HitSound[Channel2Pos]) & 0x0F);
+			soundValue = ((Channel2Data[Channel2Pos]) & 0x0F);
 			Channel2Nibble = 0;
 			Channel2Pos++;
 		}
+		SND_REGS[1].SxLRV = soundValue | (soundValue << 4);
 		SND_REGS[1].SxINT = 0x80;
 		
 		if(Channel2Pos >= Channel2Max){
-			Channel2Play = 0;
 			Channel2Pos = 0;
 			Channel2Nibble = 0;
-			SND_REGS[1].SxINT = 0x00;
+			if(Channel2Play == 1){
+				SND_REGS[1].SxINT = 0x00;
+				Channel2Play = 0;
+			}
+		}
+	}
+	
+	if(Channel3Play){
+		if(Channel3Nibble == 0){
+			soundValue = ((Channel3Data[Channel3Pos] >> 4) & 0x0F);
+			Channel3Nibble = 1;
+		}
+		else{
+			soundValue = ((Channel3Data[Channel3Pos]) & 0x0F);
+			Channel3Nibble = 0;
+			Channel3Pos++;
+		}
+		SND_REGS[2].SxLRV = soundValue | (soundValue << 4);
+		SND_REGS[2].SxINT = 0x80;
+		
+		if(Channel3Pos >= Channel3Max){
+			Channel3Pos = 0;
+			Channel3Nibble = 0;
+			if(Channel3Play == 1){
+				SND_REGS[2].SxINT = 0x00;
+				Channel3Play = 0;
+			}
 		}
 	}
 	
@@ -512,6 +592,7 @@ void handleInput(object* o){
 			Channel1Play = 1;
 			Channel1Max = LASER_SOUND_SIZE;
 			Channel1Pos = 0;
+			Channel1Data = (u8*)LaserSound;
 			
 			fireLaser |= 1;
 			if(K_LL & buttons) fireLaser |= 2;

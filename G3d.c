@@ -352,22 +352,6 @@ void g3d_renderVector3d(object* obj, vector3d* v, vector3d* o, u8 initHitCube){
 	
 	g3d_cameraTranslate(cam.worldPosition.x,cam.worldPosition.y,cam.worldPosition.z,o,&t);
 	g3d_copyVector3d(&t,o);
-	
-	//Collision cube	
-	if(obj->properties.detectCollision == 1){
-		if(initHitCube == 0){
-			if(o->x < obj->properties.hitCube.minX) obj->properties.hitCube.minX = o->x;
-			if(o->x > obj->properties.hitCube.maxX) obj->properties.hitCube.maxX = o->x;
-			if(o->y < obj->properties.hitCube.minY) obj->properties.hitCube.minY = o->y;
-			if(o->y > obj->properties.hitCube.maxY) obj->properties.hitCube.maxY = o->y;
-			if(o->z < obj->properties.hitCube.minZ) obj->properties.hitCube.minZ = o->z;
-			if(o->z > obj->properties.hitCube.maxZ) obj->properties.hitCube.maxZ = o->z;
-		}else{
-			obj->properties.hitCube.minX = obj->properties.hitCube.maxX = o->x;
-			obj->properties.hitCube.minY = obj->properties.hitCube.maxY = o->y;
-			obj->properties.hitCube.minZ = obj->properties.hitCube.maxZ = o->z;
-		}
-	}
 }
 
 void g3d_calculateProjection(vector3d* o){
@@ -511,6 +495,7 @@ void g3d_drawObject(object* o){
 }
 
 void g3d_renderObject(object* o){
+	u8 resetCube;
 #ifndef __ASM_CODE
 	s32 vertices, lines, verts, v, i;
 	vector3d v1;
@@ -727,6 +712,11 @@ void g3d_renderObject(object* o){
 	"ld.w 0x08[%[cam]], r15\n"                           //Z coordinate
 	"not r15, r15\n"
 	"addi 0x01, r15, r15\n"
+	/**********************************
+	Flag collision cube for reset
+	***********************************/
+	"addi 0x01, r0, r17\n"
+	"st.w r17, %[resetCube]\n"
 	/**********************************
 	Loop through all the vertices and perform
 	all the operations
@@ -1013,10 +1003,77 @@ void g3d_renderObject(object* o){
 	 [idx]         "r" (0),
 	 [vertexBuff]  "r" (&vertexBuffer),
 	 [fixShift]    "i" (FIXED_SHIFT),
-	 [fixShiftM1]  "i" (FIXED_SHIFT-1)
+	 [fixShiftM1]  "i" (FIXED_SHIFT-1),
+	 [collCube]    "r" (&o->properties.hitCube),
+	 [resetCube]   "m" (resetCube)
 	:"r6","r7","r8","r9","r10","r11","r12","r13","r14","r15","r16","r17","r18","r19","r20","r21","r22","r23"
 	);
 #endif
+}
+
+/**********************
+Quick and dirty cube based
+collision detection.
+***********************/
+void inline g3d_detectCollision(vector3d* position1, collisionCube* c1, vector3d* position2, collisionCube* c2, u32* flag){
+	s32 c1minX, c1maxX,
+	    c1minY, c1maxY,
+		c1minZ, c1maxZ,
+		c2minX, c2maxX,
+		c2minY, c2maxY,
+		c2minZ, c2maxZ;
+
+	c1minX = position1->x - (c1->width >> 1);
+	c1maxX = position1->x + (c1->width >> 1);
+	c1minY = position1->y - (c1->height >> 1);
+	c1maxY = position1->y + (c1->height >> 1);
+	c1minZ = position1->z - (c1->depth >> 1);
+	c1maxZ = position1->z + (c1->depth >> 1);
+	
+	c2minX = position2->x - (c2->width >> 1);
+	c2maxX = position2->x + (c2->width >> 1);
+	c2minY = position2->y - (c2->height >> 1);
+	c2maxY = position2->y + (c2->height >> 1);
+	c2minZ = position2->z - (c2->depth >> 1);
+	c2maxZ = position2->z + (c2->depth >> 1);
+	
+	if(c1minX > c2maxX ||
+	   c1minY > c2maxY ||
+	   c1minZ > c2maxZ ||
+	   c1maxX < c2minX ||
+	   c1maxY < c2minY ||
+	   c1maxZ < c2maxZ
+	) return;
+
+	//compare c1 against c2
+	if(
+		(c1minX >= c2minX && c1minX <= c2maxX) ||
+		(c1maxX >= c2minX && c1maxX <= c2maxX)){
+			asm("compareC1toC2:\n");
+			if(
+				(c1minY >= c2minY && c1minY <= c2maxY) ||
+				(c1maxY >= c2minY && c1maxY <= c2maxY)) {
+					if(
+						(c1minZ >= c2minZ && c1minZ <= c2maxZ) ||
+						(c1maxZ >= c2minZ && c1maxZ <= c2maxZ)){							
+							*flag = 1;
+					}
+			}
+	}
+	//compare c2 against c1
+	if(
+		(c2minX >= c1minX && c2minX <= c1maxX) ||
+		(c2maxX >= c1minX && c2maxX <= c1maxX)){
+			if(
+				(c2minY >= c1minY && c2minY <= c1maxY) ||
+				(c2maxY >= c1minY && c2maxY <= c1maxY)) {
+					if(
+						(c2minZ >= c1minZ && c2minZ <= c1maxZ) ||
+						(c2maxZ >= c1minZ && c2maxZ <= c1maxZ)){
+							*flag = 1;
+					}
+			}
+	}
 }
 
 /************************************

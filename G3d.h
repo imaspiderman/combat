@@ -19,7 +19,7 @@ Fixed point math defines
 
 //Definitions
 #define SCREEN_HEIGHT 128
-#define SCREEN_WIDTH 384
+#define SCREEN_WIDTH 256
 #define FAR_Z F_NUM_UP(8000)
 #define _CacheEnable asm("mov 2,r15 \n ldsr r15,sr24":::"r15");
 #define _CacheDisable asm("ldsr r0,sr24");
@@ -47,23 +47,19 @@ typedef struct{
 } objectData;
 
 typedef struct{
-	u8 reset;
-	s32 minX;
-	s32 minY;
-	s32 minZ;
-	s32 maxX;
-	s32 maxY;
-	s32 maxZ;
-}collisionCube; //This can be used for collision detection 25 bytes size
+	s32 width;
+	s32 height;
+	s32 depth;
+}collisionCube; //This can be used for collision detection 12 bytes size
 
 typedef struct{
-	u8 visible; //Is this object visible
-	u8 clip;//This is whether the object is clipped or not
-	u8 detectCollision; //Do we perform collision detection
-	u8 lineColor;
-	u8 state;//State byte to be used for anything
+	u32 visible; //Is this object visible
+	u32 clip;//This is whether the object is clipped or not
+	u32 detectCollision; //Do we perform collision detection
+	u32 lineColor;
+	u32 state;//State byte to be used for anything
 	collisionCube hitCube; //Cube data for collision detection
-} objectProperties;//30 bytes size
+} objectProperties;//32 bytes size
 
 typedef struct object{
 	vector3d worldPosition;//Actual position inside the world //20 bytes
@@ -74,9 +70,9 @@ typedef struct object{
 	vector3d speed;//Vector for increasing or decreasing velocity //20 bytes
 	vector3d worldScale;//Scale factor of object [Maximum value for each axis is 255] //20 bytes
 	vector3d scale;//Incremental Scale factor to apply each frame [Maximum value for each axis is 255] //20 bytes
-	objectProperties properties; //30 bytes
-	struct object* parent;//Used to chain objects together //4bytes
+	objectProperties properties; //45 bytes
 	objectData* objData; //4 bytes
+	struct object* parent;//Used to chain objects together //4bytes
 } object;
 
 typedef struct{
@@ -218,6 +214,7 @@ void inline g3d_moveCamera(camera* c);
 void inline g3d_calculateProjection(vector3d* o);
 void inline g3d_clipZAxis(vector3d* v1, vector3d* v2);
 void inline g3d_clipObject(object* o);
+void inline g3d_detectCollision(vector3d* position1, collisionCube* c1, vector3d* position2, collisionCube* c2, u32* flag);
 /********************************************************/
 /********************************************************
 Core Drawing Functions
